@@ -2,7 +2,7 @@ import { Router } from "express";
 import { authRoutes } from "../modules/Auth/auth.route";
 import { brandRoutes } from "../modules/Brand/brand.route";
 import { cartRoutes } from "../modules/Cart/cart.route";
-import { catalogRoutes } from "../modules/Catalog/catalog.route";
+import { catalogRoutes, colorRoutes } from "../modules/Catalog/catalog.route";
 import { categoryRoutes } from "../modules/Category/category.route";
 import { couponRoutes } from "../modules/Coupon/coupon.route";
 import { dashboardRoutes } from "../modules/Dashboard/dashboard.route";
@@ -28,6 +28,7 @@ const router = Router();
 
 router.use("/auth", authRoutes);
 router.use("/catalog", catalogRoutes);
+router.use("/colors", colorRoutes);
 router.use("/home", homeRoutes);
 router.use("/brands", brandRoutes);
 router.use("/categories", categoryRoutes);

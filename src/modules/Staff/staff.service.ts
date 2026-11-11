@@ -13,6 +13,7 @@ const staffSelect = {
   firstName: true,
   lastName: true,
   email: true,
+  whatsappNumber: true,
   role: true,
   avatarUrl: true,
   isActive: true,
@@ -39,8 +40,48 @@ const listStaff = async (auth: AuthContext) => {
     prisma.admin.count({ where: { role: "SUPPORT", isActive: true } }),
   ]);
 
+  const commissionOrders = staff.length
+    ? await prisma.order.findMany({
+        where: {
+          status: "DELIVERED",
+          referredByStaffId: { in: staff.map((account) => account.id) },
+        },
+        select: {
+          referredByStaffId: true,
+          staffCommissionPaidAt: true,
+          items: {
+            select: {
+              quantity: true,
+              commissionPerUnit: true,
+            },
+          },
+        },
+      })
+    : [];
+  const commissions = new Map<string, { due: number; paid: number }>();
+
+  for (const order of commissionOrders) {
+    if (!order.referredByStaffId) continue;
+
+    const total = order.items.reduce(
+      (sum, item) => sum + Number(item.commissionPerUnit) * item.quantity,
+      0,
+    );
+    const accountTotals = commissions.get(order.referredByStaffId) ?? { due: 0, paid: 0 };
+    if (order.staffCommissionPaidAt) {
+      accountTotals.paid += total;
+    } else {
+      accountTotals.due += total;
+    }
+    commissions.set(order.referredByStaffId, accountTotals);
+  }
+
   return {
-    staff,
+    staff: staff.map((account) => ({
+      ...account,
+      commissionDue: commissions.get(account.id)?.due ?? 0,
+      commissionPaid: commissions.get(account.id)?.paid ?? 0,
+    })),
     meta: {
       total: staff.length,
       activeCount,
@@ -77,6 +118,7 @@ const createStaff = async (auth: AuthContext, input: CreateStaffInput) => {
             firstName: input.firstName,
             lastName: input.lastName,
             email: input.email,
+            whatsappNumber: input.whatsappNumber,
             passwordHash,
             role: "SUPPORT",
           },
@@ -98,6 +140,47 @@ const createStaff = async (auth: AuthContext, input: CreateStaffInput) => {
 
     throw error;
   }
+};
+
+const getReferralStaff = async (id: string) => {
+  const staff = await prisma.admin.findFirst({
+    where: { id, role: "SUPPORT", isActive: true },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      whatsappNumber: true,
+    },
+  });
+
+  if (!staff) {
+    throw new NotFoundError("Staff referral not found");
+  }
+
+  return staff;
+};
+
+const updateStaffContact = async (
+  auth: AuthContext,
+  id: string,
+  whatsappNumber: string,
+) => {
+  assertOwner(auth);
+
+  const staff = await prisma.admin.findUnique({
+    where: { id },
+    select: { id: true, role: true },
+  });
+
+  if (!staff || staff.role !== "SUPPORT") {
+    throw new NotFoundError("Staff account not found");
+  }
+
+  return prisma.admin.update({
+    where: { id },
+    data: { whatsappNumber },
+    select: staffSelect,
+  });
 };
 
 const updateStaffStatus = async (auth: AuthContext, id: string, isActive: boolean) => {
@@ -122,5 +205,7 @@ const updateStaffStatus = async (auth: AuthContext, id: string, isActive: boolea
 export const staffService = {
   listStaff,
   createStaff,
+  getReferralStaff,
+  updateStaffContact,
   updateStaffStatus,
 };

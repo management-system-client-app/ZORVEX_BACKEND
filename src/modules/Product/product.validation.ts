@@ -12,6 +12,14 @@ const priceSchema = z
     message: "Price can have at most 2 decimal places",
   });
 
+const commissionPerUnitSchema = z
+  .number()
+  .nonnegative("Commission per unit cannot be negative")
+  .max(99_999_999.99)
+  .refine((value) => Math.abs(value * 100 - Math.round(value * 100)) < 1e-6, {
+    message: "Commission can have at most 2 decimal places",
+  });
+
 const optionalText = (max: number) =>
   z.string().trim().min(1).max(max).nullable().optional();
 
@@ -62,6 +70,7 @@ export const createProductSchema = z
     fit: z.enum(fits).nullable().optional(),
     careInstructions: optionalText(1000),
     basePrice: priceSchema,
+    commissionPerUnit: commissionPerUnitSchema.optional(),
     compareAtPrice: priceSchema.nullable().optional(),
     brandId: z.uuid(),
     categoryId: z.uuid(),
@@ -152,6 +161,7 @@ export const updateProductSchema = z
     fit: z.enum(fits).nullable().optional(),
     careInstructions: optionalText(1000),
     basePrice: priceSchema.optional(),
+    commissionPerUnit: commissionPerUnitSchema.optional(),
     compareAtPrice: priceSchema.nullable().optional(),
     brandId: z.uuid().optional(),
     categoryId: z.uuid().optional(),

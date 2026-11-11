@@ -23,6 +23,14 @@ export const createFabricSchema = z
   })
   .strict();
 
+export const createColorSchema = z
+  .object({
+    name: z.string().trim().min(1).max(60),
+    slug: slugSchema.optional(),
+    hexCode: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Color must be a 6-digit hex value"),
+  })
+  .strict();
+
 export const catalogListQuerySchema = z
   .object({
     page: z.coerce.number().int().positive().default(1),
@@ -33,4 +41,5 @@ export const catalogListQuerySchema = z
 
 export type CreateSizeInput = z.infer<typeof createSizeSchema>;
 export type CreateFabricInput = z.infer<typeof createFabricSchema>;
+export type CreateColorInput = z.infer<typeof createColorSchema>;
 export type CatalogListQuery = z.infer<typeof catalogListQuerySchema>;

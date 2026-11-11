@@ -7,11 +7,13 @@ import { categoryRoutes } from "../Category/category.route";
 import { catalogController } from "./catalog.controller";
 import {
   catalogListQuerySchema,
+  createColorSchema,
   createFabricSchema,
   createSizeSchema,
 } from "./catalog.validation";
 
 const router = Router();
+const colorRouter = Router();
 const admin = [authenticate, authorize("ADMIN")] as const;
 
 router.get("/", asyncHandler(catalogController.getCatalog));
@@ -32,6 +34,21 @@ router.get(
   asyncHandler(catalogController.getSizes),
 );
 
+colorRouter.post(
+  "/",
+  ...admin,
+  validateRequest({ body: createColorSchema }),
+  asyncHandler(catalogController.createColor),
+);
+
+colorRouter.get(
+  "/",
+  validateRequest({ query: catalogListQuerySchema }),
+  asyncHandler(catalogController.getColors),
+);
+
+router.use("/colors", colorRouter);
+
 router.post(
   "/fabrics",
   ...admin,
@@ -46,3 +63,4 @@ router.get(
 );
 
 export const catalogRoutes = router;
+export const colorRoutes = colorRouter;

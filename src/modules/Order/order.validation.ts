@@ -34,6 +34,7 @@ export const placeOrderSchema = z
         message: "Code can contain only letters, numbers, underscores, and hyphens",
       })
       .optional(),
+    staffReferralId: z.uuid().optional(),
   })
   .strict();
 

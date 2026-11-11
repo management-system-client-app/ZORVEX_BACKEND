@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const homeBlockKinds = ["BANNER", "CAMPAIGN", "NEW_ARRIVAL", "TRENDING"] as const;
+const homeBlockKinds = ["BANNER", "CAMPAIGN", "GADGET_FESTIVE", "NEW_ARRIVAL", "TRENDING"] as const;
 
 const optionalText = (max: number) =>
   z.string().trim().min(1).max(max).nullable().optional();
@@ -46,11 +46,11 @@ export const createHomeBlockSchema = z
   })
   .strict()
   .superRefine((value, ctx) => {
-    if (value.kind === "BANNER" && !value.imageUrl) {
+    if (["BANNER", "GADGET_FESTIVE"].includes(value.kind) && !value.imageUrl) {
       ctx.addIssue({
         code: "custom",
         path: ["imageUrl"],
-        message: "A banner needs an image",
+        message: "This homepage section needs an image",
       });
     }
 
@@ -73,6 +73,13 @@ export const updateHomeBlockSchema = z
         code: "custom",
         path: ["imageUrl"],
         message: "A banner needs an image",
+      });
+    }
+    if (value.kind === "GADGET_FESTIVE" && value.imageUrl === null) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["imageUrl"],
+        message: "A Gadget Festive item needs an image",
       });
     }
 

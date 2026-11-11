@@ -46,6 +46,7 @@ enum Fit {
 enum HomeBlockKind {
   BANNER
   CAMPAIGN
+  GADGET_FESTIVE
   NEW_ARRIVAL
   TRENDING
 }
@@ -193,6 +194,7 @@ model Admin {
   passwordHash String
   role         AdminRole @default(SUPPORT)
   avatarUrl    String?
+  whatsappNumber String?
   isActive     Boolean   @default(true)
   lastLoginAt  DateTime?
   createdAt    DateTime  @default(now())
@@ -201,6 +203,7 @@ model Admin {
   refreshTokens       RefreshToken[]
   passwordResetTokens PasswordResetToken[]
   reviewedReturns     ReturnRequest[] @relation("ReturnReviewer")
+  referredOrders     Order[]         @relation("StaffOrderReferrals")
 
   @@index([role])
   @@index([isActive])
@@ -436,6 +439,7 @@ model Product {
   fit              Fit?
   careInstructions String?
   basePrice        Decimal       @db.Decimal(10, 2)
+  commissionPerUnit Decimal      @default(0) @db.Decimal(10, 2)
   compareAtPrice   Decimal?      @db.Decimal(10, 2)
   brandId          String
   categoryId       String
@@ -610,6 +614,7 @@ model Order {
   id          String      @id @default(uuid())
   orderNumber String      @unique
   userId      String?
+  referredByStaffId String?
   /// Set when the buyer checks out without an account.
   guestEmail  String?
   status      OrderStatus @default(PENDING)
@@ -640,11 +645,13 @@ model Order {
   paidAt      DateTime?
   shippedAt   DateTime?
   deliveredAt DateTime?
+  staffCommissionPaidAt DateTime?
   cancelledAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
   user      User?      @relation(fields: [userId], references: [id], onDelete: Restrict)
+  referredByStaff Admin? @relation("StaffOrderReferrals", fields: [referredByStaffId], references: [id], onDelete: SetNull)
   coupon    Coupon?    @relation(fields: [couponId], references: [id], onDelete: SetNull)
   promotion Promotion? @relation(fields: [promotionId], references: [id], onDelete: SetNull)
   items     OrderItem[]
@@ -656,6 +663,7 @@ model Order {
   @@index([status])
   @@index([couponId])
   @@index([promotionId])
+  @@index([referredByStaffId])
 }
 
 /// Frozen line. Names, sku, and attributes are copied at checkout.
@@ -672,6 +680,7 @@ model OrderItem {
   imageUrl    String?
   quantity    Int
   unitPrice   Decimal @db.Decimal(10, 2)
+  commissionPerUnit Decimal @default(0) @db.Decimal(10, 2)
   lineTotal   Decimal @db.Decimal(12, 2)
   createdAt   DateTime @default(now())
 

@@ -224,6 +224,7 @@ const createProduct = async (
         fit: input.fit,
         careInstructions: input.careInstructions,
         basePrice: input.basePrice,
+        commissionPerUnit: input.commissionPerUnit ?? 0,
         compareAtPrice: input.compareAtPrice,
         brandId: input.brandId,
         categoryId: input.categoryId,
@@ -514,7 +515,7 @@ const getRelatedProducts = async (id: string) => {
   return products.map(withProductFlags);
 };
 
-const getSingleProduct = async (id: string) => {
+const getSingleProduct = async (id: string, includeStaffCommission = false) => {
   const product = await cacheGetOrSet("products", `id:${id}`, PRODUCT_CACHE_TTL_SECONDS, async () => {
     const found = await prisma.product.findUnique({
       where: { id },
@@ -528,7 +529,14 @@ const getSingleProduct = async (id: string) => {
     return found;
   });
 
-  return withProductFlags(product);
+  const productWithFlags = withProductFlags(product);
+  if (includeStaffCommission) {
+    return productWithFlags;
+  }
+
+  const { commissionPerUnit, ...publicProduct } = productWithFlags;
+  void commissionPerUnit;
+  return publicProduct;
 };
 
 const updateProduct = async (

@@ -1,4 +1,5 @@
 import type { Response } from "express";
+import { AppError } from "../../app/errors/AppError";
 import { deleteCloudinaryImages, uploadImageBuffer } from "../../app/config/cloudinary";
 import type { ValidatedRequest } from "../../app/middlewares/validateRequest";
 import { productService } from "./product.service";
@@ -13,6 +14,13 @@ const createProduct = async (
   req: ValidatedRequest<CreateProductInput>,
   res: Response,
 ): Promise<void> => {
+  if (
+    req.validatedBody.commissionPerUnit !== undefined &&
+    req.auth?.adminRole !== "SUPER_ADMIN"
+  ) {
+    throw AppError.forbidden("Only the store owner can set staff commission rates");
+  }
+
   const files = Array.isArray(req.files) ? req.files : [];
   const uploaded =
     files.length === 0
@@ -83,7 +91,10 @@ const getSingleProduct = async (
   res: Response,
 ): Promise<void> => {
   const { id } = req.validatedParams;
-  const product = await productService.getSingleProduct(id);
+  const product = await productService.getSingleProduct(
+    id,
+    req.auth?.role === "ADMIN" && req.auth.adminRole === "SUPER_ADMIN",
+  );
 
   res.status(200).json({
     success: true,
@@ -96,6 +107,13 @@ const updateProduct = async (
   req: ValidatedRequest<UpdateProductInput, ProductIdParam>,
   res: Response,
 ): Promise<void> => {
+  if (
+    req.validatedBody.commissionPerUnit !== undefined &&
+    req.auth?.adminRole !== "SUPER_ADMIN"
+  ) {
+    throw AppError.forbidden("Only the store owner can change staff commission rates");
+  }
+
   const { id } = req.validatedParams;
   const files = Array.isArray(req.files) ? req.files : [];
   const uploaded =

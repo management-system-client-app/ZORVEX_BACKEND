@@ -7,6 +7,7 @@ import {
 import { prisma } from "../../app/config/prisma";
 import { AppError } from "../../app/errors/AppError";
 import type {
+  CreateColorInput,
   CatalogListQuery,
   CreateFabricInput,
   CreateSizeInput,
@@ -142,12 +143,52 @@ const getFabrics = async (query: CatalogListQuery) => {
   return { items, meta: listMeta(query, total) };
 };
 
+const createColor = async (input: CreateColorInput) => {
+  const slug = await buildSlug(input.name, input.slug, "Color", (slug) =>
+    prisma.color.findUnique({ where: { slug }, select: { id: true } }),
+  );
+
+  try {
+    const color = await prisma.color.create({
+      data: {
+        name: input.name,
+        slug,
+        hexCode: input.hexCode.toUpperCase(),
+      },
+    });
+
+    await invalidateCache("catalog", "products");
+    return color;
+  } catch (error) {
+    throw rethrowDuplicate(error, "A color with this slug already exists");
+  }
+};
+
+const getColors = async (query: CatalogListQuery) => {
+  const where: Prisma.ColorWhereInput = query.search
+    ? { name: { contains: query.search, mode: "insensitive" } }
+    : {};
+  const skip = (query.page - 1) * query.limit;
+
+  const [items, total] = await prisma.$transaction([
+    prisma.color.findMany({
+      where,
+      skip,
+      take: query.limit,
+      orderBy: { name: "asc" },
+    }),
+    prisma.color.count({ where }),
+  ]);
+
+  return { items, meta: listMeta(query, total) };
+};
+
 const getCatalog = async () => {
   return cacheGetOrSet("catalog", "storefront", CATALOG_CACHE_TTL_SECONDS, loadCatalog);
 };
 
 const loadCatalog = async () => {
-  const [brands, categories, sizes, fabrics] = await Promise.all([
+  const [brands, categories, sizes, colors, fabrics] = await Promise.all([
     prisma.brand.findMany({
       where: { isActive: true },
       orderBy: { name: "asc" },
@@ -162,19 +203,25 @@ const loadCatalog = async () => {
       orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
       select: { id: true, name: true, slug: true, sortOrder: true },
     }),
+    prisma.color.findMany({
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, slug: true, hexCode: true },
+    }),
     prisma.fabric.findMany({
       orderBy: { name: "asc" },
       select: { id: true, name: true, slug: true, composition: true },
     }),
   ]);
 
-  return { brands, categories, sizes, fabrics };
+  return { brands, categories, sizes, colors, fabrics };
 };
 
 export const catalogService = {
   getCatalog,
   createSize,
   getSizes,
+  createColor,
+  getColors,
   createFabric,
   getFabrics,
 };

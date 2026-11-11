@@ -149,10 +149,28 @@ const updateOrderStatus = async (
   });
 };
 
+const recordStaffCommissionPayout = async (
+  req: ValidatedRequest<unknown, OrderIdParam>,
+  res: Response,
+): Promise<void> => {
+  if (requireAuth(req.auth).adminRole !== "SUPER_ADMIN") {
+    throw AppError.forbidden("Only the store owner can record staff commission payouts");
+  }
+
+  const order = await orderService.recordStaffCommissionPayout(req.validatedParams.id);
+
+  res.status(200).json({
+    success: true,
+    message: "Staff commission payout recorded",
+    data: order,
+  });
+};
+
 export const orderController = {
   placeOrder,
   getOrders,
   trackOrder,
   getOrder,
   updateOrderStatus,
+  recordStaffCommissionPayout,
 };

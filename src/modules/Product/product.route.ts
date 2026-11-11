@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticate, authorize } from "../../app/middlewares/auth";
+import { authenticate, authenticateOptional, authorize } from "../../app/middlewares/auth";
 import { asyncHandler } from "../../app/middlewares/asyncHandler";
 import { parseMultipartData, productImagesUpload } from "../../app/middlewares/upload";
 import { validateRequest } from "../../app/middlewares/validateRequest";
@@ -39,6 +39,7 @@ router.get(
 
 router.get(
   "/:id",
+  authenticateOptional,
   validateRequest({ params: productIdParamSchema }),
   asyncHandler(productController.getSingleProduct),
 );

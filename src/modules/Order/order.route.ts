@@ -37,6 +37,14 @@ router.get(
 );
 
 router.patch(
+  "/:id/commission/paid",
+  authenticate,
+  authorize("ADMIN"),
+  validateRequest({ params: orderIdParamSchema }),
+  asyncHandler(orderController.recordStaffCommissionPayout),
+);
+
+router.patch(
   "/:id/status",
   authenticate,
   authorize("ADMIN"),

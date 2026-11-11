@@ -151,6 +151,7 @@ const getStorefront = async () => {
 
     const banners = blocks.filter((block) => block.kind === "BANNER");
     const campaigns = blocks.filter((block) => block.kind === "CAMPAIGN");
+    const gadgetBanners = blocks.filter((block) => block.kind === "GADGET_FESTIVE");
     const newArrivals = await Promise.all(
       blocks
         .filter((block) => block.kind === "NEW_ARRIVAL")
@@ -166,7 +167,7 @@ const getStorefront = async () => {
       (product) => product.status === "ACTIVE" && product.variants.some((variant) => variant.stock - variant.reserved > 0),
     );
 
-    return { banners, campaigns, newArrivals, trendingProducts };
+    return { banners, campaigns, gadgetBanners, newArrivals, trendingProducts };
   });
 };
 
@@ -221,8 +222,8 @@ const updateBlock = async (id: string, input: UpdateHomeBlockInput) => {
   const nextKind = input.kind ?? existing.kind;
   const nextImage = input.imageUrl === undefined ? existing.imageUrl : input.imageUrl;
 
-  if (nextKind === "BANNER" && !nextImage) {
-    throw AppError.badRequest("A banner needs an image");
+  if ((nextKind === "BANNER" || nextKind === "GADGET_FESTIVE") && !nextImage) {
+    throw AppError.badRequest("This homepage section needs an image");
   }
 
   const nextStart = input.startsAt === undefined ? existing.startsAt : toDate(input.startsAt);

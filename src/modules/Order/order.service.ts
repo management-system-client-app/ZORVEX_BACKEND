@@ -25,6 +25,7 @@ const orderListInclude = {
       sku: true,
       quantity: true,
       lineTotal: true,
+      commissionPerUnit: true,
     },
   },
   user: {
@@ -33,6 +34,13 @@ const orderListInclude = {
       firstName: true,
       lastName: true,
       email: true,
+    },
+  },
+  referredByStaff: {
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
     },
   },
 } satisfies Prisma.OrderInclude;
@@ -47,6 +55,13 @@ const orderDetailInclude = {
       firstName: true,
       lastName: true,
       email: true,
+    },
+  },
+  referredByStaff: {
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
     },
   },
   payments: {
@@ -101,6 +116,21 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
   }
 
   const placed = await prisma.$transaction(async (tx) => {
+    const referredByStaff = input.staffReferralId
+      ? await tx.admin.findFirst({
+          where: {
+            id: input.staffReferralId,
+            role: "SUPPORT",
+            isActive: true,
+          },
+          select: { id: true },
+        })
+      : null;
+
+    if (input.staffReferralId && !referredByStaff) {
+      throw AppError.badRequest("This staff referral link is no longer active");
+    }
+
     const cart = await tx.cart.findUnique({
       where: buyer.kind === "user" ? { userId: buyer.userId } : { sessionId: buyer.sessionId },
       include: { items: true },
@@ -141,6 +171,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
             categoryId: true,
             brandId: true,
             basePrice: true,
+            commissionPerUnit: true,
             images: {
               select: { url: true, isPrimary: true, colorId: true, sortOrder: true },
               orderBy: { sortOrder: "asc" },
@@ -195,6 +226,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
         imageUrl: image?.url,
         quantity: item.quantity,
         unitPrice,
+        commissionPerUnit: money(asMoney(variant.product.commissionPerUnit)),
         lineTotal: money(unitPrice * item.quantity),
         reserved: variant.reserved,
       };
@@ -247,6 +279,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
       data: {
         orderNumber: createOrderNumber(),
         userId: buyer.kind === "user" ? buyer.userId : null,
+        referredByStaffId: referredByStaff?.id,
         guestEmail: buyer.kind === "guest" ? input.email : null,
         status: paymentMethod === "COD" ? "CONFIRMED" : "PENDING",
         subtotal,
@@ -278,6 +311,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
             imageUrl: line.imageUrl,
             quantity: line.quantity,
             unitPrice: line.unitPrice,
+            commissionPerUnit: line.commissionPerUnit,
             lineTotal: line.lineTotal,
           })),
         },
@@ -552,6 +586,66 @@ const updateOrderStatus = async (id: string, input: UpdateOrderStatusInput) => {
   return updated;
 };
 
+const recordStaffCommissionPayout = async (id: string) => {
+  return prisma.$transaction(async (tx) => {
+    const order = await tx.order.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        status: true,
+        referredByStaffId: true,
+        staffCommissionPaidAt: true,
+        items: {
+          select: {
+            quantity: true,
+            commissionPerUnit: true,
+          },
+        },
+      },
+    });
+
+    if (!order) {
+      throw new NotFoundError("Order not found");
+    }
+
+    if (order.status !== "DELIVERED" || !order.referredByStaffId) {
+      throw AppError.badRequest("Commission can only be paid for delivered staff-referred orders");
+    }
+
+    const commissionTotal = order.items.reduce(
+      (total, item) => total + Number(item.commissionPerUnit) * item.quantity,
+      0,
+    );
+
+    if (commissionTotal <= 0) {
+      throw AppError.badRequest("This order has no staff commission to pay");
+    }
+
+    if (order.staffCommissionPaidAt) {
+      throw AppError.conflict("Staff commission for this order has already been paid");
+    }
+
+    const updated = await tx.order.updateMany({
+      where: {
+        id,
+        status: "DELIVERED",
+        referredByStaffId: order.referredByStaffId,
+        staffCommissionPaidAt: null,
+      },
+      data: { staffCommissionPaidAt: new Date() },
+    });
+
+    if (updated.count !== 1) {
+      throw AppError.conflict("Staff commission changed while recording the payout; refresh and retry");
+    }
+
+    return tx.order.findUniqueOrThrow({
+      where: { id },
+      include: orderDetailInclude,
+    });
+  });
+};
+
 const cancelUnpaidOrder = async (orderId: string, reason: string): Promise<void> => {
   await prisma.$transaction(async (tx) => {
     const order = await tx.order.findUnique({
@@ -603,4 +697,5 @@ export const orderService = {
   getOrder,
   trackOrder,
   updateOrderStatus,
+  recordStaffCommissionPayout,
 };

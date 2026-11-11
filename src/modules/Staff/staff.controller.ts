@@ -5,6 +5,7 @@ import { staffService } from "./staff.service";
 import type {
   CreateStaffInput,
   StaffIdParam,
+  UpdateStaffContactInput,
   UpdateStaffStatusInput,
 } from "./staff.validation";
 
@@ -40,6 +41,36 @@ const create = async (
   });
 };
 
+const getReferral = async (
+  req: ValidatedRequest<unknown, StaffIdParam>,
+  res: Response,
+): Promise<void> => {
+  const staff = await staffService.getReferralStaff(req.validatedParams.id);
+
+  res.status(200).json({
+    success: true,
+    message: "Staff contact fetched",
+    data: staff,
+  });
+};
+
+const updateContact = async (
+  req: ValidatedRequest<UpdateStaffContactInput, StaffIdParam>,
+  res: Response,
+): Promise<void> => {
+  const staff = await staffService.updateStaffContact(
+    getAuth(req),
+    req.validatedParams.id,
+    req.validatedBody.whatsappNumber,
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Staff contact updated",
+    data: staff,
+  });
+};
+
 const updateStatus = async (
   req: ValidatedRequest<UpdateStaffStatusInput, StaffIdParam>,
   res: Response,
@@ -60,5 +91,7 @@ const updateStatus = async (
 export const staffController = {
   list,
   create,
+  getReferral,
+  updateContact,
   updateStatus,
 };

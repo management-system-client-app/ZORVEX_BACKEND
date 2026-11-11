@@ -3,6 +3,7 @@ import type { ValidatedRequest } from "../../app/middlewares/validateRequest";
 import { catalogService } from "./catalog.service";
 import type {
   CatalogListQuery,
+  CreateColorInput,
   CreateFabricInput,
   CreateSizeInput,
 } from "./catalog.validation";
@@ -71,10 +72,39 @@ const getFabrics = async (
   });
 };
 
+const createColor = async (
+  req: ValidatedRequest<CreateColorInput>,
+  res: Response,
+): Promise<void> => {
+  const color = await catalogService.createColor(req.validatedBody);
+
+  res.status(201).json({
+    success: true,
+    message: "Color created",
+    data: color,
+  });
+};
+
+const getColors = async (
+  req: ValidatedRequest<unknown, Record<string, string>, CatalogListQuery>,
+  res: Response,
+): Promise<void> => {
+  const result = await catalogService.getColors(req.validatedQuery);
+
+  res.status(200).json({
+    success: true,
+    message: "Colors fetched",
+    data: result.items,
+    meta: result.meta,
+  });
+};
+
 export const catalogController = {
   getCatalog,
   createSize,
   getSizes,
   createFabric,
   getFabrics,
+  createColor,
+  getColors,
 };
