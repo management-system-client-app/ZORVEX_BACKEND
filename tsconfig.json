@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "outDir": "./dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,                   // fixes default import issues
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictNullChecks": true,                    // catches null/undefined bugs early
+    "noImplicitReturns": true                    // every code path must return a value
+  },
+  "include": ["src/**/*.ts", "api/**/*.ts", "generated/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
