@@ -17,6 +17,7 @@ import { paymentRoutes } from "../modules/Payment/payment.route";
 import { productRoutes } from "../modules/Product/product.route";
 import { promotionRoutes } from "../modules/Promotion/promotion.route";
 import { sizeGuideRoutes } from "../modules/SizeGuide/sizeGuide.route";
+import { staffRoutes } from "../modules/Staff/staff.route";
 import { returnRoutes } from "../modules/Return/return.route";
 import { reviewRoutes } from "../modules/Review/review.route";
 import { userRoutes } from "../modules/User/user.route";
@@ -48,5 +49,6 @@ router.use("/reviews", reviewRoutes);
 router.use("/coupons", couponRoutes);
 router.use("/promotions", promotionRoutes);
 router.use("/dashboard", dashboardRoutes);
+router.use("/staff", staffRoutes);
 
 export default router;

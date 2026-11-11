@@ -107,6 +107,16 @@ Login routes allow 10 failed attempts per IP every 15 minutes.
 | `PATCH` | `/api/v1/users/me` | User or admin | Update the signed-in profile. Customers can change name, phone, avatar, and password. |
 | `GET` | `/api/v1/users/:id` | Admin | Fetch one customer. |
 
+### Staff management
+
+The store owner (`SUPER_ADMIN`) can have up to 20 active staff accounts. Staff are created with the `SUPPORT` admin role and can use the existing admin login and admin APIs. The owner supplies a temporary password and should share it with the staff member securely. Deactivate an account to revoke its access; inactive staff accounts are retained for audit history and do not use an active staff slot.
+
+| Method | Path | Access | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/api/v1/staff` | Store owner | List staff accounts and remaining capacity. |
+| `POST` | `/api/v1/staff` | Store owner | Create a staff account with `firstName`, `lastName`, `email`, and `temporaryPassword`. |
+| `PATCH` | `/api/v1/staff/:id/status` | Store owner | Set `isActive` to `true` or `false`. |
+
 ### Catalog
 
 Product create accepts JSON, or `multipart/form-data` with a `data` JSON field and up to five `images` (JPEG, PNG, or WebP). Image files are stored in Cloudinary and saved on the product.
