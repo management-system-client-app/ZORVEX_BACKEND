@@ -108,8 +108,13 @@ const prepareDatabase = async (): Promise<void> => {
   await bootstrapDatabase();
 };
 
+console.log("Preparing database before creating the default admin...");
+
 void prepareDatabase()
-  .then(() => authService.ensureDefaultAdmin())
+  .then(() => {
+    console.log("Checking default admin...");
+    return authService.ensureDefaultAdmin();
+  })
   .then(() => {
     listen(1);
   })

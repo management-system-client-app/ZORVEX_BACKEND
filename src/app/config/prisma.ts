@@ -1,6 +1,13 @@
+import dns from "node:dns";
+import net from "node:net";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../../../generated/prisma/client";
 import { env } from "./env";
+
+if (env.NODE_ENV === "development") {
+  dns.setDefaultResultOrder("ipv4first");
+  net.setDefaultAutoSelectFamily(false);
+}
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;

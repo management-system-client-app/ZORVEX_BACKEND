@@ -42,19 +42,28 @@ const explainConnectionError = (error: unknown): Error => {
 
   if (code === "28P01" || code === "28000") {
     return new Error(
-      "PostgreSQL rejected DATABASE_URL. Set the username and password in .env to this computer's PostgreSQL account.",
+      "PostgreSQL rejected DATABASE_URL. Check the database username and password in .env.",
     );
   }
 
   if (code === "ECONNREFUSED" || code === "ENOTFOUND") {
-    return new Error("PostgreSQL is not running on this computer. Start it, then run the server again.");
+    return new Error("Could not reach PostgreSQL. Check DATABASE_URL and confirm the database is running.");
+  }
+
+  if (code === "ETIMEDOUT" || code === "ECONNRESET") {
+    return new Error(
+      "Timed out connecting to PostgreSQL. Check DATABASE_URL and your network/firewall, then start the server again.",
+    );
   }
 
   return error instanceof Error ? error : new Error("Could not reach PostgreSQL");
 };
 
 const connect = async (connectionString: string): Promise<Client> => {
-  const client = new Client({ connectionString });
+  const client = new Client({
+    connectionString,
+    connectionTimeoutMillis: 10_000,
+  });
 
   try {
     await client.connect();
@@ -98,8 +107,16 @@ const ensureDatabase = async (): Promise<void> => {
     const existing = await admin.query("SELECT 1 FROM pg_database WHERE datname = $1", [name]);
 
     if (existing.rowCount === 0) {
-      await admin.query(`CREATE DATABASE "${name}"`);
-      console.log(`Database created: ${name}`);
+      try {
+        await admin.query(`CREATE DATABASE "${name}"`);
+        console.log(`Database created: ${name}`);
+      } catch (error) {
+        if (!isPgError(error) || error.code !== "42P04") {
+          throw error;
+        }
+
+        console.log(`Database already exists: ${name}`);
+      }
     }
   } finally {
     await admin.end();
@@ -141,6 +158,8 @@ const applyMigrations = (): Promise<void> =>
   });
 
 export const bootstrapDatabase = async (): Promise<void> => {
+  console.log("Checking database connection...");
   await ensureDatabase();
+  console.log("Applying database migrations...");
   await applyMigrations();
 };

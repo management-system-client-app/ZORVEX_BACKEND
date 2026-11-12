@@ -377,7 +377,6 @@ const ensureDefaultAdmin = async (): Promise<void> => {
 
     console.log("Default admin created");
     printAdminDetails(admin);
-    console.log(`  password: ${env.ADMIN_PASSWORD}`);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
       console.log("Admin already exists");
