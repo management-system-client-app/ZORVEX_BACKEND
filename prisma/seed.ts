@@ -33,13 +33,6 @@ const categories = [
   { name: "Sports & Outdoors", slug: "sports-outdoors", sortOrder: 13 },
 ] as const;
 
-const sizes = [
-  { name: "S", slug: "s", sortOrder: 1 },
-  { name: "M", slug: "m", sortOrder: 2 },
-  { name: "L", slug: "l", sortOrder: 3 },
-  { name: "XL", slug: "xl", sortOrder: 4 },
-] as const;
-
 const seed = async (): Promise<void> => {
   const passwordHash = await hashPassword(ADMIN_PASSWORD);
 
@@ -69,163 +62,6 @@ const existingAdmin = await prisma.admin.findUnique({
         isActive: true,
       },
       create: category,
-    });
-  }
-
-  const men = await prisma.category.findUniqueOrThrow({ where: { slug: "men" } });
-
-  const brand = await prisma.brand.upsert({
-    where: { slug: "atelier" },
-    update: { name: "Atelier", isActive: true },
-    create: {
-      name: "Atelier",
-      slug: "atelier",
-      description: "House label for sample catalog items",
-    },
-  });
-
-  const color = await prisma.color.upsert({
-    where: { slug: "navy" },
-    update: { name: "Navy", hexCode: "#1B2838" },
-    create: { name: "Navy", slug: "navy", hexCode: "#1B2838" },
-  });
-
-  const fabric = await prisma.fabric.upsert({
-    where: { slug: "cotton" },
-    update: { name: "Cotton", composition: "100% cotton" },
-    create: { name: "Cotton", slug: "cotton", composition: "100% cotton" },
-  });
-
-  const product = await prisma.product.upsert({
-    where: { slug: "classic-oxford-shirt" },
-    update: {
-      name: "Classic Oxford Shirt",
-      status: "ACTIVE",
-      basePrice: 49,
-      brandId: brand.id,
-      categoryId: men.id,
-    },
-    create: {
-      name: "Classic Oxford Shirt",
-      slug: "classic-oxford-shirt",
-      description: "A sample cotton oxford shirt used to exercise the catalog.",
-      status: "ACTIVE",
-      gender: "MEN",
-      basePrice: 49,
-      brandId: brand.id,
-      categoryId: men.id,
-      publishedAt: new Date(),
-    },
-  });
-
-  for (const size of sizes) {
-    const savedSize = await prisma.size.upsert({
-      where: { slug: size.slug },
-      update: { name: size.name, sortOrder: size.sortOrder },
-      create: size,
-    });
-
-    const sku = `OXF-NAVY-${size.name}`;
-
-    await prisma.productVariant.upsert({
-      where: { sku },
-      update: { isActive: true },
-      create: {
-        productId: product.id,
-        sizeId: savedSize.id,
-        colorId: color.id,
-        fabricId: fabric.id,
-        sku,
-        stock: 25,
-        price: 49,
-      },
-    });
-  }
-
-  const women = await prisma.category.findUniqueOrThrow({ where: { slug: "women" } });
-  const medium = await prisma.size.findUniqueOrThrow({ where: { slug: "m" } });
-  const productImages = [
-    "/uploads/ecommerce/products/2abbfa02-2069-48ef-bebf-0e36603ce517.jpg",
-    "/uploads/ecommerce/products/3daa0ad6-5590-455a-836e-26d10751559e.jpg",
-  ];
-  const demoProducts = [
-    { name: "Relaxed Linen Shirt", slug: "demo-relaxed-linen-shirt", gender: "MEN" as const, categoryId: men.id, price: 1290, compareAtPrice: 1790 },
-    { name: "Everyday Cotton Kurti", slug: "demo-everyday-cotton-kurti", gender: "WOMEN" as const, categoryId: women.id, price: 1490, compareAtPrice: 1990 },
-    { name: "Classic Printed Panjabi", slug: "demo-printed-panjabi", gender: "MEN" as const, categoryId: men.id, price: 1890, compareAtPrice: 2490 },
-    { name: "Soft Knit Cardigan", slug: "demo-knit-cardigan", gender: "WOMEN" as const, categoryId: women.id, price: 1690, compareAtPrice: 2290 },
-    { name: "Weekend Polo Shirt", slug: "demo-weekend-polo-shirt", gender: "MEN" as const, categoryId: men.id, price: 990, compareAtPrice: 1390 },
-    { name: "Printed Summer Dress", slug: "demo-summer-dress", gender: "WOMEN" as const, categoryId: women.id, price: 1790, compareAtPrice: 2390 },
-  ];
-
-  for (const [index, item] of demoProducts.entries()) {
-    const product = await prisma.product.upsert({
-      where: { slug: item.slug },
-      update: {
-        name: item.name,
-        status: "ACTIVE",
-        gender: item.gender,
-        fit: "REGULAR",
-        basePrice: item.price,
-        compareAtPrice: item.compareAtPrice,
-        brandId: brand.id,
-        categoryId: item.categoryId,
-        publishedAt: new Date(),
-        createdAt: new Date(),
-      },
-      create: {
-        name: item.name,
-        slug: item.slug,
-        description: "Sample sale item for testing the storefront product carousel.",
-        status: "ACTIVE",
-        gender: item.gender,
-        fit: "REGULAR",
-        basePrice: item.price,
-        compareAtPrice: item.compareAtPrice,
-        brandId: brand.id,
-        categoryId: item.categoryId,
-        tags: ["demo", "sale"],
-        publishedAt: new Date(),
-      },
-    });
-
-    await prisma.productImage.upsert({
-      where: { id: `demo-image-${item.slug}` },
-      update: {
-        url: productImages[index % productImages.length],
-        alt: item.name,
-        isPrimary: true,
-      },
-      create: {
-        id: `demo-image-${item.slug}`,
-        productId: product.id,
-        url: productImages[index % productImages.length],
-        alt: item.name,
-        isPrimary: true,
-      },
-    });
-
-    await prisma.productVariant.upsert({
-      where: { sku: `DEMO-${item.slug.toUpperCase()}-M` },
-      update: {
-        productId: product.id,
-        sizeId: medium.id,
-        colorId: color.id,
-        fabricId: fabric.id,
-        price: item.price,
-        compareAtPrice: item.compareAtPrice,
-        stock: 12,
-        isActive: true,
-      },
-      create: {
-        productId: product.id,
-        sizeId: medium.id,
-        colorId: color.id,
-        fabricId: fabric.id,
-        sku: `DEMO-${item.slug.toUpperCase()}-M`,
-        price: item.price,
-        compareAtPrice: item.compareAtPrice,
-        stock: 12,
-      },
     });
   }
 
@@ -264,9 +100,8 @@ const existingAdmin = await prisma.admin.findUnique({
 
   console.log("Seed complete");
   console.log(`Admin login: ${ADMIN_EMAIL} / ${ADMIN_PASSWORD}`);
-  console.log("Categories: Men, Women, Accessories");
-  console.log("Sample product: Classic Oxford Shirt (S, M, L, XL)");
-  console.log("Demo storefront: six sale products and nine campaign tiles");
+  console.log("Categories: apparel, electronics, home, and more");
+  console.log("Demo storefront: nine campaign tiles");
 };
 
 seed()
