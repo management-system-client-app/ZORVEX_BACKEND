@@ -9,6 +9,7 @@ import { generateAccessToken, type AccountRole } from "../../utils/generateToken
 import { env } from "../../app/config/env";
 import { sendPasswordResetEmail } from "../../utils/emailSender";
 import type { ForgotPasswordInput, LoginInput, ResetPasswordInput } from "./auth.validation";
+import logger from "../../config/logger";
 
 const userSelect = {
   id: true,
@@ -173,10 +174,9 @@ const issuePasswordReset = async (
     });
     return {};
   } catch (error) {
-    console.error(
-      "Password reset email was not sent.",
-      error instanceof Error ? error.message : error,
-    );
+    logger.error("Password reset email was not sent", {
+      error: error instanceof Error ? error.message : error,
+    });
     throw new AppError("Could not send the reset email", 503);
   }
 };
@@ -330,17 +330,6 @@ const logout = async (auth: AuthContext, token: string): Promise<void> => {
   });
 };
 
-const printAdminDetails = (admin: {
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-}): void => {
-  console.log(`  name: ${admin.firstName} ${admin.lastName}`);
-  console.log(`  email: ${admin.email}`);
-  console.log(`  role: ${admin.role}`);
-};
-
 const ensureDefaultAdmin = async (): Promise<void> => {
   const existing = await prisma.admin.findUnique({
     where: { email: env.ADMIN_EMAIL },
@@ -353,8 +342,7 @@ const ensureDefaultAdmin = async (): Promise<void> => {
   });
 
   if (existing) {
-    console.log("Admin already exists");
-    printAdminDetails(existing);
+    logger.info("Default admin already exists");
     return;
   }
 
@@ -375,11 +363,10 @@ const ensureDefaultAdmin = async (): Promise<void> => {
       },
     });
 
-    console.log("Default admin created");
-    printAdminDetails(admin);
+    logger.info("Default admin created", { role: admin.role });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
-      console.log("Admin already exists");
+      logger.info("Default admin already exists");
       return;
     }
 

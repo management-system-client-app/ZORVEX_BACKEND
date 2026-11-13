@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { z } from "zod";
+import logger from "../../config/logger";
 
 dotenv.config({ quiet: true });
 
@@ -62,7 +63,7 @@ if (!parsedEnv.success) {
     .map((issue) => `${issue.path.join(".") || "env"}: ${issue.message}`)
     .join("\n");
 
-  console.error(`Invalid environment variables:\n${details}`);
+  logger.error("Invalid environment variables", { details });
   process.exit(1);
 }
 

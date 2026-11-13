@@ -75,7 +75,7 @@ const MAX_BIND_ATTEMPTS = 10;
 
 const listen = (attempt: number): void => {
   const instance = app.listen(env.PORT, () => {
-    console.log(`Server is running on http://localhost:${env.PORT}`);
+    logger.info(`Server is running on http://localhost:${env.PORT}`);
   });
 
   server = instance;
@@ -108,19 +108,17 @@ const prepareDatabase = async (): Promise<void> => {
   await bootstrapDatabase();
 };
 
-console.log("Preparing database before creating the default admin...");
+logger.info("Preparing database before creating the default admin");
 
 void prepareDatabase()
   .then(() => {
-    console.log("Checking default admin...");
+    logger.info("Checking default admin");
     return authService.ensureDefaultAdmin();
   })
   .then(() => {
     listen(1);
   })
   .catch((error: unknown) => {
-    const message = error instanceof Error ? error.message : "Startup failed";
-    console.error(message);
     logger.error("Something went wrong while starting the server", { error });
     shutdown("startup-error", 1);
   });

@@ -2,6 +2,7 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/client";
 import { env } from "../src/app/config/env";
+import logger from "../src/config/logger";
 import { hashPassword } from "../src/utils/bcrypt";
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -98,15 +99,12 @@ const existingAdmin = await prisma.admin.findUnique({
     });
   }
 
-  console.log("Seed complete");
-  console.log(`Admin login: ${ADMIN_EMAIL} / ${ADMIN_PASSWORD}`);
-  console.log("Categories: apparel, electronics, home, and more");
-  console.log("Demo storefront: nine campaign tiles");
+  logger.info("Seed complete");
 };
 
 seed()
   .catch((error: unknown) => {
-    console.error(error);
+    logger.error("Seed failed", { error });
     process.exitCode = 1;
   })
   .finally(async () => {

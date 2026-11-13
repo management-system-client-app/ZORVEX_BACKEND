@@ -188,3 +188,19 @@ export const authorize =
 
     next();
   };
+
+export const authorizeAdminRole =
+  (...roles: AdminRole[]) =>
+  (req: Request, _res: Response, next: NextFunction): void => {
+    if (!req.auth) {
+      next(AppError.unauthorized());
+      return;
+    }
+
+    if (req.auth.role !== "ADMIN" || !req.auth.adminRole || !roles.includes(req.auth.adminRole)) {
+      next(AppError.forbidden("You do not have permission to perform this action"));
+      return;
+    }
+
+    next();
+  };

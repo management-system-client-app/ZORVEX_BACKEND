@@ -2,6 +2,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { Client } from "pg";
 import { env } from "./env";
+import logger from "../../config/logger";
 
 const SAFE_DB_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
@@ -74,11 +75,11 @@ const connect = async (connectionString: string): Promise<Client> => {
   }
 };
 
-const ensureDatabase = async (): Promise<void> => {
-  const name = databaseNameFrom(env.DATABASE_URL);
+const ensureDatabase = async (databaseUrl: string): Promise<void> => {
+  const name = databaseNameFrom(databaseUrl);
 
   try {
-    const client = await connect(connectionUrl(env.DATABASE_URL));
+    const client = await connect(connectionUrl(databaseUrl));
     await client.end();
     return;
   } catch (error) {
@@ -92,7 +93,7 @@ const ensureDatabase = async (): Promise<void> => {
 
   for (const maintenanceDb of ["postgres", "template1"]) {
     try {
-      admin = await connect(connectionUrl(env.DATABASE_URL, maintenanceDb));
+      admin = await connect(connectionUrl(databaseUrl, maintenanceDb));
       break;
     } catch (error) {
       lastError = error;
@@ -109,13 +110,13 @@ const ensureDatabase = async (): Promise<void> => {
     if (existing.rowCount === 0) {
       try {
         await admin.query(`CREATE DATABASE "${name}"`);
-        console.log(`Database created: ${name}`);
+        logger.info("Database created", { database: name });
       } catch (error) {
         if (!isPgError(error) || error.code !== "42P04") {
           throw error;
         }
 
-        console.log(`Database already exists: ${name}`);
+        logger.info("Database already exists", { database: name });
       }
     }
   } finally {
@@ -158,8 +159,8 @@ const applyMigrations = (): Promise<void> =>
   });
 
 export const bootstrapDatabase = async (): Promise<void> => {
-  console.log("Checking database connection...");
-  await ensureDatabase();
-  console.log("Applying database migrations...");
+  logger.info("Checking database connection");
+  await ensureDatabase(env.DIRECT_URL ?? env.DATABASE_URL);
+  logger.info("Applying database migrations");
   await applyMigrations();
 };

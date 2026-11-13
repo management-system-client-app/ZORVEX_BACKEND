@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { authenticate, authenticateOptional, authorize } from "../../app/middlewares/auth";
+import {
+  authenticate,
+  authenticateOptional,
+  authorize,
+  authorizeAdminRole,
+} from "../../app/middlewares/auth";
 import { asyncHandler } from "../../app/middlewares/asyncHandler";
 import { parseMultipartData, productImagesUpload } from "../../app/middlewares/upload";
 import { validateRequest } from "../../app/middlewares/validateRequest";
@@ -61,7 +66,7 @@ router.patch(
 router.delete(
   "/:id/images/:imageId",
   authenticate,
-  authorize("ADMIN"),
+  authorizeAdminRole("SUPER_ADMIN"),
   validateRequest({ params: productImageParamSchema }),
   asyncHandler(productController.deleteProductImage),
 );
@@ -69,7 +74,7 @@ router.delete(
 router.delete(
   "/:id",
   authenticate,
-  authorize("ADMIN"),
+  authorizeAdminRole("SUPER_ADMIN"),
   validateRequest({ params: productIdParamSchema }),
   asyncHandler(productController.deleteProduct),
 );
