@@ -3,6 +3,7 @@ import { AppError } from "../../app/errors/AppError";
 import type { ValidatedRequest } from "../../app/middlewares/validateRequest";
 import { paymentService } from "./payment.service";
 import type {
+  CreateCodAdvanceCheckoutInput,
   CreatePaymentIntentInput,
   ManualPaymentIdParam,
   RejectManualPaymentInput,
@@ -62,22 +63,57 @@ const createCheckout = async (
   });
 };
 
-const checkoutSuccess = async (req: Request, res: Response): Promise<void> => {
-  const sessionId = typeof req.query.session_id === "string" ? req.query.session_id : "";
-  let confirmed = false;
-
-  if (sessionId) {
-    try {
-      confirmed = (await paymentService.confirmCheckoutSession(sessionId)) === "paid";
-    } catch {
-      confirmed = false;
-    }
+const createCodAdvanceCheckout = async (
+  req: ValidatedRequest<CreateCodAdvanceCheckoutInput>,
+  res: Response,
+): Promise<void> => {
+  if (req.auth?.role === "ADMIN") {
+    throw AppError.forbidden("Only customers can pay for an order");
   }
 
-  const title = confirmed ? "Payment confirmed" : "Payment received";
-  const message = confirmed
-    ? "The order is confirmed."
-    : "Stripe accepted the card. The order is confirmed when the payment record is found.";
+  let checkout: Awaited<
+    ReturnType<typeof paymentService.createCodDeliveryAdvanceCheckoutSession>
+  >;
+
+  if (req.auth?.role === "USER") {
+    if (!("orderId" in req.validatedBody)) {
+      throw AppError.badRequest("orderId is required for an account order");
+    }
+
+    checkout = await paymentService.createCodDeliveryAdvanceCheckoutSession(
+      req.auth.id,
+      req.validatedBody.orderId,
+    );
+  } else {
+    if (!("orderNumber" in req.validatedBody)) {
+      throw AppError.badRequest("orderNumber and phone are required for a guest order");
+    }
+
+    checkout = await paymentService.createGuestCodDeliveryAdvanceCheckoutSession(
+      req.validatedBody.orderNumber,
+      req.validatedBody.phone,
+    );
+  }
+
+  res.status(201).json({
+    success: true,
+    message: "COD delivery advance checkout page created",
+    data: checkout,
+  });
+};
+
+const checkoutSuccess = async (req: Request, res: Response): Promise<void> => {
+  const sessionId = typeof req.query.session_id === "string" ? req.query.session_id : "";
+  const paymentStatus = sessionId
+    ? await paymentService.confirmCheckoutSession(sessionId)
+    : "missing";
+  const title = paymentStatus === "paid" ? "Payment confirmed" : "Payment pending";
+  const message =
+    paymentStatus === "paid"
+      ? "The payment was verified and the order is confirmed."
+      : paymentStatus === "unpaid"
+        ? "Payment is not complete. The order remains pending until Stripe confirms it."
+        : "The payment could not be verified. The order remains pending.";
 
   res.status(200).type("html").send(`<!DOCTYPE html>
 <html lang="en">
@@ -206,6 +242,7 @@ export const paymentController = {
   createIntent,
   collectCash,
   createCheckout,
+  createCodAdvanceCheckout,
   checkoutSuccess,
   checkoutCancel,
   submitManualPayment,

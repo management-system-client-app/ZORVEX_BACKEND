@@ -18,8 +18,11 @@ export const placeOrderSchema = z
     shippingPhone: z.string().trim().min(7).max(20),
     shippingLine1: z.string().trim().min(1).max(200),
     shippingLine2: z.string().trim().min(1).max(200).optional(),
-    shippingCity: z.string().trim().min(1).max(80),
+    shippingCity: z.string().trim().min(1).max(80).optional(),
     shippingState: z.string().trim().min(1).max(80).optional(),
+    shippingDivision: z.string().trim().min(1).max(80).optional(),
+    shippingDistrict: z.string().trim().min(1).max(80).optional(),
+    shippingThana: z.string().trim().min(1).max(80).optional(),
     shippingPostalCode: z.string().trim().min(1).max(20),
     shippingCountry: z.string().trim().min(2).max(80),
     customerNote: z.string().trim().min(1).max(500).optional(),
@@ -36,7 +39,11 @@ export const placeOrderSchema = z
       .optional(),
     staffReferralId: z.uuid().optional(),
   })
-  .strict();
+  .strict()
+  .refine((value) => Boolean(value.shippingDistrict || value.shippingCity), {
+    message: "Shipping district is required",
+    path: ["shippingDistrict"],
+  });
 
 export const updateOrderStatusSchema = z
   .object({

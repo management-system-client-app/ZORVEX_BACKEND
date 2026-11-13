@@ -1,9 +1,11 @@
 import express, { Router } from "express";
 import { authenticate, authenticateOptional, authorize } from "../../app/middlewares/auth";
 import { asyncHandler } from "../../app/middlewares/asyncHandler";
+import { orderTrackRateLimiter } from "../../app/middlewares/rateLimiter";
 import { validateRequest } from "../../app/middlewares/validateRequest";
 import { paymentController } from "./payment.controller";
 import {
+  createCodAdvanceCheckoutSchema,
   createPaymentIntentSchema,
   manualPaymentIdParamSchema,
   rejectManualPaymentSchema,
@@ -34,6 +36,14 @@ router.post(
   authorize("USER"),
   validateRequest({ body: createPaymentIntentSchema }),
   asyncHandler(paymentController.createCheckout),
+);
+
+router.post(
+  "/cod/advance/checkout",
+  orderTrackRateLimiter,
+  authenticateOptional,
+  validateRequest({ body: createCodAdvanceCheckoutSchema }),
+  asyncHandler(paymentController.createCodAdvanceCheckout),
 );
 
 router.post(

@@ -4,15 +4,23 @@ import { Prisma } from "../../../generated/prisma/client";
 import { env } from "../../app/config/env";
 import { prisma } from "../../app/config/prisma";
 import { sendOrderConfirmationEmail, sendPaymentRejectedEmail } from "../../utils/emailSender";
+import { sendOrderMail } from "../../utils/orderMail";
+import { AppError } from "../../app/errors/AppError";
+import { NotFoundError } from "../../app/errors/NotFoundError";
 
 type ManualPaymentProvider = "BKASH" | "NAGAD" | "ROCKET";
 const manualPaymentProviders: ManualPaymentProvider[] = ["BKASH", "NAGAD", "ROCKET"];
 
 const isManualPaymentProvider = (provider: string): provider is ManualPaymentProvider =>
   manualPaymentProviders.includes(provider as ManualPaymentProvider);
-import { sendOrderMail } from "../../utils/orderMail";
-import { AppError } from "../../app/errors/AppError";
-import { NotFoundError } from "../../app/errors/NotFoundError";
+
+const isCodDeliveryAdvance = (metadata: Prisma.JsonValue): boolean =>
+  Boolean(
+    metadata &&
+      typeof metadata === "object" &&
+      !Array.isArray(metadata) &&
+      metadata.purpose === "COD_DELIVERY_ADVANCE",
+  );
 
 let stripeClient: Stripe | undefined;
 
@@ -30,12 +38,18 @@ const toMinorUnits = (amount: Prisma.Decimal | number): number => {
 };
 
 const isCashOrder = async (orderId: string): Promise<boolean> => {
-  const payment = await prisma.payment.findFirst({
-    where: { orderId, provider: "COD" },
+  const order = await prisma.order.findFirst({
+    where: {
+      id: orderId,
+      OR: [
+        { deliveryAdvanceAmount: { gt: 0 } },
+        { payments: { some: { provider: "COD" } } },
+      ],
+    },
     select: { id: true },
   });
 
-  return payment !== null;
+  return order !== null;
 };
 
 const stripeErrorMessage = (error: unknown): string => {
@@ -184,7 +198,11 @@ const appBaseUrl = (): string => {
   return `http://localhost:${env.PORT}`;
 };
 
-const createCheckoutSession = async (userId: string | null, orderId: string) => {
+const createCheckoutSession = async (
+  userId: string | null,
+  orderId: string,
+  purpose: "ORDER" | "COD_DELIVERY_ADVANCE" = "ORDER",
+) => {
   const stripe = getStripe();
   const order = await prisma.order.findUnique({
     where: { id: orderId },
@@ -200,7 +218,13 @@ const createCheckoutSession = async (userId: string | null, orderId: string) => 
     throw new NotFoundError("Order not found");
   }
 
-  if (await isCashOrder(order.id)) {
+  const cashOrder = await isCashOrder(order.id);
+  const isAdvanceCheckout = purpose === "COD_DELIVERY_ADVANCE";
+
+  if (cashOrder !== isAdvanceCheckout) {
+    if (isAdvanceCheckout) {
+      throw AppError.badRequest("This order does not require a COD delivery advance");
+    }
     throw AppError.badRequest("This order is cash on delivery");
   }
 
@@ -208,23 +232,37 @@ const createCheckoutSession = async (userId: string | null, orderId: string) => 
     throw AppError.badRequest("Only pending orders can be paid");
   }
 
-  if (order.payments.some((payment) => payment.status === "PAID")) {
+  const payment = isAdvanceCheckout
+    ? order.payments.find((entry) => isCodDeliveryAdvance(entry.metadata))
+    : order.payments.find((entry) => !isCodDeliveryAdvance(entry.metadata));
+
+  if (!payment) {
+    throw new NotFoundError("Payment record not found");
+  }
+
+  if (payment.status === "PAID") {
     throw AppError.conflict("This order is already paid");
   }
 
-  const amount = toMinorUnits(order.total);
-
-  if (amount < 1) {
-    throw AppError.badRequest("Order total must be greater than zero");
+  if (
+    isAdvanceCheckout &&
+    !["PENDING", "FAILED", "CANCELLED"].includes(payment.status)
+  ) {
+    throw AppError.conflict("The advance payment is already being processed");
   }
 
-  const reusable = order.payments.find((payment) =>
-    ["PENDING", "PROCESSING", "AUTHORIZED"].includes(payment.status),
-  );
+  const paymentAmount = isAdvanceCheckout ? payment.amount : order.total;
+  const paymentCurrency = isAdvanceCheckout ? payment.currency : order.currency;
+  const amount = toMinorUnits(paymentAmount);
 
-  const payment =
-    reusable ??
-    (await prisma.payment.create({
+  if (amount < 1) {
+    throw AppError.badRequest("Payment amount must be greater than zero");
+  }
+
+  const selectedPayment =
+    isAdvanceCheckout || ["PENDING", "PROCESSING", "AUTHORIZED"].includes(payment.status)
+      ? payment
+      : await prisma.payment.create({
       data: {
         orderId: order.id,
         provider: "STRIPE",
@@ -234,20 +272,52 @@ const createCheckoutSession = async (userId: string | null, orderId: string) => 
         method: "card",
         idempotencyKey: randomUUID(),
       },
-    }));
+    });
 
-  const existingSessionId = checkoutSessionIdOf(payment.metadata);
+  const retryingAdvance =
+    isAdvanceCheckout && selectedPayment.status !== "PENDING";
+  const checkoutPayment =
+    retryingAdvance
+    ? await prisma.payment.update({
+        where: { id: selectedPayment.id },
+        data: { status: "PENDING", failureReason: null, idempotencyKey: randomUUID() },
+      })
+    : selectedPayment;
+
+  let sessionIdempotencyKey = checkoutPayment.idempotencyKey ?? checkoutPayment.id;
+  const existingSessionId = checkoutSessionIdOf(checkoutPayment.metadata);
 
   if (existingSessionId) {
     const existing = await stripe.checkout.sessions.retrieve(existingSessionId);
 
     if (existing.status === "open" && existing.url) {
       return {
-        paymentId: payment.id,
+        paymentId: checkoutPayment.id,
         url: existing.url,
         amount,
-        currency: order.currency,
+        currency: paymentCurrency,
       };
+    }
+
+    if (existing.status === "complete" && existing.payment_status === "paid") {
+      await confirmCheckoutSession(existing.id);
+      throw AppError.conflict("The payment is complete and is being verified");
+    }
+
+    if (
+      existing.status === "complete" &&
+      existing.payment_status !== "paid" &&
+      !retryingAdvance
+    ) {
+      throw AppError.conflict("The payment is still processing");
+    }
+
+    if (existing.status === "expired" || retryingAdvance) {
+      sessionIdempotencyKey = randomUUID();
+      await prisma.payment.update({
+        where: { id: checkoutPayment.id },
+        data: { idempotencyKey: sessionIdempotencyKey },
+      });
     }
   }
 
@@ -261,34 +331,43 @@ const createCheckoutSession = async (userId: string | null, orderId: string) => 
         {
           quantity: 1,
           price_data: {
-            currency: order.currency.toLowerCase(),
+            currency: paymentCurrency.toLowerCase(),
             unit_amount: amount,
             product_data: {
-              name: `Order ${order.orderNumber}`,
+              name: isAdvanceCheckout
+                ? `Delivery advance for order ${order.orderNumber}`
+                : `Order ${order.orderNumber}`,
             },
           },
         },
       ],
       metadata: {
         orderId: order.id,
-        paymentId: payment.id,
+        paymentId: checkoutPayment.id,
+        purpose,
       },
       payment_intent_data: {
         metadata: {
           orderId: order.id,
-          paymentId: payment.id,
+          paymentId: checkoutPayment.id,
+          purpose,
         },
       },
-    });
+    }, { idempotencyKey: sessionIdempotencyKey });
 
     if (!session.url) {
       throw new AppError("Stripe did not return a checkout URL", 502);
     }
 
     await prisma.payment.update({
-      where: { id: payment.id },
+      where: { id: checkoutPayment.id },
       data: {
         metadata: {
+          ...(checkoutPayment.metadata &&
+          typeof checkoutPayment.metadata === "object" &&
+          !Array.isArray(checkoutPayment.metadata)
+            ? checkoutPayment.metadata
+            : {}),
           checkoutSessionId: session.id,
           checkoutStatus: session.status,
         },
@@ -296,10 +375,10 @@ const createCheckoutSession = async (userId: string | null, orderId: string) => 
     });
 
     return {
-      paymentId: payment.id,
+      paymentId: checkoutPayment.id,
       url: session.url,
       amount,
-      currency: order.currency,
+      currency: paymentCurrency,
     };
   } catch (error) {
     if (error instanceof AppError) {
@@ -307,7 +386,7 @@ const createCheckoutSession = async (userId: string | null, orderId: string) => 
     }
 
     await prisma.payment.update({
-      where: { id: payment.id },
+      where: { id: checkoutPayment.id },
       data: {
         status: "FAILED",
         failureReason: stripeErrorMessage(error),
@@ -324,6 +403,30 @@ const createCheckoutSession = async (userId: string | null, orderId: string) => 
 
     throw error;
   }
+};
+
+const createCodDeliveryAdvanceCheckoutSession = async (
+  userId: string | null,
+  orderId: string,
+) => createCheckoutSession(userId, orderId, "COD_DELIVERY_ADVANCE");
+
+const createGuestCodDeliveryAdvanceCheckoutSession = async (
+  orderNumber: string,
+  phone: string,
+) => {
+  const order = await prisma.order.findFirst({
+    where: {
+      orderNumber: { equals: orderNumber, mode: "insensitive" },
+      userId: null,
+    },
+    select: { id: true, shippingPhone: true },
+  });
+
+  if (!order || phoneKey(order.shippingPhone) !== phoneKey(phone)) {
+    throw new NotFoundError("Order not found");
+  }
+
+  return createCodDeliveryAdvanceCheckoutSession(null, order.id);
 };
 
 const recordWebhook = async (event: Stripe.Event, signature: string) => {
@@ -392,16 +495,40 @@ const applyPaymentIntent = async (
     return null;
   }
 
+  const isAdvance = isCodDeliveryAdvance(payment.metadata);
+  if (outcome === "PAID") {
+    if (
+      intent.status !== "succeeded" ||
+      intent.amount_received !== toMinorUnits(payment.amount) ||
+      intent.currency.toUpperCase() !== payment.currency.toUpperCase() ||
+      (isAdvance &&
+        (intent.metadata.paymentId !== payment.id ||
+          intent.metadata.orderId !== payment.orderId ||
+          intent.metadata.purpose !== "COD_DELIVERY_ADVANCE"))
+    ) {
+      throw AppError.badRequest("Stripe payment details do not match the expected order payment");
+    }
+  }
+
   const chargeId =
     typeof intent.latest_charge === "string" ? intent.latest_charge : intent.latest_charge?.id;
   const now = new Date();
 
-  await prisma.$transaction(async (tx) => {
-    await tx.payment.update({
+  const result = await prisma.$transaction(async (tx) => {
+    const currentPayment = await tx.payment.findUnique({
       where: { id: payment.id },
+      select: { status: true },
+    });
+
+    if (!currentPayment || currentPayment.status === "PAID") {
+      return { paymentId: payment.id, newlyPaid: false };
+    }
+
+    const saved = await tx.payment.updateMany({
+      where: { id: payment.id, status: { not: "PAID" } },
       data: {
         providerPaymentId: intent.id,
-        transactionId: chargeId,
+        transactionId: chargeId ?? intent.id,
         status: outcome,
         failureReason:
           outcome === "FAILED" ? (intent.last_payment_error?.message ?? "Payment failed") : null,
@@ -409,18 +536,24 @@ const applyPaymentIntent = async (
       },
     });
 
-    if (outcome === "PAID" && payment.order.status === "PENDING") {
-      await tx.order.update({
-        where: { id: payment.orderId },
+    if (saved.count !== 1) {
+      return { paymentId: payment.id, newlyPaid: false };
+    }
+
+    if (outcome === "PAID") {
+      await tx.order.updateMany({
+        where: { id: payment.orderId, status: "PENDING" },
         data: {
           status: "CONFIRMED",
-          paidAt: now,
+          ...(!isAdvance ? { paidAt: now } : {}),
         },
       });
     }
+
+    return { paymentId: payment.id, newlyPaid: outcome === "PAID" };
   });
 
-  return payment.id;
+  return result.paymentId;
 };
 
 const confirmCheckoutSession = async (
@@ -484,6 +617,8 @@ const handleStripeWebhook = async (rawBody: Buffer, signature: string) => {
     "payment_intent.payment_failed",
     "payment_intent.canceled",
     "checkout.session.completed",
+    "checkout.session.async_payment_succeeded",
+    "checkout.session.async_payment_failed",
   ]);
 
   try {
@@ -498,8 +633,16 @@ const handleStripeWebhook = async (rawBody: Buffer, signature: string) => {
     let intent: Stripe.PaymentIntent;
     let outcome: "PAID" | "FAILED" | "CANCELLED";
 
-    if (event.type === "checkout.session.completed") {
+    if (event.type.startsWith("checkout.session.")) {
       const session = event.data.object as Stripe.Checkout.Session;
+      if (event.type === "checkout.session.completed" && session.payment_status !== "paid") {
+        await prisma.paymentWebhook.update({
+          where: { id: webhook.id },
+          data: { status: "PROCESSED", processedAt: new Date() },
+        });
+        return { received: true as const };
+      }
+
       const paymentIntentId =
         typeof session.payment_intent === "string"
           ? session.payment_intent
@@ -517,7 +660,7 @@ const handleStripeWebhook = async (rawBody: Buffer, signature: string) => {
       if (!intent.metadata.paymentId && session.metadata?.paymentId) {
         intent.metadata.paymentId = session.metadata.paymentId;
       }
-      outcome = "PAID";
+      outcome = event.type === "checkout.session.async_payment_failed" ? "FAILED" : "PAID";
     } else {
       intent = event.data.object as Stripe.PaymentIntent;
       outcome =
@@ -789,6 +932,9 @@ const approveManualPayment = async (paymentId: string) => {
   }
 
   const paidAt = new Date();
+  const isAdvance = isCodDeliveryAdvance(payment.metadata);
+  const codBalance = Math.max(0, Number(payment.order.total) - Number(payment.amount));
+  const isPartialAdvance = isAdvance && codBalance > 0;
   const updated = await prisma.$transaction(async (tx) => {
     const saved = await tx.payment.update({
       where: { id: payment.id },
@@ -798,7 +944,7 @@ const approveManualPayment = async (paymentId: string) => {
 
     await tx.order.update({
       where: { id: payment.order.id },
-      data: { status: "CONFIRMED", paidAt },
+      data: { status: "CONFIRMED", ...(!isPartialAdvance ? { paidAt } : {}) },
     });
 
     return saved;
@@ -815,7 +961,9 @@ const approveManualPayment = async (paymentId: string) => {
         orderNumber: payment.order.orderNumber,
         total: Number(payment.order.total),
         currency: payment.order.currency,
-        paymentNote: `${providerLabel} payment approved. Transaction reference: ${payment.transactionId}.`,
+        paymentNote: isAdvance
+          ? `${providerLabel} delivery advance of ${Number(payment.amount)} BDT approved. Transaction reference: ${payment.transactionId}.${isPartialAdvance ? ` Remaining ${codBalance} BDT is due in cash on delivery.` : " The full order amount is paid."}`
+          : `${providerLabel} payment approved. Transaction reference: ${payment.transactionId}.`,
         items: payment.order.items.map((item) => ({
           name: item.productName,
           quantity: item.quantity,
@@ -897,6 +1045,8 @@ const rejectManualPayment = async (paymentId: string, reason: string) => {
 export const paymentService = {
   createPaymentIntent,
   createCheckoutSession,
+  createCodDeliveryAdvanceCheckoutSession,
+  createGuestCodDeliveryAdvanceCheckoutSession,
   collectCashOnDelivery,
   confirmCheckoutSession,
   handleStripeWebhook,

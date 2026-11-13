@@ -3,7 +3,7 @@ import { Prisma } from "../../../generated/prisma/client";
 import { prisma } from "../../app/config/prisma";
 import { AppError } from "../../app/errors/AppError";
 import { NotFoundError } from "../../app/errors/NotFoundError";
-import { resolveShipping } from "../Delivery/delivery.service";
+import { getAdvanceDeliveryCharge, resolveShipping } from "../Delivery/delivery.service";
 import { chooseDiscount } from "../Promotion/promotion.service";
 import { settingsService } from "../Settings/settings.service";
 import { sendOrderConfirmationEmail, sendOrderShippedEmail } from "../../utils/emailSender";
@@ -98,6 +98,14 @@ const money = (value: number): number => Math.round(value * 100) / 100;
 
 const asMoney = (value: Prisma.Decimal | number | null): number => Number(value ?? 0);
 
+const isCodDeliveryAdvance = (metadata: Prisma.JsonValue | null): boolean =>
+  Boolean(
+    metadata &&
+      typeof metadata === "object" &&
+      !Array.isArray(metadata) &&
+      metadata.purpose === "COD_DELIVERY_ADVANCE",
+  );
+
 const createOrderNumber = (): string => {
   const time = Date.now().toString(36).toUpperCase();
   const suffix = randomBytes(3).toString("hex").toUpperCase();
@@ -116,6 +124,19 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
   }
 
   const placed = await prisma.$transaction(async (tx) => {
+    const cartWhere =
+      buyer.kind === "user" ? { userId: buyer.userId } : { sessionId: buyer.sessionId };
+    const cartIdentity = await tx.cart.findUnique({
+      where: cartWhere,
+      select: { id: true },
+    });
+
+    if (!cartIdentity) {
+      throw AppError.badRequest("Your cart is empty");
+    }
+
+    await tx.$queryRaw`SELECT "id" FROM "Cart" WHERE "id" = ${cartIdentity.id} FOR UPDATE`;
+
     const referredByStaff = input.staffReferralId
       ? await tx.admin.findFirst({
           where: {
@@ -132,7 +153,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
     }
 
     const cart = await tx.cart.findUnique({
-      where: buyer.kind === "user" ? { userId: buyer.userId } : { sessionId: buyer.sessionId },
+      where: cartWhere,
       include: { items: true },
     });
 
@@ -146,7 +167,6 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
 
     const paymentMethod = cart.paymentMethod;
     const manualProvider = paymentMethod === "BKASH" || paymentMethod === "NAGAD" || paymentMethod === "ROCKET" ? paymentMethod : null;
-
     if (manualProvider) {
       const settings = await settingsService.getSettings();
       const walletNumber = manualProvider === "BKASH" ? settings.bkashNumber : manualProvider === "NAGAD" ? settings.nagadNumber : settings.rocketNumber;
@@ -271,9 +291,19 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
         freeShippingOver: true,
       },
     });
-    const shipping = resolveShipping(zones, input.shippingCity, subtotal);
+    const deliveryDistrict = input.shippingDistrict?.trim() || input.shippingCity?.trim() || "";
+    const shipping = resolveShipping(zones, deliveryDistrict, subtotal);
     const shippingAmount = money(shipping.fee);
     const total = money(subtotal - discountAmount + shippingAmount);
+    const codAdvanceAmount =
+      paymentMethod === "COD" ? getAdvanceDeliveryCharge(deliveryDistrict) : 0;
+    const codAmount = paymentMethod === "COD" ? money(total - codAdvanceAmount) : 0;
+
+    if (paymentMethod === "COD" && codAmount < 0) {
+      throw AppError.badRequest(
+        `Order total must be at least ${codAdvanceAmount} BDT for delivery to ${deliveryDistrict}`,
+      );
+    }
 
     const order = await tx.order.create({
       data: {
@@ -281,7 +311,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
         userId: buyer.kind === "user" ? buyer.userId : null,
         referredByStaffId: referredByStaff?.id,
         guestEmail: buyer.kind === "guest" ? input.email : null,
-        status: paymentMethod === "COD" ? "CONFIRMED" : "PENDING",
+        status: "PENDING",
         subtotal,
         discountAmount,
         shippingAmount,
@@ -289,15 +319,20 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
         total,
         ...(discount.couponId ? { couponId: discount.couponId } : {}),
         ...(discount.promotionId ? { promotionId: discount.promotionId } : {}),
-        currency: "USD",
+        currency: paymentMethod === "COD" ? "BDT" : "USD",
         shippingFullName: input.shippingFullName,
         shippingPhone: input.shippingPhone,
         shippingLine1: input.shippingLine1,
         shippingLine2: input.shippingLine2,
-        shippingCity: input.shippingCity,
-        shippingState: input.shippingState,
+        shippingCity: deliveryDistrict,
+        shippingState: input.shippingDivision ?? input.shippingState,
+        shippingDivision: input.shippingDivision,
+        shippingDistrict: deliveryDistrict,
+        shippingThana: input.shippingThana,
         shippingPostalCode: input.shippingPostalCode,
         shippingCountry: input.shippingCountry,
+        deliveryAdvanceAmount: codAdvanceAmount,
+        codAmount,
         customerNote: input.customerNote,
         items: {
           create: lines.map((line) => ({
@@ -318,13 +353,26 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
         ...(paymentMethod === "COD"
           ? {
               payments: {
-                create: {
-                  provider: "COD" as const,
-                  status: "PENDING" as const,
-                  amount: total,
-                  currency: "USD",
-                  method: "cash_on_delivery",
-                },
+                create: [
+                  ...(codAmount > 0
+                    ? [{
+                        provider: "COD" as const,
+                        status: "PENDING" as const,
+                        amount: codAmount,
+                        currency: "BDT",
+                        method: "cash_on_delivery",
+                      }]
+                    : []),
+                  {
+                    provider: "STRIPE" as const,
+                    status: "PENDING" as const,
+                    amount: codAdvanceAmount,
+                    currency: "BDT",
+                    method: "card",
+                    idempotencyKey: randomBytes(16).toString("hex"),
+                    metadata: { purpose: "COD_DELIVERY_ADVANCE" },
+                  },
+                ],
               },
             }
           : manualProvider
@@ -332,7 +380,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
                 payments: {
                   create: {
                     provider: manualProvider,
-                    status: "PENDING" as const,
+                    status: "PENDING",
                     amount: total,
                     currency: "USD",
                     method: manualProvider.toLowerCase(),
@@ -382,7 +430,19 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
       data: { paymentMethod: null },
     });
 
-    return { order, paymentMethod };
+    return {
+      order,
+      paymentMethod,
+      codAdvance: codAdvanceAmount > 0
+        ? {
+            method: "STRIPE" as const,
+            amount: codAdvanceAmount,
+            currency: "BDT" as const,
+            remainingAmount: codAmount,
+            status: "PENDING" as const,
+          }
+        : null,
+    };
   });
 
   const customerName = placed.order.user
@@ -391,20 +451,25 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
   const customerEmail = placed.order.user?.email ?? placed.order.guestEmail;
   const total = Number(placed.order.total);
 
+  const manualProvider = (
+    placed.paymentMethod === "BKASH" || placed.paymentMethod === "NAGAD" || placed.paymentMethod === "ROCKET"
+      ? placed.paymentMethod
+      : null
+  );
   let payTo: string | null = null;
-  if (placed.paymentMethod === "BKASH" || placed.paymentMethod === "NAGAD" || placed.paymentMethod === "ROCKET") {
+  if (manualProvider) {
     const settings = await settingsService.getSettings();
-    payTo = placed.paymentMethod === "BKASH" ? settings.bkashNumber : placed.paymentMethod === "NAGAD" ? settings.nagadNumber : settings.rocketNumber;
+    payTo = manualProvider === "BKASH" ? settings.bkashNumber : manualProvider === "NAGAD" ? settings.nagadNumber : settings.rocketNumber;
   }
 
-  const manualWallet = placed.paymentMethod === "BKASH" ? "bKash Personal" : placed.paymentMethod === "NAGAD" ? "Nagad" : placed.paymentMethod === "ROCKET" ? "Rocket" : null;
+  const manualWallet = manualProvider === "BKASH" ? "bKash Personal" : manualProvider === "NAGAD" ? "Nagad" : manualProvider === "ROCKET" ? "Rocket" : null;
   const paymentNote = payTo
     ? `Send the total to ${manualWallet} ${payTo}, then submit the transaction id for approval.`
     : placed.paymentMethod === "COD"
-      ? "Pay cash when the order arrives."
+      ? `Pay ${placed.codAdvance?.amount ?? 0} BDT online as the delivery advance; pay ${placed.codAdvance?.remainingAmount ?? total} BDT in cash on delivery.`
       : "Open the store receipt and pay by card to confirm the order.";
 
-  const manualPaymentPending = placed.paymentMethod === "BKASH" || placed.paymentMethod === "NAGAD" || placed.paymentMethod === "ROCKET";
+  const manualPaymentPending = Boolean(placed.codAdvance) || placed.paymentMethod === "BKASH" || placed.paymentMethod === "NAGAD" || placed.paymentMethod === "ROCKET";
   const emailed = customerEmail && !manualPaymentPending
     ? await sendOrderMail(() =>
         sendOrderConfirmationEmail({
@@ -423,7 +488,12 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
       )
     : false;
 
-  return { ...placed, payTo, emailed };
+  return {
+    ...placed,
+    payTo,
+    codAdvance: placed.codAdvance ? { ...placed.codAdvance, payTo } : null,
+    emailed,
+  };
 };
 
 const getOrders = async (auth: AuthContext, query: OrderListQuery) => {
@@ -542,6 +612,21 @@ const updateOrderStatus = async (id: string, input: UpdateOrderStatusInput) => {
 
     if (!transitions[currentStatus].includes(nextStatus)) {
       throw AppError.badRequest(`Cannot change an order from ${currentStatus} to ${nextStatus}`);
+    }
+
+    if (nextStatus === "CONFIRMED" && Number(order.deliveryAdvanceAmount) > 0) {
+      const advancePayment = await tx.payment.findFirst({
+        where: {
+          orderId: id,
+          provider: "STRIPE",
+          status: "PAID",
+        },
+        select: { metadata: true },
+      });
+
+      if (!advancePayment || !isCodDeliveryAdvance(advancePayment.metadata)) {
+        throw AppError.badRequest("The COD delivery advance must be paid before confirming this order");
+      }
     }
 
     if (nextStatus === "CANCELLED" && restockOnCancel.has(currentStatus)) {

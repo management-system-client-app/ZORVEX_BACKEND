@@ -635,8 +635,14 @@ model Order {
   shippingLine2      String?
   shippingCity       String
   shippingState      String?
+  shippingDivision   String?
+  shippingDistrict   String?
+  shippingThana      String?
   shippingPostalCode String
   shippingCountry    String
+
+  deliveryAdvanceAmount Decimal @default(0) @db.Decimal(12, 2)
+  codAmount             Decimal @default(0) @db.Decimal(12, 2)
 
   customerNote String?
   cancelReason String?

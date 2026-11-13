@@ -1,4 +1,5 @@
 import type { Response } from "express";
+import { AppError } from "../../app/errors/AppError";
 import type { ValidatedRequest } from "../../app/middlewares/validateRequest";
 import { deliveryService } from "./delivery.service";
 import type {
@@ -32,7 +33,11 @@ const quote = async (
   req: ValidatedRequest<unknown, Record<string, string>, DeliveryQuoteQuery>,
   res: Response,
 ): Promise<void> => {
-  const quoteResult = await deliveryService.quote(req.validatedQuery.city, req.validatedQuery.subtotal);
+  const district = req.validatedQuery.district ?? req.validatedQuery.city;
+  if (!district) {
+    throw new AppError("Validated delivery quote is missing a district", 500);
+  }
+  const quoteResult = await deliveryService.quote(district, req.validatedQuery.subtotal);
 
   res.status(200).json({
     success: true,

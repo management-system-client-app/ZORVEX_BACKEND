@@ -49,6 +49,8 @@ cp .env.example .env
 | `COOKIE_SECRET` | Yes | Cookie signing secret (at least 10 characters). |
 | `STRIPE_SECRET_KEY` | No | Stripe secret key. Required to create payment intents. |
 | `STRIPE_WEBHOOK_SECRET` | No | Stripe webhook signing secret. |
+| `DELIVERY_ADVANCE_DHAKA_BDT` | No | COD delivery advance for Dhaka district. Defaults to `70`. |
+| `DELIVERY_ADVANCE_OUTSIDE_DHAKA_BDT` | No | COD delivery advance outside Dhaka district. Defaults to `140`. |
 | `CLOUDINARY_CLOUD_NAME` | No | Cloudinary cloud name. Required for product image upload. |
 | `CLOUDINARY_API_KEY` | No | Cloudinary API key. |
 | `CLOUDINARY_API_SECRET` | No | Cloudinary API secret. |
@@ -160,25 +162,30 @@ For a non-apparel item, create the product with its category and brand (use an `
 
 Checkout copies the cart into an order and decrements stock. When an admin cancels a pending, confirmed, or processing order, those units go back to stock.
 
+For Bangladesh addresses, send `shippingFullName`, `shippingPhone`, `shippingDivision`, `shippingDistrict`, `shippingThana`, and `shippingLine1` with the complete address. Legacy clients may continue sending `shippingCity` (used as the district) and `shippingState`. Use `GET /api/v1/delivery/quote?district=<district>&subtotal=<cart-subtotal>` to display the server-calculated delivery-zone shipping amount and advance-payment amount immediately after district selection. The quote is informational; checkout recalculates both amounts from the submitted address and server-side cart.
+
+When `COD` is selected, checkout creates a pending order and a Stripe Checkout URL for the district's advance only (`70 BDT` in Dhaka, `140 BDT` elsewhere by default). The order is confirmed only after Stripe reports a successful payment that the backend verifies. The remaining order total is saved as `codAmount` and collected by cash on delivery. A COD order below its applicable advance amount is rejected. Configure the two `DELIVERY_ADVANCE_*_BDT` variables to change rates without changing code.
+
 | Method | Path | Access | Purpose |
 | --- | --- | --- | --- |
 | `GET` | `/api/v1/cart` | User | Current cart. |
 | `POST` | `/api/v1/cart/items` | User | Add to cart. Send `productId` when the product has one variant, or `variantId` from `variants[].id`. |
 | `POST` | `/api/v1/cart/payment` | User | Save `COD` or `STRIPE` on the cart. Required before an order. |
 | `DELETE` | `/api/v1/cart/items/:itemId` | User | Remove a cart line. |
-| `POST` | `/api/v1/orders` | User | Place an order from the cart. Uses the saved payment method. Cash on delivery confirms the order. Stripe returns `checkoutUrl`. If the card page cannot be created, the order is cancelled and stock is returned. |
+| `POST` | `/api/v1/orders` | User or guest | Place an order from the cart. Uses the saved payment method. COD returns `checkoutUrl` for the required BDT advance; the order stays pending until verified. Regular Stripe checkout returns `checkoutUrl` for the order total. If checkout cannot be created, the order is cancelled and stock is returned. |
 | `GET` | `/api/v1/orders` | User or admin | List own orders, or all orders for an admin. |
 | `GET` | `/api/v1/orders/:id` | User or admin | Order detail. |
 | `PATCH` | `/api/v1/orders/:id/status` | Admin | Change order status. |
 
 ### Payments, returns, and reviews
 
-A successful Stripe payment marks the payment `PAID` and the order `CONFIRMED`. A failed payment leaves the order pending so the customer can retry. The webhook must receive the raw body and a `stripe-signature` header.
+A successful, amount- and currency-verified Stripe payment marks the payment `PAID` and confirms the order. A successful COD advance leaves the COD balance outstanding and does not mark the full order as paid. Failed or cancelled payments leave the order pending so checkout can be retried. The webhook must receive the raw body and a `stripe-signature` header.
 
 | Method | Path | Access | Purpose |
 | --- | --- | --- | --- |
 | `POST` | `/api/v1/payments/create-intent` | User | Create a Stripe Payment Intent for a pending order. |
-| `POST` | `/api/v1/payments/checkout` | User | Create a Stripe Checkout page. Open `data.url` in the browser. Cash on delivery orders are rejected. |
+| `POST` | `/api/v1/payments/checkout` | User | Create a Stripe Checkout page for a regular pending order. COD advance checkout is created automatically by `POST /api/v1/orders`. |
+| `POST` | `/api/v1/payments/cod/advance/checkout` | User or guest | Retry an unpaid COD advance checkout. Send `orderId` when signed in, or `orderNumber` and `phone` for guest orders. |
 | `POST` | `/api/v1/payments/cod/collect` | Admin | Mark a cash on delivery payment as collected. |
 | `POST` | `/api/v1/payments/webhook` | Public | Stripe webhook. |
 | `POST` | `/api/v1/returns` | User | Request a return or exchange for a delivered order. |

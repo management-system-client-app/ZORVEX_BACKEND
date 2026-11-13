@@ -5,6 +5,7 @@ import {
   invalidateCache,
 } from "../../app/config/cache";
 import { prisma } from "../../app/config/prisma";
+import { env } from "../../app/config/env";
 import { AppError } from "../../app/errors/AppError";
 import { NotFoundError } from "../../app/errors/NotFoundError";
 import type { CreateDeliveryZoneInput, UpdateDeliveryZoneInput } from "./delivery.validation";
@@ -29,10 +30,21 @@ type ZoneQuote = {
   freeShippingOver: Prisma.Decimal | number | null;
 };
 
+const DEFAULT_DELIVERY_FEE_DHAKA_BDT = 70;
+const DEFAULT_DELIVERY_FEE_OUTSIDE_DHAKA_BDT = 140;
+
 const cityKey = (city: string | null | undefined): string | null => {
-  const value = city?.trim().toLowerCase();
+  const value = city?.trim().toLowerCase().replace(/\s+/g, " ");
   return value ? value : null;
 };
+
+const isDhakaDistrict = (district: string): boolean =>
+  cityKey(district)?.replace(/\s+district$/, "") === "dhaka";
+
+export const getAdvanceDeliveryCharge = (district: string): number =>
+  isDhakaDistrict(district)
+    ? env.DELIVERY_ADVANCE_DHAKA_BDT
+    : env.DELIVERY_ADVANCE_OUTSIDE_DHAKA_BDT;
 
 export const resolveShipping = (zones: ZoneQuote[], city: string, subtotal: number) => {
   const key = cityKey(city);
@@ -41,7 +53,13 @@ export const resolveShipping = (zones: ZoneQuote[], city: string, subtotal: numb
     zones.find((zone) => cityKey(zone.city) === null);
 
   if (!match) {
-    return { fee: 0, zoneId: null as string | null, zoneName: null as string | null };
+    return {
+      fee: isDhakaDistrict(city)
+        ? DEFAULT_DELIVERY_FEE_DHAKA_BDT
+        : DEFAULT_DELIVERY_FEE_OUTSIDE_DHAKA_BDT,
+      zoneId: null as string | null,
+      zoneName: null as string | null,
+    };
   }
 
   const threshold = match.freeShippingOver == null ? null : Number(match.freeShippingOver);
@@ -93,6 +111,9 @@ const quote = async (city: string, subtotal: number) => {
     shippingAmount: shipping.fee,
     zoneId: shipping.zoneId,
     zoneName: shipping.zoneName,
+    deliveryDistrict: city,
+    advancePaymentAmount: getAdvanceDeliveryCharge(city),
+    advancePaymentCurrency: "BDT",
   };
 };
 

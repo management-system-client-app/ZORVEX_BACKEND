@@ -35,6 +35,8 @@ const envSchema = z.object({
 
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
+  DELIVERY_ADVANCE_DHAKA_BDT: z.coerce.number().int().positive().default(70),
+  DELIVERY_ADVANCE_OUTSIDE_DHAKA_BDT: z.coerce.number().int().positive().default(140),
 
   CLOUDINARY_CLOUD_NAME: z.string().min(1).optional(),
   CLOUDINARY_API_KEY: z.string().min(1).optional(),

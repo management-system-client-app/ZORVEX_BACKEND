@@ -6,6 +6,16 @@ export const createPaymentIntentSchema = z
   })
   .strict();
 
+export const createCodAdvanceCheckoutSchema = z.union([
+  z.object({ orderId: z.uuid() }).strict(),
+  z
+    .object({
+      orderNumber: z.string().trim().min(4).max(40),
+      phone: z.string().trim().min(7).max(20),
+    })
+    .strict(),
+]);
+
 export const submitManualPaymentSchema = z
   .object({
     orderId: z.uuid().optional(),
@@ -44,6 +54,7 @@ export const rejectManualPaymentSchema = z
   .strict();
 
 export type CreatePaymentIntentInput = z.infer<typeof createPaymentIntentSchema>;
+export type CreateCodAdvanceCheckoutInput = z.infer<typeof createCodAdvanceCheckoutSchema>;
 export type SubmitManualPaymentInput = z.infer<typeof submitManualPaymentSchema>;
 export type ManualPaymentIdParam = z.infer<typeof manualPaymentIdParamSchema>;
 export type RejectManualPaymentInput = z.infer<typeof rejectManualPaymentSchema>;

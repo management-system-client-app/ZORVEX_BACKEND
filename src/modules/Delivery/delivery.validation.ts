@@ -35,13 +35,18 @@ export const deliveryZoneIdParamSchema = z
 
 export const deliveryQuoteQuerySchema = z
   .object({
-    city: z.string().trim().min(2).max(80),
+    city: z.string().trim().min(2).max(80).optional(),
+    district: z.string().trim().min(2).max(80).optional(),
     subtotal: z.preprocess(
       (value) => (value === "" || value === undefined || value === null ? undefined : value),
       z.coerce.number().nonnegative().max(99_999_999.99).default(0),
     ),
   })
-  .strict();
+  .strict()
+  .refine((value) => Boolean(value.city || value.district), {
+    message: "City or district is required",
+    path: ["district"],
+  });
 
 export type CreateDeliveryZoneInput = z.infer<typeof createDeliveryZoneSchema>;
 export type UpdateDeliveryZoneInput = z.infer<typeof updateDeliveryZoneSchema>;
