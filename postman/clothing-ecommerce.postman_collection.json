@@ -750,6 +750,19 @@
           }
         },
         {
+          "name": "Delete product image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{adminToken}}", "type": "string" }]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/api/v1/products/{{productId}}/images/{{imageId}}",
+            "description": "Deletes an image belonging to the product. If it was the primary image, the next image in the same color group becomes primary."
+          }
+        },
+        {
           "name": "Delete product",
           "request": {
             "auth": {

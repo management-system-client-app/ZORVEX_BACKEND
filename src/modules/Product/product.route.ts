@@ -6,6 +6,7 @@ import { validateRequest } from "../../app/middlewares/validateRequest";
 import { productController } from "./product.controller";
 import {
   createProductSchema,
+  productImageParamSchema,
   productIdParamSchema,
   productListQuerySchema,
   updateProductSchema,
@@ -55,6 +56,14 @@ router.patch(
     body: updateProductSchema,
   }),
   asyncHandler(productController.updateProduct),
+);
+
+router.delete(
+  "/:id/images/:imageId",
+  authenticate,
+  authorize("ADMIN"),
+  validateRequest({ params: productImageParamSchema }),
+  asyncHandler(productController.deleteProductImage),
 );
 
 router.delete(

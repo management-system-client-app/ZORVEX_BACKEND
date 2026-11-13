@@ -652,6 +652,49 @@ const deleteProduct = async (id: string) => {
   return { archived: false as const };
 };
 
+const deleteProductImage = async (productId: string, imageId: string) => {
+  const deletedImage = await prisma.$transaction(async (tx) => {
+    const image = await tx.productImage.findFirst({
+      where: { id: imageId, productId },
+      select: { id: true, isPrimary: true, colorId: true },
+    });
+
+    if (!image) {
+      throw new NotFoundError("Product image not found");
+    }
+
+    await tx.productImage.delete({ where: { id: image.id } });
+
+    const remainingImages = await tx.productImage.findMany({
+      where: { productId },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }, { id: "asc" }],
+      select: { id: true, colorId: true },
+    });
+
+    if (image.isPrimary) {
+      const replacement = remainingImages.find((entry) => entry.colorId === image.colorId);
+      if (replacement) {
+        await tx.productImage.update({
+          where: { id: replacement.id },
+          data: { isPrimary: true },
+        });
+      }
+    }
+
+    for (const [sortOrder, entry] of remainingImages.entries()) {
+      await tx.productImage.update({
+        where: { id: entry.id },
+        data: { sortOrder },
+      });
+    }
+
+    return image;
+  });
+
+  await invalidateCache("products", "home");
+  return { id: deletedImage.id };
+};
+
 export const productService = {
   createProduct,
   getAllProducts,
@@ -659,5 +702,6 @@ export const productService = {
   getRelatedProducts,
   getSingleProduct,
   updateProduct,
+  deleteProductImage,
   deleteProduct,
 };

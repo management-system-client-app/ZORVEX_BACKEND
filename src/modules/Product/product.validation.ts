@@ -180,6 +180,13 @@ export const productIdParamSchema = z
   })
   .strict();
 
+export const productImageParamSchema = z
+  .object({
+    id: z.uuid(),
+    imageId: z.uuid(),
+  })
+  .strict();
+
 const productSorts = ["latest", "price_asc", "price_desc", "name_asc"] as const;
 
 const optionalQueryPrice = z.preprocess(
@@ -242,4 +249,5 @@ export const productListQuerySchema = z
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 export type ProductIdParam = z.infer<typeof productIdParamSchema>;
+export type ProductImageParam = z.infer<typeof productImageParamSchema>;
 export type ProductListQuery = z.infer<typeof productListQuerySchema>;

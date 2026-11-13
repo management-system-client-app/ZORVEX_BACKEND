@@ -6,6 +6,7 @@ import { productService } from "./product.service";
 import type {
   CreateProductInput,
   ProductIdParam,
+  ProductImageParam,
   ProductListQuery,
   UpdateProductInput,
 } from "./product.validation";
@@ -158,6 +159,20 @@ const deleteProduct = async (
   });
 };
 
+const deleteProductImage = async (
+  req: ValidatedRequest<unknown, ProductImageParam>,
+  res: Response,
+): Promise<void> => {
+  const { id, imageId } = req.validatedParams;
+  const result = await productService.deleteProductImage(id, imageId);
+
+  res.status(200).json({
+    success: true,
+    message: "Product image deleted",
+    data: result,
+  });
+};
+
 export const productController = {
   createProduct,
   getAllProducts,
@@ -165,5 +180,6 @@ export const productController = {
   getRelatedProducts,
   getSingleProduct,
   updateProduct,
+  deleteProductImage,
   deleteProduct,
 };
