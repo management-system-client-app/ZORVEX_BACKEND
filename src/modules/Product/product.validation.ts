@@ -26,7 +26,8 @@ const optionalText = (max: number) =>
 const productSizeSchema = z
   .object({
     sizeId: z.uuid(),
-    fabricId: z.uuid(),
+    fabricId: z.uuid().optional(),
+    colorId: z.uuid().optional(),
     stock: z.number().int().min(0).default(0),
     price: priceSchema.nullable().optional(),
     sku: z
@@ -105,13 +106,13 @@ export const createProductSchema = z
     const skus = new Set<string>();
 
     for (const [index, size] of (value.sizes ?? []).entries()) {
-      const combination = `${size.sizeId}:${size.fabricId}`;
+      const combination = `${size.sizeId}:${size.fabricId ?? ""}:${size.colorId ?? ""}`;
 
       if (combinations.has(combination)) {
         ctx.addIssue({
           code: "custom",
           path: ["sizes", index],
-          message: "This size and fabric is already in the list",
+          message: "This size, color and fabric combination is already in the list",
         });
       }
 

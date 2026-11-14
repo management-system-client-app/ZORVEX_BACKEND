@@ -156,8 +156,9 @@ const buildOptionSku = (slug: string, optionLabel: string): string => {
 
 const loadSizes = async (sizes: NonNullable<CreateProductInput["sizes"]>) => {
   const sizeIds = [...new Set(sizes.map((size) => size.sizeId))];
-  const fabricIds = [...new Set(sizes.map((size) => size.fabricId))];
-  const [foundSizes, foundFabrics] = await Promise.all([
+  const fabricIds = [...new Set(sizes.flatMap((size) => size.fabricId ? [size.fabricId] : []))];
+  const colorIds = [...new Set(sizes.flatMap((size) => size.colorId ? [size.colorId] : []))];
+  const [foundSizes, foundFabrics, foundColors] = await Promise.all([
     prisma.size.findMany({
       where: { id: { in: sizeIds } },
       select: { id: true, name: true },
@@ -165,6 +166,10 @@ const loadSizes = async (sizes: NonNullable<CreateProductInput["sizes"]>) => {
     prisma.fabric.findMany({
       where: { id: { in: fabricIds } },
       select: { id: true, name: true },
+    }),
+    prisma.color.findMany({
+      where: { id: { in: colorIds } },
+      select: { id: true },
     }),
   ]);
 
@@ -174,6 +179,10 @@ const loadSizes = async (sizes: NonNullable<CreateProductInput["sizes"]>) => {
 
   if (foundFabrics.length !== fabricIds.length) {
     throw new NotFoundError("Fabric not found");
+  }
+
+  if (foundColors.length !== colorIds.length) {
+    throw new NotFoundError("Color not found");
   }
 
   return {
@@ -238,7 +247,8 @@ const createProduct = async (
               variants: {
                 create: input.sizes.map((size) => ({
                   sizeId: size.sizeId,
-                  fabricId: size.fabricId,
+                  fabricId: size.fabricId ?? null,
+                  colorId: size.colorId ?? null,
                   stock: size.stock,
                   price: size.price,
                   sku:
@@ -246,7 +256,9 @@ const createProduct = async (
                     buildSku(
                       slug,
                       sizeCatalog?.sizeNames.get(size.sizeId) ?? "SIZE",
-                      sizeCatalog?.fabricNames.get(size.fabricId) ?? "FABRIC",
+                      size.fabricId
+                        ? sizeCatalog?.fabricNames.get(size.fabricId) ?? "FABRIC"
+                        : "NOFABRIC",
                     ),
                 })),
               },
