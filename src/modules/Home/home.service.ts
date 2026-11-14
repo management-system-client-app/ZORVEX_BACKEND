@@ -71,6 +71,7 @@ const arrivalProductSelect = {
     select: {
       stock: true,
       reserved: true,
+      size: { select: { id: true, name: true } },
       color: { select: { id: true, name: true, hexCode: true } },
     },
   },

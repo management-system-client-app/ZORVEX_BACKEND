@@ -139,7 +139,7 @@ const createVariant = async (input: CreateVariantInput) => {
       include: variantInclude,
     });
 
-    await invalidateCache("products");
+    await invalidateCache("products", "home");
     return variant;
   } catch (error) {
     return rethrowWriteError(error);
@@ -242,7 +242,7 @@ const updateVariant = async (id: string, input: UpdateVariantInput) => {
       include: variantInclude,
     });
 
-    await invalidateCache("products");
+    await invalidateCache("products", "home");
     return variant;
   } catch (error) {
     return rethrowWriteError(error);
@@ -275,7 +275,7 @@ const deleteVariant = async (id: string) => {
       await tx.cartItem.deleteMany({ where: { variantId: id } });
       await tx.productVariant.update({ where: { id }, data: { isActive: false } });
     });
-    await invalidateCache("products");
+    await invalidateCache("products", "home");
     return { deactivated: true as const };
   }
 
@@ -283,7 +283,7 @@ const deleteVariant = async (id: string) => {
     await tx.cartItem.deleteMany({ where: { variantId: id } });
     await tx.productVariant.delete({ where: { id } });
   });
-  await invalidateCache("products");
+  await invalidateCache("products", "home");
   return { deactivated: false as const };
 };
 

@@ -457,6 +457,7 @@ const relatedProductSelect = {
       stock: true,
       reserved: true,
       optionLabel: true,
+      size: { select: { id: true, name: true } },
       color: { select: { id: true, name: true, hexCode: true } },
     },
   },
