@@ -21883,3 +21883,10 @@
 {"level":"info","message":"Checking database connection","timestamp":"2026-11-14T20:14:50.616Z"}
 {"level":"info","message":"Applying database migrations","timestamp":"2026-11-14T20:14:53.620Z"}
 {"level":"info","message":"SIGINT received. Shutting down.","timestamp":"2026-11-14T20:14:55.928Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-14T20:55:19.412Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-14T20:55:19.416Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-14T20:55:21.808Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-14T20:55:32.983Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-14T20:55:35.446Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-14T20:55:35.451Z"}
+{"level":"info","message":"SIGINT received. Shutting down.","timestamp":"2026-11-14T21:23:36.354Z"}
