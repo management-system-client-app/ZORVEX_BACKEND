@@ -21879,3 +21879,7 @@
 {"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2831.570 ms - -\u001b[0m","timestamp":"2026-11-13T13:21:09.508Z"}
 {"level":"info","message":"\u001b[0mDELETE /api/v1/products/ba70e40e-ef0d-4ee6-a4f1-df063f2e0043/images/9deb282d-882f-4e31-a9a6-7ecd777ff188 \u001b[32m200\u001b[0m 2807.352 ms - 103\u001b[0m","timestamp":"2026-11-13T13:21:16.779Z"}
 {"level":"info","message":"SIGINT received. Shutting down.","timestamp":"2026-11-13T13:21:23.957Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-14T20:14:50.613Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-14T20:14:50.616Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-14T20:14:53.620Z"}
+{"level":"info","message":"SIGINT received. Shutting down.","timestamp":"2026-11-14T20:14:55.928Z"}
