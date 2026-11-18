@@ -43,6 +43,11 @@ const envSchema = z.object({
   CLOUDINARY_API_KEY: z.string().min(1).optional(),
   CLOUDINARY_API_SECRET: z.string().min(1).optional(),
 
+  MOHASAGOR_API_KEY: optionalString,
+  MOHASAGOR_API_SECRET: optionalString,
+  MOHASAGOR_API_KEY_HEADER: z.string().min(1).default("API-KEY"),
+  MOHASAGOR_API_SECRET_HEADER: z.string().min(1).default("secret-key"),
+
   SMTP_HOST: z.string().min(1).optional(),
   SMTP_PORT: z.coerce.number().int().positive().default(587),
   SMTP_USER: z.string().min(1).optional(),

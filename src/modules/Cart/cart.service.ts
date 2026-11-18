@@ -63,6 +63,7 @@ const toCartView = (cart: CartRecord | null) => {
     return {
       id: item.id,
       quantity: item.quantity,
+      supplierSize: item.supplierSize,
       unitPrice,
       lineTotal: money(unitPrice * item.quantity),
       imageUrl: imageForVariant(item.variant),
@@ -248,13 +249,9 @@ const addItem = async (owner: CartOwner, input: AddCartItemInput) => {
             select: { id: true },
           });
 
+    const selectionKey = input.supplierSize ?? "";
     const existing = await tx.cartItem.findUnique({
-      where: {
-        cartId_variantId: {
-          cartId: cart.id,
-          variantId,
-        },
-      },
+      where: { cartId_variantId_selectionKey: { cartId: cart.id, variantId, selectionKey } },
       select: { id: true, quantity: true },
     });
 
@@ -273,6 +270,8 @@ const addItem = async (owner: CartOwner, input: AddCartItemInput) => {
       data: {
         cartId: cart.id,
         variantId,
+        supplierSize: input.supplierSize ?? null,
+        selectionKey,
         quantity: input.quantity,
       },
     });
@@ -334,7 +333,7 @@ const mergeGuestCart = async (userId: string, sessionId: string): Promise<void> 
     const guest = await tx.cart.findUnique({
       where: { sessionId },
       include: {
-        items: { select: { variantId: true, quantity: true } },
+        items: { select: { variantId: true, quantity: true, supplierSize: true, selectionKey: true } },
       },
     });
 
@@ -374,12 +373,7 @@ const mergeGuestCart = async (userId: string, sessionId: string): Promise<void> 
       }
 
       const existing = await tx.cartItem.findUnique({
-        where: {
-          cartId_variantId: {
-            cartId: userCart.id,
-            variantId: item.variantId,
-          },
-        },
+        where: { cartId_variantId_selectionKey: { cartId: userCart.id, variantId: item.variantId, selectionKey: item.selectionKey } },
         select: { id: true, quantity: true },
       });
 
@@ -404,6 +398,8 @@ const mergeGuestCart = async (userId: string, sessionId: string): Promise<void> 
         data: {
           cartId: userCart.id,
           variantId: item.variantId,
+          supplierSize: item.supplierSize,
+          selectionKey: item.selectionKey,
           quantity: nextQuantity,
         },
       });

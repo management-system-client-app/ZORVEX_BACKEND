@@ -4,6 +4,18 @@ type PricedProduct = {
   basePrice: { toString(): string } | number | string;
   compareAtPrice: { toString(): string } | number | string | null;
   createdAt: Date | string;
+  description?: string;
+};
+
+const supplierSizesFromDescription = (description?: string): string[] => {
+  const options = description?.match(/(?:^|\n)Supplier options:\s*([^\n]+)/i)?.[1];
+  if (!options) return [];
+
+  return [...new Set(options.split("|").flatMap((group) => {
+    const separator = group.indexOf(":");
+    if (separator < 0 || !/^(?:size|age)$/i.test(group.slice(0, separator).trim())) return [];
+    return group.slice(separator + 1).split(",").map((value) => value.trim()).filter(Boolean);
+  }))];
 };
 
 export const withProductFlags = <T extends PricedProduct>(product: T) => {
@@ -15,5 +27,6 @@ export const withProductFlags = <T extends PricedProduct>(product: T) => {
     ...product,
     onSale: compareAt != null && compareAt > price,
     isNew: Number.isFinite(createdAt) && Date.now() - createdAt < NEW_PRODUCT_WINDOW_MS,
+    supplierSizes: supplierSizesFromDescription(product.description),
   };
 };

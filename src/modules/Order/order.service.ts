@@ -239,7 +239,7 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
         brandId: variant.product.brandId,
         productName: variant.product.name,
         sku: variant.sku,
-        size: variant.size?.name ?? "",
+        size: item.supplierSize ?? variant.size?.name ?? "",
         color: variant.color?.name ?? "",
         fabric: variant.fabric?.name ?? "",
         optionLabel: variant.optionLabel,

@@ -23,6 +23,7 @@ import { reviewRoutes } from "../modules/Review/review.route";
 import { userRoutes } from "../modules/User/user.route";
 import { variantRoutes } from "../modules/Variant/variant.route";
 import { wishlistRoutes } from "../modules/Wishlist/wishlist.route";
+import { mohasagorRoutes } from "../modules/Mohasagor/mohasagor.route";
 
 const router = Router();
 
@@ -34,6 +35,7 @@ router.use("/brands", brandRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/users", userRoutes);
 router.use("/products", productRoutes);
+router.use("/mohasagor", mohasagorRoutes);
 router.use("/outlets", outletRoutes);
 router.use("/wishlist", wishlistRoutes);
 router.use("/size-guides", sizeGuideRoutes);

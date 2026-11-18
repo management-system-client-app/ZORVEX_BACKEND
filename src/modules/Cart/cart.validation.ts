@@ -4,6 +4,7 @@ export const addCartItemSchema = z
   .object({
     variantId: z.uuid().optional(),
     productId: z.uuid().optional(),
+    supplierSize: z.string().trim().min(1).max(40).optional(),
     quantity: z.number().int().positive().max(99),
   })
   .strict()
