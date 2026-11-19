@@ -29653,3 +29653,16 @@
 {"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest \u001b[32m200\u001b[0m 7666.369 ms - -\u001b[0m","timestamp":"2026-11-19T09:04:21.895Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[36m304\u001b[0m 2562.517 ms - -\u001b[0m","timestamp":"2026-11-19T09:04:24.210Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[36m304\u001b[0m 2876.905 ms - -\u001b[0m","timestamp":"2026-11-19T09:04:27.891Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 765.174 ms - 893\u001b[0m","timestamp":"2026-11-19T09:04:59.363Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 802.192 ms - 57\u001b[0m","timestamp":"2026-11-19T09:04:59.413Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 817.737 ms - -\u001b[0m","timestamp":"2026-11-19T09:04:59.428Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 921.530 ms - -\u001b[0m","timestamp":"2026-11-19T09:04:59.529Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 0.527 ms - 893\u001b[0m","timestamp":"2026-11-19T09:05:02.216Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.432 ms - 57\u001b[0m","timestamp":"2026-11-19T09:05:02.239Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.557 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:02.245Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 0.825 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:02.251Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest \u001b[32m200\u001b[0m 1282.166 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:03.548Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 5163.554 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:07.417Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2571.577 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:10.012Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2538.990 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:12.580Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2512.819 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:15.122Z"}

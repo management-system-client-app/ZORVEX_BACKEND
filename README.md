@@ -71,7 +71,7 @@ Admin login is `POST /api/v1/auth/admin/login`.
 `npm run seed` is optional. It adds sample categories for apparel, electronics, home and kitchen, beauty, footwear, bags, baby and kids, books, health, grocery, and sports, plus a sample clothing item. It skips the admin if one already exists.
 
 `npm run db:migrate` runs `prisma migrate dev` when you want a new migration file.
-Vercel runs `prisma migrate deploy` before each production build, so pending schema changes (including the delivery-fee payment number) are applied before the new API code is deployed. Configure `DIRECT_URL` in Vercel for a direct database connection; if it is unset, migrations use `DATABASE_URL`.
+Run `pnpm db:deploy` as a separate release step to apply committed migrations before deploying. Configure `DIRECT_URL` in Vercel for a direct database connection; if it is unset, migrations use `DATABASE_URL`. Keeping migrations separate from the Vercel build avoids failing builds when another migration holds PostgreSQL's advisory lock.
 
 The server listens on `http://localhost:5000`. `GET /health` returns the process status.
 
