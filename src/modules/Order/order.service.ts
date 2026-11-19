@@ -73,6 +73,7 @@ const orderDetailInclude = {
       transactionId: true,
       failureReason: true,
       amount: true,
+      refundedAmount: true,
       currency: true,
       paidAt: true,
     },
@@ -538,6 +539,7 @@ const getOrder = async (auth: AuthContext, id: string) => {
 
 const updateOrderStatus = async (id: string, input: UpdateOrderStatusInput) => {
   const updated = await prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "Order" WHERE "id" = ${id} FOR UPDATE`;
     const order = await tx.order.findUnique({
       where: { id },
       include: {
@@ -554,6 +556,50 @@ const updateOrderStatus = async (id: string, input: UpdateOrderStatusInput) => {
 
     if (!transitions[currentStatus].includes(nextStatus)) {
       throw AppError.badRequest(`Cannot change an order from ${currentStatus} to ${nextStatus}`);
+    }
+
+    if (nextStatus === "CANCELLED") {
+      const reviewPending = await tx.payment.findFirst({
+        where: {
+          orderId: id,
+          provider: { in: ["MANUAL", "BKASH", "NAGAD", "ROCKET"] },
+          status: "PROCESSING",
+        },
+        select: { id: true },
+      });
+      if (reviewPending) {
+        throw AppError.conflict("This order cannot be cancelled while its payment is under review");
+      }
+
+      const payments = await tx.payment.findMany({
+        where: { orderId: id },
+        select: { id: true, provider: true, status: true, amount: true, refundedAmount: true },
+      });
+
+      for (const payment of payments) {
+        if (payment.provider === "COD") {
+          await tx.payment.updateMany({
+            where: { id: payment.id, status: { not: "CANCELLED" } },
+            data: { status: "CANCELLED" },
+          });
+          continue;
+        }
+        if (payment.status === "PAID") {
+          await tx.payment.updateMany({
+            where: { id: payment.id, status: "PAID", refundedAmount: 0 },
+            data: {
+              status: "REFUND_PENDING",
+              refundedAmount: payment.amount,
+              failureReason: "Refund requested due to order cancellation",
+            },
+          });
+        } else if (["PENDING", "PROCESSING", "AUTHORIZED", "FAILED"].includes(payment.status)) {
+          await tx.payment.updateMany({
+            where: { id: payment.id, status: payment.status },
+            data: { status: "CANCELLED" },
+          });
+        }
+      }
     }
 
     if (nextStatus === "CONFIRMED" && Number(order.deliveryAdvanceAmount) > 0) {
@@ -673,6 +719,26 @@ const recordStaffCommissionPayout = async (id: string) => {
   });
 };
 
+const deleteCancelledOrder = async (id: string): Promise<void> => {
+  await prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "Order" WHERE "id" = ${id} FOR UPDATE`;
+    const order = await tx.order.findUnique({
+      where: { id },
+      select: { id: true, status: true },
+    });
+
+    if (!order) throw new NotFoundError("Order not found");
+    if (order.status !== "CANCELLED") {
+      throw AppError.badRequest("Only cancelled orders can be deleted");
+    }
+
+    await tx.returnRequest.deleteMany({ where: { orderId: id } });
+    await tx.couponRedemption.deleteMany({ where: { orderId: id } });
+    await tx.payment.deleteMany({ where: { orderId: id } });
+    await tx.order.delete({ where: { id } });
+  });
+};
+
 const cancelUnpaidOrder = async (orderId: string, reason: string): Promise<void> => {
   await prisma.$transaction(async (tx) => {
     const order = await tx.order.findUnique({
@@ -725,4 +791,5 @@ export const orderService = {
   trackOrder,
   updateOrderStatus,
   recordStaffCommissionPayout,
+  deleteCancelledOrder,
 };

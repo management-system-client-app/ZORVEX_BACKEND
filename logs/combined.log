@@ -29666,3 +29666,834 @@
 {"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2571.577 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:10.012Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2538.990 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:12.580Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2512.819 ms - -\u001b[0m","timestamp":"2026-11-19T09:05:15.122Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3577.798 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:24.497Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3717.114 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:24.624Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3887.893 ms - 893\u001b[0m","timestamp":"2026-11-19T09:13:24.764Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3960.859 ms - 57\u001b[0m","timestamp":"2026-11-19T09:13:24.883Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 5038.183 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:25.964Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2417.549 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:28.403Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest \u001b[32m200\u001b[0m 9170.031 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:30.103Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest \u001b[32m200\u001b[0m 4.147 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:30.130Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2407.090 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:30.826Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2415.688 ms - -\u001b[0m","timestamp":"2026-11-19T09:13:33.269Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T11:15:16.083Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T11:15:16.084Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T11:15:18.777Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T11:15:31.752Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T11:15:34.444Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T11:15:34.447Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/auth/login \u001b[32m200\u001b[0m 3484.378 ms - 626\u001b[0m","timestamp":"2026-11-19T11:15:58.310Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[32m200\u001b[0m 3946.095 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:02.467Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/pages/home-store-notice \u001b[32m200\u001b[0m 3988.982 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:02.738Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/best-sellers \u001b[32m200\u001b[0m 4520.645 ms - 741\u001b[0m","timestamp":"2026-11-19T11:16:03.332Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1052.721 ms - 893\u001b[0m","timestamp":"2026-11-19T11:16:03.522Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/home \u001b[32m200\u001b[0m 4785.590 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:03.580Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/home \u001b[32m200\u001b[0m 1.750 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:03.592Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1063.068 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:03.810Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/best-sellers \u001b[32m200\u001b[0m 1.257 ms - 741\u001b[0m","timestamp":"2026-11-19T11:16:03.815Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 5287.303 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:04.017Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1044.930 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:04.383Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1360.670 ms - 57\u001b[0m","timestamp":"2026-11-19T11:16:04.886Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1524.390 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:05.543Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=20&page=1&sort=latest \u001b[32m200\u001b[0m 7774.620 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:06.593Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=20&page=1&sort=latest \u001b[32m200\u001b[0m 2982.949 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:06.610Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1635.849 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:08.235Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[32m200\u001b[0m 1074.288 ms - 327\u001b[0m","timestamp":"2026-11-19T11:16:08.541Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[36m304\u001b[0m 1123.860 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:09.669Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[32m200\u001b[0m 3057.763 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:09.675Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1738.977 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:09.975Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1621.757 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:11.600Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2863.229 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:12.541Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 673.736 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:12.883Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 729.321 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:12.945Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 734.527 ms - 57\u001b[0m","timestamp":"2026-11-19T11:16:12.952Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 860.136 ms - 893\u001b[0m","timestamp":"2026-11-19T11:16:13.055Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1518.768 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:13.121Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 5.176 ms - 893\u001b[0m","timestamp":"2026-11-19T11:16:14.426Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.698 ms - 57\u001b[0m","timestamp":"2026-11-19T11:16:14.437Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1.195 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:14.443Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 4.337 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:14.443Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2953.267 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:15.507Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1074.565 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:18.596Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3275.000 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:18.785Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1309.920 ms - 893\u001b[0m","timestamp":"2026-11-19T11:16:18.811Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1332.317 ms - -\u001b[0m","timestamp":"2026-11-19T11:16:18.848Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1408.144 ms - 57\u001b[0m","timestamp":"2026-11-19T11:16:18.932Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1000.046 ms - 57\u001b[0m","timestamp":"2026-11-19T11:18:04.055Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1305.687 ms - -\u001b[0m","timestamp":"2026-11-19T11:18:04.356Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3648.455 ms - 893\u001b[0m","timestamp":"2026-11-19T11:18:06.683Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3772.819 ms - -\u001b[0m","timestamp":"2026-11-19T11:18:06.820Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 993.848 ms - 893\u001b[0m","timestamp":"2026-11-19T11:19:07.244Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1251.851 ms - -\u001b[0m","timestamp":"2026-11-19T11:19:07.516Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3245.959 ms - -\u001b[0m","timestamp":"2026-11-19T11:19:09.507Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 5212.134 ms - 57\u001b[0m","timestamp":"2026-11-19T11:19:11.475Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 713.247 ms - 893\u001b[0m","timestamp":"2026-11-19T11:19:22.092Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 783.022 ms - 57\u001b[0m","timestamp":"2026-11-19T11:19:22.172Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 803.883 ms - -\u001b[0m","timestamp":"2026-11-19T11:19:22.192Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 826.612 ms - -\u001b[0m","timestamp":"2026-11-19T11:19:22.213Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 676.295 ms - -\u001b[0m","timestamp":"2026-11-19T11:19:33.720Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 726.844 ms - -\u001b[0m","timestamp":"2026-11-19T11:19:33.772Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 731.744 ms - 57\u001b[0m","timestamp":"2026-11-19T11:19:33.778Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 819.025 ms - 893\u001b[0m","timestamp":"2026-11-19T11:19:33.856Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3857.476 ms - 893\u001b[0m","timestamp":"2026-11-19T11:42:06.894Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3774.313 ms - -\u001b[0m","timestamp":"2026-11-19T11:42:06.906Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3812.269 ms - -\u001b[0m","timestamp":"2026-11-19T11:42:06.908Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 4112.248 ms - 57\u001b[0m","timestamp":"2026-11-19T11:42:07.256Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 2.980 ms - 893\u001b[0m","timestamp":"2026-11-19T11:42:08.769Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.416 ms - 57\u001b[0m","timestamp":"2026-11-19T11:42:08.788Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1.058 ms - -\u001b[0m","timestamp":"2026-11-19T11:42:08.790Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 2.924 ms - -\u001b[0m","timestamp":"2026-11-19T11:42:08.795Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1118.971 ms - 57\u001b[0m","timestamp":"2026-11-19T11:42:44.947Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1158.284 ms - -\u001b[0m","timestamp":"2026-11-19T11:42:44.984Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1311.458 ms - 893\u001b[0m","timestamp":"2026-11-19T11:42:45.108Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1327.585 ms - -\u001b[0m","timestamp":"2026-11-19T11:42:45.152Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3345.062 ms - -\u001b[0m","timestamp":"2026-11-19T12:09:47.968Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3577.506 ms - 893\u001b[0m","timestamp":"2026-11-19T12:09:48.013Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3932.345 ms - -\u001b[0m","timestamp":"2026-11-19T12:09:48.528Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 2114.103 ms - -\u001b[0m","timestamp":"2026-11-19T12:09:50.267Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 5684.692 ms - 57\u001b[0m","timestamp":"2026-11-19T12:09:50.284Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3180.927 ms - -\u001b[0m","timestamp":"2026-11-19T12:09:51.704Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3392.535 ms - -\u001b[0m","timestamp":"2026-11-19T12:09:55.099Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1079.364 ms - 893\u001b[0m","timestamp":"2026-11-19T12:10:06.287Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1111.225 ms - 57\u001b[0m","timestamp":"2026-11-19T12:10:06.345Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1161.835 ms - -\u001b[0m","timestamp":"2026-11-19T12:10:06.391Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1275.872 ms - -\u001b[0m","timestamp":"2026-11-19T12:10:06.495Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2967.247 ms - -\u001b[0m","timestamp":"2026-11-19T12:10:08.205Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3442.193 ms - -\u001b[0m","timestamp":"2026-11-19T12:10:21.546Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3492.361 ms - -\u001b[0m","timestamp":"2026-11-19T12:10:36.599Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3204.175 ms - 893\u001b[0m","timestamp":"2026-11-19T12:16:09.077Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3623.730 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:09.528Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3666.601 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:09.559Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3778.509 ms - 57\u001b[0m","timestamp":"2026-11-19T12:16:09.687Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 5099.209 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:11.018Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2991.663 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:14.012Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 682.811 ms - 893\u001b[0m","timestamp":"2026-11-19T12:16:15.942Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 705.650 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:15.987Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 721.578 ms - 57\u001b[0m","timestamp":"2026-11-19T12:16:16.003Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 872.383 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:16.148Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1.121 ms - 893\u001b[0m","timestamp":"2026-11-19T12:16:17.024Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.534 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:17.067Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1.546 ms - 57\u001b[0m","timestamp":"2026-11-19T12:16:17.081Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1.412 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:17.088Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2831.207 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:18.128Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3046.247 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:21.175Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3814.667 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:24.992Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 3529.040 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:36.633Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 3670.107 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:48.819Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1537.242 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:50.358Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 4761.674 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:50.953Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2780.666 ms - -\u001b[0m","timestamp":"2026-11-19T12:16:53.735Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 739.105 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:11.499Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[36m304\u001b[0m 816.349 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:11.592Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 834.493 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:11.601Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 902.868 ms - 893\u001b[0m","timestamp":"2026-11-19T12:17:11.656Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me \u001b[32m200\u001b[0m 919.394 ms - 386\u001b[0m","timestamp":"2026-11-19T12:17:11.691Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me \u001b[36m304\u001b[0m 878.261 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:12.570Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 4574.932 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:16.670Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 5387.521 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:17.476Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[36m304\u001b[0m 6065.990 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:17.804Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1547.143 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:19.025Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2660.522 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:19.335Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[36m304\u001b[0m 2241.507 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:20.049Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1740.281 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:20.766Z"}
+{"level":"info","message":"\u001b[0mDELETE /api/v1/cart/items/3fd53ad3-eb21-4e14-97da-1a412b78ab63 \u001b[32m200\u001b[0m 4074.853 ms - 192\u001b[0m","timestamp":"2026-11-19T12:17:26.602Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 5156.728 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:32.236Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1545.532 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:36.332Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 2863.438 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:37.658Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2476.023 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:40.158Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 7168.075 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:42.011Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2594.705 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:42.819Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2518.717 ms - -\u001b[0m","timestamp":"2026-11-19T12:17:45.388Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3226.744 ms - 893\u001b[0m","timestamp":"2026-11-19T12:20:42.349Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3361.521 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:42.517Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3481.508 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:42.629Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3579.566 ms - 57\u001b[0m","timestamp":"2026-11-19T12:20:42.734Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 4693.862 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:43.870Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2382.540 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:46.364Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 8548.638 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:47.767Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2398.426 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:48.809Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 705.371 ms - 893\u001b[0m","timestamp":"2026-11-19T12:20:50.921Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 662.794 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:50.931Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 640.402 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:50.936Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 754.895 ms - 57\u001b[0m","timestamp":"2026-11-19T12:20:51.040Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2448.615 ms - -\u001b[0m","timestamp":"2026-11-19T12:20:51.344Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3219.243 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:01.465Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3288.273 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:01.529Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3481.490 ms - 893\u001b[0m","timestamp":"2026-11-19T12:26:01.674Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3649.511 ms - 57\u001b[0m","timestamp":"2026-11-19T12:26:01.895Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 4955.708 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:03.249Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2521.108 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:05.800Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 9585.258 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:07.893Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 13.801 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:07.956Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 3539.850 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:09.372Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2523.072 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:11.941Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 916.401 ms - 893\u001b[0m","timestamp":"2026-11-19T12:26:35.062Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 936.420 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:35.118Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1051.732 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:35.221Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1067.135 ms - 57\u001b[0m","timestamp":"2026-11-19T12:26:35.251Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 1059.412 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:35.882Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 0.485 ms - 893\u001b[0m","timestamp":"2026-11-19T12:26:36.264Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.582 ms - 57\u001b[0m","timestamp":"2026-11-19T12:26:36.301Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 2.455 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:36.302Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1.536 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:36.305Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 4602.924 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:38.734Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2421.342 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:41.172Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2422.661 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:43.610Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2417.410 ms - -\u001b[0m","timestamp":"2026-11-19T12:26:46.046Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3129.625 ms - 893\u001b[0m","timestamp":"2026-11-19T12:28:35.893Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3303.347 ms - -\u001b[0m","timestamp":"2026-11-19T12:28:36.094Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3367.382 ms - -\u001b[0m","timestamp":"2026-11-19T12:28:36.155Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3589.732 ms - 57\u001b[0m","timestamp":"2026-11-19T12:28:36.388Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 4645.429 ms - -\u001b[0m","timestamp":"2026-11-19T12:28:37.450Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2375.785 ms - -\u001b[0m","timestamp":"2026-11-19T12:28:39.846Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 9122.347 ms - -\u001b[0m","timestamp":"2026-11-19T12:28:41.964Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2378.328 ms - -\u001b[0m","timestamp":"2026-11-19T12:28:42.241Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2387.758 ms - -\u001b[0m","timestamp":"2026-11-19T12:28:44.649Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3158.630 ms - 893\u001b[0m","timestamp":"2026-11-19T12:32:16.096Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3224.493 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:16.195Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3469.099 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:16.431Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3523.817 ms - 57\u001b[0m","timestamp":"2026-11-19T12:32:16.500Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 0.343 ms - 893\u001b[0m","timestamp":"2026-11-19T12:32:17.656Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.509 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:17.669Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.288 ms - 57\u001b[0m","timestamp":"2026-11-19T12:32:17.681Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 0.749 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:17.684Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 5942.918 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:18.933Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 7910.628 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:20.918Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 4.857 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:20.951Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2797.049 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:21.751Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2781.530 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:24.546Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2472.633 ms - -\u001b[0m","timestamp":"2026-11-19T12:32:27.031Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 737.145 ms - 57\u001b[0m","timestamp":"2026-11-19T12:56:06.849Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 759.166 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:06.851Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 885.828 ms - 893\u001b[0m","timestamp":"2026-11-19T12:56:06.948Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 927.246 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:07.031Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 4820.036 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:10.945Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2425.619 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:13.390Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 7792.389 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:13.923Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 3.937 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:15.404Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2420.594 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:15.829Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 666.793 ms - 893\u001b[0m","timestamp":"2026-11-19T12:56:16.031Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 660.858 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:16.046Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 679.385 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:16.057Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 723.240 ms - 57\u001b[0m","timestamp":"2026-11-19T12:56:16.112Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2431.217 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:18.281Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 813.723 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:30.574Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 885.692 ms - 57\u001b[0m","timestamp":"2026-11-19T12:56:30.634Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1105.042 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:30.840Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1143.094 ms - 893\u001b[0m","timestamp":"2026-11-19T12:56:30.873Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 1243.926 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:31.005Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 2745.056 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:32.500Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2419.325 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:34.948Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2424.645 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:37.387Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2424.936 ms - -\u001b[0m","timestamp":"2026-11-19T12:56:39.845Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T13:21:43.822Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:21:45.673Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:21:45.676Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:21:48.277Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T13:21:51.182Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:21:52.790Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:21:52.792Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:21:54.960Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T13:21:56.644Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:21:58.168Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:21:58.170Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:22:00.552Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:22:10.754Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:22:13.254Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:22:13.259Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T13:22:14.981Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:22:16.548Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:22:16.550Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:22:19.190Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:22:29.693Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:22:32.706Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:22:32.710Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:25:52.283Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:25:52.285Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:25:54.637Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:26:05.342Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:26:08.260Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:08.263Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:08.263Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:08.763Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:08.764Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:09.266Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:09.266Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:09.768Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:09.768Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:10.269Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:10.269Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:10.770Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:10.770Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:11.271Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:11.271Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:11.773Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:11.773Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:12.275Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:26:12.275Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:26:12.777Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[36m304\u001b[0m 790.238 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:37.368Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[36m304\u001b[0m 870.518 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:37.449Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[36m304\u001b[0m 852.771 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:37.452Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[36m304\u001b[0m 1075.222 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:37.568Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me \u001b[36m304\u001b[0m 3064.936 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:39.668Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/pages/home-store-notice \u001b[36m304\u001b[0m 3007.755 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:40.234Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me \u001b[36m304\u001b[0m 917.130 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:40.588Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[32m200\u001b[0m 2083.410 ms - 182\u001b[0m","timestamp":"2026-11-19T13:29:42.322Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/home \u001b[36m304\u001b[0m 5623.485 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:42.996Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 3437.562 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:43.179Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/best-sellers \u001b[36m304\u001b[0m 5812.509 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:43.275Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[36m304\u001b[0m 906.881 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:43.905Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=20&page=1&sort=latest \u001b[32m200\u001b[0m 6924.689 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:44.421Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[36m304\u001b[0m 2118.257 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:44.444Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1581.727 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:44.763Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[36m304\u001b[0m 905.253 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:44.812Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2680.128 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:45.350Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1582.930 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:46.348Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/auth/logout \u001b[32m200\u001b[0m 1229.380 ms - 39\u001b[0m","timestamp":"2026-11-19T13:29:47.901Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[32m200\u001b[0m 0.794 ms - 148\u001b[0m","timestamp":"2026-11-19T13:29:48.050Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2843.743 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:48.195Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1864.712 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:48.214Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/best-sellers \u001b[0m-\u001b[0m - ms - -\u001b[0m","timestamp":"2026-11-19T13:29:48.361Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/home \u001b[0m-\u001b[0m - ms - -\u001b[0m","timestamp":"2026-11-19T13:29:48.367Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=20&page=1&sort=latest \u001b[0m-\u001b[0m - ms - -\u001b[0m","timestamp":"2026-11-19T13:29:48.371Z"}
+{"level":"warn","message":"Token has been revoked","method":"GET","path":"/api/v1/wishlist","stack":"AppError: Token has been revoked\n    at AppError.unauthorized (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:22:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:125:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":401,"timestamp":"2026-11-19T13:29:48.619Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m401\u001b[0m 404.278 ms - 413\u001b[0m","timestamp":"2026-11-19T13:29:48.620Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/pages/home-store-notice \u001b[36m304\u001b[0m 793.746 ms - -\u001b[0m","timestamp":"2026-11-19T13:29:48.949Z"}
+{"level":"warn","message":"Invalid email or password","method":"POST","path":"/api/v1/auth/login","stack":"AppError: Invalid email or password\n    at AppError.unauthorized (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:22:12)\n    at Object.login (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Auth/auth.service.ts:62:20)\n    at async login (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Auth/auth.controller.ts:13:18)","statusCode":401,"timestamp":"2026-11-19T13:30:25.056Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/auth/login \u001b[33m401\u001b[0m 3544.958 ms - 460\u001b[0m","timestamp":"2026-11-19T13:30:25.057Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/auth/admin/login \u001b[32m200\u001b[0m 1129.007 ms - 602\u001b[0m","timestamp":"2026-11-19T13:30:26.198Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/cart","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at prepareOwner (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Cart/cart.controller.ts:19:20)\n    at getCart (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Cart/cart.controller.ts:51:23)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/asyncHandler.ts:12:5)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:117:3)\n    at handle (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:435:11)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:295:15","statusCode":403,"timestamp":"2026-11-19T13:30:27.016Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[33m403\u001b[0m 641.113 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:27.020Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/dashboard \u001b[32m200\u001b[0m 3936.822 ms - 280\u001b[0m","timestamp":"2026-11-19T13:30:30.807Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4542.973 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:31.433Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4984.722 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:31.863Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/returns?limit=100 \u001b[32m200\u001b[0m 4245.668 ms - 117\u001b[0m","timestamp":"2026-11-19T13:30:35.072Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/delivery-zones \u001b[32m200\u001b[0m 1492.586 ms - 61\u001b[0m","timestamp":"2026-11-19T13:30:42.067Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/coupons?limit=100 \u001b[32m200\u001b[0m 1836.329 ms - 109\u001b[0m","timestamp":"2026-11-19T13:30:45.638Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog/sizes?limit=100 \u001b[32m200\u001b[0m 394.096 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:45.864Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[36m304\u001b[0m 820.228 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:46.277Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/brands?limit=100 \u001b[32m200\u001b[0m 2237.597 ms - 521\u001b[0m","timestamp":"2026-11-19T13:30:47.700Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog/fabrics?limit=100 \u001b[32m200\u001b[0m 2231.175 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:47.706Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=50&page=1 \u001b[32m200\u001b[0m 2757.275 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:52.006Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/fa3df9f7-63f8-4034-b47b-a7a677514536 \u001b[32m200\u001b[0m 3475.002 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:55.719Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/e46402a1-840d-4ceb-bc91-18e8187a06a1 \u001b[32m200\u001b[0m 3608.643 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:55.855Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/4eb06c15-d17b-4681-a89a-75e8329aad78 \u001b[32m200\u001b[0m 3779.719 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:56.003Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/6ac2ecb2-71ac-4f90-a394-38e4b97ff754 \u001b[32m200\u001b[0m 4253.707 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:56.504Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/a19dc038-bad1-4237-9c28-46d96560f003 \u001b[32m200\u001b[0m 4370.446 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:56.619Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c2d2839b-b148-4450-a518-650b572b793c \u001b[32m200\u001b[0m 4763.242 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:57.016Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/75cca59b-35e8-49e2-b6f3-acf2858edb33 \u001b[32m200\u001b[0m 2487.352 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:58.212Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/fd400ffa-dd90-416a-b4a5-28c264659969 \u001b[32m200\u001b[0m 2388.303 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:58.249Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/ceb473a7-2b60-4519-9bb1-97ac1d25582a \u001b[32m200\u001b[0m 2293.509 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:58.302Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/380d322f-a3b8-4830-9b64-6751b993bc01 \u001b[32m200\u001b[0m 2319.242 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:58.828Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/782fb5fc-54d7-4f96-9c19-a865564adda4 \u001b[32m200\u001b[0m 2232.712 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:58.854Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/b94f53d2-a6b3-44f7-9005-4b92e521bbae \u001b[32m200\u001b[0m 2384.533 ms - -\u001b[0m","timestamp":"2026-11-19T13:30:59.405Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/29ef710b-0105-4f36-b476-670ddcfcfa53 \u001b[32m200\u001b[0m 2286.774 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:00.541Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/39c3cff1-6157-40f5-b3e8-242e385b6a5a \u001b[32m200\u001b[0m 2533.255 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:00.751Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/47f34072-0d57-4f42-8301-795a8ba160e7 \u001b[32m200\u001b[0m 2503.236 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:00.813Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/26f3ae98-169d-46ee-bcf9-3caab44fa8c3 \u001b[32m200\u001b[0m 2257.958 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:01.090Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8e9c3dfc-bad4-4e7b-baad-b9942ea4ed73 \u001b[32m200\u001b[0m 2494.276 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:01.353Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/e86ac1a2-3159-4366-97d1-41cc746332ee \u001b[32m200\u001b[0m 2491.493 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:01.901Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8d9ed7cf-1ab1-4bf3-9d59-da7fcb4c6c9c \u001b[32m200\u001b[0m 2463.638 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:03.016Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/78d2943f-0fe0-4f8d-9365-19ff7d4f4386 \u001b[32m200\u001b[0m 2517.094 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:03.272Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/97200b30-ff3e-4358-b378-090cb8228775 \u001b[32m200\u001b[0m 2500.012 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:03.317Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/cf664a56-3d2e-4c04-afe5-9e0069182b63 \u001b[32m200\u001b[0m 2465.603 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:03.559Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c4bfbca6-d6bf-42bc-98f6-53fd115d26b6 \u001b[32m200\u001b[0m 2350.910 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:03.709Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/690146d1-d1fd-42f4-b349-07eefe7785a8 \u001b[32m200\u001b[0m 2292.657 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:04.199Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/2338ad37-148a-4153-a8ce-ceedf5b16792 \u001b[32m200\u001b[0m 2229.993 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:05.252Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/f41f3b97-68ff-450d-b9fb-675ca7fa0d8d \u001b[32m200\u001b[0m 2248.062 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:05.524Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/3cdbbead-e488-41ec-8dae-207e380cc96e \u001b[32m200\u001b[0m 2517.187 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:05.838Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/516d6d27-6bfe-45f8-95cb-b6a8ebfa87af \u001b[32m200\u001b[0m 2541.874 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:06.106Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/5b0e0f6d-ed42-4c75-ad1e-af8677bbc00a \u001b[32m200\u001b[0m 2452.533 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:06.168Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/9befe36b-7ccc-436e-8e80-cdfffd19820b \u001b[32m200\u001b[0m 2474.385 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:06.679Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/e21a500d-82d6-4727-9e96-72d2c6509b11 \u001b[32m200\u001b[0m 2319.401 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:07.592Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/9fa257a7-0dbf-4b4c-93c9-40df3d990690 \u001b[32m200\u001b[0m 2309.444 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:07.838Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/1854262b-4cda-4ee4-9ad1-8c5428cd273c \u001b[32m200\u001b[0m 2235.430 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:08.078Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/f3b04667-f039-479c-b0b1-a60cb6c55eba \u001b[32m200\u001b[0m 2296.702 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:08.409Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c490631d-dd7f-469f-8551-7eeecab7182e \u001b[32m200\u001b[0m 2481.238 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:08.654Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c458a98e-e440-46a3-a13c-5b6f708dc6a5 \u001b[32m200\u001b[0m 2333.871 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:09.021Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8b20d733-79ef-4553-b0bb-ddca4f302a94 \u001b[32m200\u001b[0m 2248.653 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:09.846Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/5bc8fb09-4583-4dc7-a2e0-bff8856c75bf \u001b[32m200\u001b[0m 2323.625 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:10.170Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c5652785-18e3-4170-98f2-44547a27eb58 \u001b[32m200\u001b[0m 2366.895 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:10.449Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/1eaf8c5b-cd0b-4a2e-92bb-e752cbc1ee9a \u001b[32m200\u001b[0m 2315.863 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:10.730Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8e7ab6b5-2eba-401d-9669-3ad946049ecc \u001b[32m200\u001b[0m 2290.732 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:10.950Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/0668c0d4-5508-4d74-a0b4-6f0c248bd94e \u001b[32m200\u001b[0m 2271.341 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:11.298Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/f9ad1cc0-2506-4368-a944-db15d0e7b3e2 \u001b[32m200\u001b[0m 2270.631 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:12.123Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/28437eae-887d-48f0-ab82-4ea66cd3096c \u001b[32m200\u001b[0m 2279.339 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:12.454Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/667b6d79-e4c2-4fe1-94d8-9b0a619bd8ba \u001b[32m200\u001b[0m 2282.297 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:12.735Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c51612c5-9127-4ee1-80f6-50cd71956b3d \u001b[32m200\u001b[0m 2306.962 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:13.041Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/d393659d-d870-47c9-9304-f09a1a5a0d48 \u001b[32m200\u001b[0m 2333.859 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:13.290Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog/colors?limit=100 \u001b[32m200\u001b[0m 293.244 ms - 108\u001b[0m","timestamp":"2026-11-19T13:31:13.339Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/626c76a7-ec91-45c6-a932-004842ecccc3 \u001b[32m200\u001b[0m 2351.262 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:13.656Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/deb301fb-4400-45c8-a38d-ec2db29c4c91 \u001b[32m200\u001b[0m 2253.703 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:14.382Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/239ebfdf-8898-415d-af5a-1fdd7fd83afb \u001b[32m200\u001b[0m 2262.212 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:14.721Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/payments/manual \u001b[32m200\u001b[0m 1454.533 ms - 1022\u001b[0m","timestamp":"2026-11-19T13:31:14.797Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2752.649 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:15.494Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=12 \u001b[32m200\u001b[0m 2703.179 ms - -\u001b[0m","timestamp":"2026-11-19T13:31:15.998Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3338.965 ms - 893\u001b[0m","timestamp":"2026-11-19T13:32:51.672Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3320.357 ms - -\u001b[0m","timestamp":"2026-11-19T13:32:51.673Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3555.476 ms - -\u001b[0m","timestamp":"2026-11-19T13:32:51.897Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3636.217 ms - 57\u001b[0m","timestamp":"2026-11-19T13:32:51.989Z"}
+{"level":"warn","message":"Only a pending order can be rejected","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Only a pending order can be rejected\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1010:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:32:52.546Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 1674.065 ms - 607\u001b[0m","timestamp":"2026-11-19T13:32:52.548Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 5323.163 ms - -\u001b[0m","timestamp":"2026-11-19T13:32:53.681Z"}
+{"level":"warn","message":"Only a pending order can be approved","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/approve","stack":"AppError: Only a pending order can be approved\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:937:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:197:19)","statusCode":400,"timestamp":"2026-11-19T13:32:57.543Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/approve \u001b[33m400\u001b[0m 1764.724 ms - 608\u001b[0m","timestamp":"2026-11-19T13:32:57.544Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2826.247 ms - -\u001b[0m","timestamp":"2026-11-19T13:32:59.693Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 6106.519 ms - -\u001b[0m","timestamp":"2026-11-19T13:33:32.977Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 882.254 ms - 57\u001b[0m","timestamp":"2026-11-19T13:33:49.691Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 898.075 ms - -\u001b[0m","timestamp":"2026-11-19T13:33:49.697Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1181.270 ms - 893\u001b[0m","timestamp":"2026-11-19T13:33:49.971Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1165.865 ms - -\u001b[0m","timestamp":"2026-11-19T13:33:49.974Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2984.315 ms - -\u001b[0m","timestamp":"2026-11-19T13:33:51.796Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 3132.231 ms - -\u001b[0m","timestamp":"2026-11-19T13:34:00.009Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1042.985 ms - 57\u001b[0m","timestamp":"2026-11-19T13:34:08.834Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1179.703 ms - -\u001b[0m","timestamp":"2026-11-19T13:34:08.962Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1196.684 ms - 893\u001b[0m","timestamp":"2026-11-19T13:34:08.968Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1218.974 ms - -\u001b[0m","timestamp":"2026-11-19T13:34:09.012Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 0.351 ms - 893\u001b[0m","timestamp":"2026-11-19T13:34:10.220Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.394 ms - -\u001b[0m","timestamp":"2026-11-19T13:34:10.223Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.318 ms - 57\u001b[0m","timestamp":"2026-11-19T13:34:10.226Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 0.519 ms - -\u001b[0m","timestamp":"2026-11-19T13:34:10.231Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2834.618 ms - -\u001b[0m","timestamp":"2026-11-19T13:34:10.628Z"}
+{"level":"warn","message":"Only a pending order can be rejected","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Only a pending order can be rejected\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1010:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:34:16.080Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 2048.687 ms - 607\u001b[0m","timestamp":"2026-11-19T13:34:16.081Z"}
+{"level":"warn","message":"Only a pending order can be rejected","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Only a pending order can be rejected\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1010:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:34:19.461Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 1535.640 ms - 607\u001b[0m","timestamp":"2026-11-19T13:34:19.462Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T13:34:26.814Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:34:30.223Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:34:30.229Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:34:30.310Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:34:30.315Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:34:32.368Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:34:32.552Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:34:43.785Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:34:47.115Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:34:47.120Z"}
+{"error":{},"level":"error","message":"Something went wrong while starting the server","timestamp":"2026-11-19T13:34:51.529Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3417.376 ms - 893\u001b[0m","timestamp":"2026-11-19T13:38:42.980Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3497.335 ms - -\u001b[0m","timestamp":"2026-11-19T13:38:43.404Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3539.026 ms - -\u001b[0m","timestamp":"2026-11-19T13:38:43.447Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3436.790 ms - 57\u001b[0m","timestamp":"2026-11-19T13:38:43.682Z"}
+{"level":"warn","message":"Only a pending order can be rejected","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Only a pending order can be rejected\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1017:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:38:44.107Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 3409.324 ms - 607\u001b[0m","timestamp":"2026-11-19T13:38:44.108Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4873.559 ms - -\u001b[0m","timestamp":"2026-11-19T13:38:45.124Z"}
+{"level":"warn","message":"Only a pending order can be rejected","method":"POST","path":"/api/v1/payments/manual/0a698ac6-0a7c-4e8d-9a8c-4b097009ac06/reject","stack":"AppError: Only a pending order can be rejected\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1017:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:38:48.258Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/0a698ac6-0a7c-4e8d-9a8c-4b097009ac06/reject \u001b[33m400\u001b[0m 1552.175 ms - 607\u001b[0m","timestamp":"2026-11-19T13:38:48.259Z"}
+{"level":"warn","message":"Only pending or confirmed orders can have a payment approved","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/approve","stack":"AppError: Only pending or confirmed orders can have a payment approved\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:937:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:197:19)","statusCode":400,"timestamp":"2026-11-19T13:38:51.739Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/approve \u001b[33m400\u001b[0m 1597.046 ms - 656\u001b[0m","timestamp":"2026-11-19T13:38:51.740Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 953.304 ms - 57\u001b[0m","timestamp":"2026-11-19T13:38:56.041Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 954.112 ms - -\u001b[0m","timestamp":"2026-11-19T13:38:56.048Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1070.133 ms - 893\u001b[0m","timestamp":"2026-11-19T13:38:56.144Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1120.986 ms - -\u001b[0m","timestamp":"2026-11-19T13:38:56.202Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2763.131 ms - -\u001b[0m","timestamp":"2026-11-19T13:38:57.870Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1209.677 ms - 57\u001b[0m","timestamp":"2026-11-19T13:39:07.918Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1239.385 ms - -\u001b[0m","timestamp":"2026-11-19T13:39:07.945Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1367.021 ms - 893\u001b[0m","timestamp":"2026-11-19T13:39:08.064Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1422.547 ms - -\u001b[0m","timestamp":"2026-11-19T13:39:08.126Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2952.138 ms - -\u001b[0m","timestamp":"2026-11-19T13:39:09.665Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T13:39:55.726Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:40:00.185Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:40:00.115Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:40:00.167Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:40:00.190Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:40:02.505Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:40:02.512Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:40:14.221Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:40:14.578Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:40:16.944Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:16.950Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:40:17.655Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:17.659Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:17.659Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:18.161Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:18.161Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:18.662Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:18.662Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:19.163Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:19.163Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:19.665Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:19.665Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:20.167Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:20.167Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:20.669Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:20.669Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:21.170Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:21.170Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:21.671Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:40:21.671Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:40:22.173Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 784.477 ms - -\u001b[0m","timestamp":"2026-11-19T13:40:43.195Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 814.861 ms - 57\u001b[0m","timestamp":"2026-11-19T13:40:43.231Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 897.890 ms - -\u001b[0m","timestamp":"2026-11-19T13:40:43.294Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3231.176 ms - 893\u001b[0m","timestamp":"2026-11-19T13:40:45.548Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4547.251 ms - -\u001b[0m","timestamp":"2026-11-19T13:40:46.969Z"}
+{"level":"warn","message":"Only a pending order can be rejected","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Only a pending order can be rejected\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1030:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:40:48.175Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 3644.440 ms - 607\u001b[0m","timestamp":"2026-11-19T13:40:48.178Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 3177.437 ms - -\u001b[0m","timestamp":"2026-11-19T13:41:00.049Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1184.161 ms - 893\u001b[0m","timestamp":"2026-11-19T13:41:20.060Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2835.210 ms - -\u001b[0m","timestamp":"2026-11-19T13:41:21.758Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3648.267 ms - -\u001b[0m","timestamp":"2026-11-19T13:41:22.548Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3741.544 ms - -\u001b[0m","timestamp":"2026-11-19T13:41:22.634Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3830.172 ms - 57\u001b[0m","timestamp":"2026-11-19T13:41:22.743Z"}
+{"level":"warn","message":"Only a pending order can be rejected","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Only a pending order can be rejected\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1030:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:41:25.069Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 3479.464 ms - 607\u001b[0m","timestamp":"2026-11-19T13:41:25.071Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2836.895 ms - -\u001b[0m","timestamp":"2026-11-19T13:41:29.712Z"}
+{"level":"warn","message":"Payment cannot be approved for a cancelled order","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/approve","stack":"AppError: Payment cannot be approved for a cancelled order\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:955:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Proxy._transactionWithCallback (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react@19.2.17_react-dom@19.2.8_react@19.2.8__r_f20b7f67758fc5ec67dc74f149481466/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:861:18)\n    at async Object.approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:940:19)\n    at async approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:197:19)","statusCode":400,"timestamp":"2026-11-19T13:41:30.719Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/approve \u001b[33m400\u001b[0m 3075.573 ms - -\u001b[0m","timestamp":"2026-11-19T13:41:30.722Z"}
+{"level":"warn","message":"Payment cannot be approved for a cancelled order","method":"POST","path":"/api/v1/payments/manual/0a698ac6-0a7c-4e8d-9a8c-4b097009ac06/approve","stack":"AppError: Payment cannot be approved for a cancelled order\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:955:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Proxy._transactionWithCallback (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react@19.2.17_react-dom@19.2.8_react@19.2.8__r_f20b7f67758fc5ec67dc74f149481466/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:861:18)\n    at async Object.approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:940:19)\n    at async approveManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:197:19)","statusCode":400,"timestamp":"2026-11-19T13:41:31.691Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/0a698ac6-0a7c-4e8d-9a8c-4b097009ac06/approve \u001b[33m400\u001b[0m 3242.912 ms - -\u001b[0m","timestamp":"2026-11-19T13:41:31.694Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T13:41:32.952Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:41:35.990Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:41:35.994Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T13:41:36.371Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T13:41:36.386Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:41:38.144Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T13:41:38.605Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:41:51.267Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T13:41:51.553Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:41:54.058Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:54.066Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T13:41:54.320Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:54.325Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:54.325Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:54.827Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:54.828Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:55.329Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:55.330Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:55.832Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:55.832Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:56.333Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:56.333Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:56.839Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:56.839Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:57.340Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:57.340Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:57.842Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:57.842Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:58.343Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T13:41:58.344Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T13:41:58.845Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3417.438 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:27.309Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3607.955 ms - 893\u001b[0m","timestamp":"2026-11-19T13:50:27.422Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3576.318 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:27.455Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3741.320 ms - 57\u001b[0m","timestamp":"2026-11-19T13:50:27.637Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4976.640 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:28.876Z"}
+{"level":"warn","message":"Payment cannot be rejected for a cancelled order","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Payment cannot be rejected for a cancelled order\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1052:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Proxy._transactionWithCallback (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react@19.2.17_react-dom@19.2.8_react@19.2.8__r_f20b7f67758fc5ec67dc74f149481466/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:861:18)\n    at async Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1037:19)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:50:30.036Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 3017.590 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:30.038Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me \u001b[32m200\u001b[0m 1021.820 ms - 362\u001b[0m","timestamp":"2026-11-19T13:50:34.461Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[36m304\u001b[0m 1273.474 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:34.708Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[36m304\u001b[0m 1282.340 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:34.714Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[36m304\u001b[0m 1296.558 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:34.718Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[36m304\u001b[0m 1312.270 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:34.748Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/cart","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at prepareOwner (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Cart/cart.controller.ts:19:20)\n    at getCart (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Cart/cart.controller.ts:51:23)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/asyncHandler.ts:12:5)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:117:3)\n    at handle (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:435:11)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:295:15","statusCode":403,"timestamp":"2026-11-19T13:50:35.312Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[33m403\u001b[0m 593.645 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:35.316Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/payments/manual \u001b[36m304\u001b[0m 1500.159 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:36.354Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2837.148 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:36.521Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2649.475 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:37.131Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2684.777 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:37.544Z"}
+{"level":"warn","message":"Payment cannot be rejected for a cancelled order","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Payment cannot be rejected for a cancelled order\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1052:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Proxy._transactionWithCallback (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react@19.2.17_react-dom@19.2.8_react@19.2.8__r_f20b7f67758fc5ec67dc74f149481466/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:861:18)\n    at async Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1037:19)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:50:40.941Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 3167.962 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:40.943Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 761.663 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:58.262Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 844.881 ms - -\u001b[0m","timestamp":"2026-11-19T13:50:58.347Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 867.608 ms - 57\u001b[0m","timestamp":"2026-11-19T13:50:58.370Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 907.361 ms - 893\u001b[0m","timestamp":"2026-11-19T13:50:58.403Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2690.567 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:00.197Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2835.203 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:07.681Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog/colors?limit=100 \u001b[36m304\u001b[0m 2270.536 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:12.490Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=50&page=1 \u001b[36m304\u001b[0m 3201.511 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:15.234Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=12 \u001b[36m304\u001b[0m 2939.965 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:18.443Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/fa3df9f7-63f8-4034-b47b-a7a677514536 \u001b[36m304\u001b[0m 5040.333 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:20.590Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/a19dc038-bad1-4237-9c28-46d96560f003 \u001b[36m304\u001b[0m 5073.106 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:20.640Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/4eb06c15-d17b-4681-a89a-75e8329aad78 \u001b[36m304\u001b[0m 5199.036 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:20.729Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/e46402a1-840d-4ceb-bc91-18e8187a06a1 \u001b[36m304\u001b[0m 5338.238 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:20.901Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c2d2839b-b148-4450-a518-650b572b793c \u001b[36m304\u001b[0m 2821.757 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:21.269Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/6ac2ecb2-71ac-4f90-a394-38e4b97ff754 \u001b[36m304\u001b[0m 6320.376 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:21.898Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/75cca59b-35e8-49e2-b6f3-acf2858edb33 \u001b[36m304\u001b[0m 2584.000 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:23.175Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/fd400ffa-dd90-416a-b4a5-28c264659969 \u001b[36m304\u001b[0m 2557.523 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:23.199Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/ceb473a7-2b60-4519-9bb1-97ac1d25582a \u001b[36m304\u001b[0m 2519.077 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:23.249Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/380d322f-a3b8-4830-9b64-6751b993bc01 \u001b[36m304\u001b[0m 2566.909 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:23.469Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/782fb5fc-54d7-4f96-9c19-a865564adda4 \u001b[36m304\u001b[0m 2529.830 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:23.800Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/b94f53d2-a6b3-44f7-9005-4b92e521bbae \u001b[36m304\u001b[0m 2415.251 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:24.315Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/47f34072-0d57-4f42-8301-795a8ba160e7 \u001b[36m304\u001b[0m 2498.774 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:25.749Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/29ef710b-0105-4f36-b476-670ddcfcfa53 \u001b[36m304\u001b[0m 2594.185 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:25.794Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/39c3cff1-6157-40f5-b3e8-242e385b6a5a \u001b[36m304\u001b[0m 2675.334 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:25.852Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/26f3ae98-169d-46ee-bcf9-3caab44fa8c3 \u001b[36m304\u001b[0m 2641.188 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:26.111Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8e9c3dfc-bad4-4e7b-baad-b9942ea4ed73 \u001b[36m304\u001b[0m 2580.272 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:26.382Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/e86ac1a2-3159-4366-97d1-41cc746332ee \u001b[36m304\u001b[0m 2393.235 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:26.710Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8d9ed7cf-1ab1-4bf3-9d59-da7fcb4c6c9c \u001b[36m304\u001b[0m 2351.495 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:28.102Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/97200b30-ff3e-4358-b378-090cb8228775 \u001b[36m304\u001b[0m 2534.982 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:28.391Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/78d2943f-0fe0-4f8d-9365-19ff7d4f4386 \u001b[36m304\u001b[0m 2608.138 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:28.404Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/cf664a56-3d2e-4c04-afe5-9e0069182b63 \u001b[36m304\u001b[0m 2584.292 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:28.700Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c4bfbca6-d6bf-42bc-98f6-53fd115d26b6 \u001b[36m304\u001b[0m 2595.121 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:28.979Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/690146d1-d1fd-42f4-b349-07eefe7785a8 \u001b[36m304\u001b[0m 2368.436 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:29.080Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/2338ad37-148a-4153-a8ce-ceedf5b16792 \u001b[36m304\u001b[0m 2527.795 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:30.631Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/f41f3b97-68ff-450d-b9fb-675ca7fa0d8d \u001b[36m304\u001b[0m 2295.505 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:30.687Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/3cdbbead-e488-41ec-8dae-207e380cc96e \u001b[36m304\u001b[0m 2528.607 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:30.933Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/516d6d27-6bfe-45f8-95cb-b6a8ebfa87af \u001b[36m304\u001b[0m 2506.623 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:31.210Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/5b0e0f6d-ed42-4c75-ad1e-af8677bbc00a \u001b[36m304\u001b[0m 2377.065 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:31.357Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/9fa257a7-0dbf-4b4c-93c9-40df3d990690 \u001b[36m304\u001b[0m 2509.362 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:31.590Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/9befe36b-7ccc-436e-8e80-cdfffd19820b \u001b[36m304\u001b[0m 2534.195 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:33.167Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/e21a500d-82d6-4727-9e96-72d2c6509b11 \u001b[36m304\u001b[0m 2547.876 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:33.236Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/1854262b-4cda-4ee4-9ad1-8c5428cd273c \u001b[36m304\u001b[0m 2339.314 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:33.274Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c490631d-dd7f-469f-8551-7eeecab7182e \u001b[36m304\u001b[0m 2473.734 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:33.832Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/f3b04667-f039-479c-b0b1-a60cb6c55eba \u001b[36m304\u001b[0m 2875.853 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:34.088Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c458a98e-e440-46a3-a13c-5b6f708dc6a5 \u001b[36m304\u001b[0m 2515.486 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:34.107Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/5bc8fb09-4583-4dc7-a2e0-bff8856c75bf \u001b[36m304\u001b[0m 2309.781 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:35.548Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8b20d733-79ef-4553-b0bb-ddca4f302a94 \u001b[36m304\u001b[0m 2392.100 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:35.560Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c5652785-18e3-4170-98f2-44547a27eb58 \u001b[36m304\u001b[0m 2556.724 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:35.832Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/1eaf8c5b-cd0b-4a2e-92bb-e752cbc1ee9a \u001b[36m304\u001b[0m 2550.179 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:36.384Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/0668c0d4-5508-4d74-a0b4-6f0c248bd94e \u001b[36m304\u001b[0m 2338.298 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:36.446Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/8e7ab6b5-2eba-401d-9669-3ad946049ecc \u001b[36m304\u001b[0m 2401.414 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:36.491Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/f9ad1cc0-2506-4368-a944-db15d0e7b3e2 \u001b[36m304\u001b[0m 2525.146 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:38.075Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/28437eae-887d-48f0-ab82-4ea66cd3096c \u001b[36m304\u001b[0m 2560.513 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:38.122Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/667b6d79-e4c2-4fe1-94d8-9b0a619bd8ba \u001b[36m304\u001b[0m 2527.440 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:38.361Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/c51612c5-9127-4ee1-80f6-50cd71956b3d \u001b[36m304\u001b[0m 2511.534 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:38.897Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/d393659d-d870-47c9-9304-f09a1a5a0d48 \u001b[36m304\u001b[0m 2517.080 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:38.965Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/626c76a7-ec91-45c6-a932-004842ecccc3 \u001b[36m304\u001b[0m 2513.832 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:39.006Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders/21ccd60f-a7e2-4750-911c-8e1633ef8fc4 \u001b[32m200\u001b[0m 1216.261 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:39.581Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/deb301fb-4400-45c8-a38d-ec2db29c4c91 \u001b[36m304\u001b[0m 2418.655 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:40.495Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/239ebfdf-8898-415d-af5a-1fdd7fd83afb \u001b[36m304\u001b[0m 2382.233 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:40.505Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders/a0c6fb64-6b50-49b6-8cb4-87ef32905ec0 \u001b[32m200\u001b[0m 1234.206 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:40.821Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2861.308 ms - -\u001b[0m","timestamp":"2026-11-19T13:51:41.762Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/2554bb93-e0ed-4a03-9ba4-31bb9bf8df89 \u001b[32m200\u001b[0m 1040.637 ms - 362\u001b[0m","timestamp":"2026-11-19T13:51:52.630Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 3665.582 ms - -\u001b[0m","timestamp":"2026-11-19T13:52:08.506Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4683.228 ms - -\u001b[0m","timestamp":"2026-11-19T13:52:39.524Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2758.686 ms - -\u001b[0m","timestamp":"2026-11-19T13:52:56.887Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3371.381 ms - 893\u001b[0m","timestamp":"2026-11-19T13:52:57.474Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3394.398 ms - -\u001b[0m","timestamp":"2026-11-19T13:52:57.517Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3537.553 ms - -\u001b[0m","timestamp":"2026-11-19T13:52:57.658Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3656.821 ms - 57\u001b[0m","timestamp":"2026-11-19T13:52:57.780Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 807.106 ms - 893\u001b[0m","timestamp":"2026-11-19T13:54:08.401Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 847.451 ms - -\u001b[0m","timestamp":"2026-11-19T13:54:08.487Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 824.889 ms - 57\u001b[0m","timestamp":"2026-11-19T13:54:08.500Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 834.401 ms - -\u001b[0m","timestamp":"2026-11-19T13:54:08.506Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4537.363 ms - -\u001b[0m","timestamp":"2026-11-19T13:54:12.217Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/coupons?limit=100 \u001b[36m304\u001b[0m 2012.108 ms - -\u001b[0m","timestamp":"2026-11-19T13:54:23.235Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions?limit=100 \u001b[32m200\u001b[0m 2852.115 ms - 112\u001b[0m","timestamp":"2026-11-19T13:54:33.192Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/returns?limit=100 \u001b[36m304\u001b[0m 6127.980 ms - -\u001b[0m","timestamp":"2026-11-19T13:54:37.494Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2762.823 ms - -\u001b[0m","timestamp":"2026-11-19T13:54:37.602Z"}
+{"level":"warn","message":"Payment cannot be rejected for a cancelled order","method":"POST","path":"/api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject","stack":"AppError: Payment cannot be rejected for a cancelled order\n    at AppError.badRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:18:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1052:22)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Proxy._transactionWithCallback (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/@prisma+client@7.9.0_prisma@7.9.0_@types+react@19.2.17_react-dom@19.2.8_react@19.2.8__r_f20b7f67758fc5ec67dc74f149481466/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:861:18)\n    at async Object.rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.service.ts:1037:19)\n    at async rejectManualPayment (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Payment/payment.controller.ts:210:19)","statusCode":400,"timestamp":"2026-11-19T13:54:42.305Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/payments/manual/3f9a8479-05a3-4052-98d6-c570e4b84e5a/reject \u001b[33m400\u001b[0m 5625.832 ms - -\u001b[0m","timestamp":"2026-11-19T13:54:42.307Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 5729.697 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:10.570Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2884.749 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:18.327Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3402.005 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:18.841Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3440.711 ms - 893\u001b[0m","timestamp":"2026-11-19T13:55:18.847Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3431.288 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:18.876Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3741.220 ms - 57\u001b[0m","timestamp":"2026-11-19T13:55:19.184Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 0.448 ms - 893\u001b[0m","timestamp":"2026-11-19T13:55:21.465Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 0.763 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:21.473Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.537 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:21.474Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.474 ms - 57\u001b[0m","timestamp":"2026-11-19T13:55:21.476Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 3120.907 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:24.600Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 903.522 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:29.108Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 998.694 ms - 57\u001b[0m","timestamp":"2026-11-19T13:55:29.204Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1110.400 ms - 893\u001b[0m","timestamp":"2026-11-19T13:55:29.307Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1111.356 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:29.313Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 0.367 ms - 893\u001b[0m","timestamp":"2026-11-19T13:55:30.816Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.503 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:30.824Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.326 ms - 57\u001b[0m","timestamp":"2026-11-19T13:55:30.832Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 0.777 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:30.834Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 3044.493 ms - -\u001b[0m","timestamp":"2026-11-19T13:55:31.254Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T14:00:25.895Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:00:29.533Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:00:29.537Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:00:29.876Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:00:29.879Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:00:31.732Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:00:32.157Z"}
+{"error":{},"level":"error","message":"Something went wrong while starting the server","timestamp":"2026-11-19T14:00:51.907Z"}
+{"error":{},"level":"error","message":"Something went wrong while starting the server","timestamp":"2026-11-19T14:00:52.367Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:07:10.156Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:07:10.160Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:07:10.195Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:07:10.199Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:07:12.420Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:07:12.434Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:07:24.041Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:07:24.104Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:07:26.580Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:26.583Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:07:26.593Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:26.597Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:26.598Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:27.099Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:27.100Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:27.601Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:27.601Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:28.102Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:28.102Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:28.603Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:28.603Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:29.104Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:29.104Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:29.605Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:29.605Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:30.106Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:30.106Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:30.607Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:07:30.607Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:07:31.108Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T14:08:02.762Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:08:05.009Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:08:05.013Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:08:05.254Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:08:05.257Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:08:07.106Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:08:07.364Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:08:18.225Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:08:19.331Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:08:20.583Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:20.586Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:08:21.726Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:21.729Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:21.729Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:22.230Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:22.230Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:22.731Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:22.731Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:23.232Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:23.232Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:23.733Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:23.733Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:24.234Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:24.234Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:24.735Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:24.735Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:25.237Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:25.237Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:25.738Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:08:25.738Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:08:26.239Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:09:14.347Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:09:14.348Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:09:16.522Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:09:26.207Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:09:28.655Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:28.659Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:28.660Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:29.162Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:29.162Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:29.667Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:29.667Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:30.167Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:30.168Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:30.669Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:30.669Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:31.170Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:31.170Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:31.671Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:31.672Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:32.173Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:32.174Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:32.675Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:09:32.675Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:09:33.176Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3150.212 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:17.538Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3301.158 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:17.681Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3432.471 ms - 893\u001b[0m","timestamp":"2026-11-19T14:11:17.758Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3617.457 ms - 57\u001b[0m","timestamp":"2026-11-19T14:11:18.020Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 4754.299 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:19.161Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2426.146 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:21.620Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 7904.048 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:22.341Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 6.307 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:22.402Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2470.578 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:24.136Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 3425.558 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:27.613Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 723.114 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:41.221Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 724.177 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:41.234Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 730.510 ms - 57\u001b[0m","timestamp":"2026-11-19T14:11:41.247Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 908.347 ms - 893\u001b[0m","timestamp":"2026-11-19T14:11:41.373Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=latest&categoryId=92a05656-ab9f-400e-80e4-7753bf288b1f \u001b[32m200\u001b[0m 1023.044 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:41.552Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 2714.480 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:43.238Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2415.284 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:45.669Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:11:47.972Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 2556.966 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:47.975Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/users/me/address","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:157:13)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:11:48.009Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[33m403\u001b[0m 2580.454 ms - 919\u001b[0m","timestamp":"2026-11-19T14:11:48.011Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2409.652 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:48.094Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:11:48.621Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 645.195 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:48.623Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/users/me/address","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:157:13)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:11:48.655Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[33m403\u001b[0m 644.416 ms - 919\u001b[0m","timestamp":"2026-11-19T14:11:48.656Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:11:49.261Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 637.065 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:49.262Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[32m200\u001b[0m 4593.934 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:50.022Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2414.958 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:50.522Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2750.884 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:52.776Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=40&status=ACTIVE&sort=price_asc \u001b[32m200\u001b[0m 7532.921 ms - -\u001b[0m","timestamp":"2026-11-19T14:11:54.414Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T14:18:42.720Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:18:44.869Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:18:44.872Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:18:45.499Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:18:45.501Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:18:47.057Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:18:47.699Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:18:57.846Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:18:58.732Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:19:00.362Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:00.368Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:19:01.398Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:01.403Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:01.403Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:01.904Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:01.904Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:02.405Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:02.405Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:02.906Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:02.907Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:03.408Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:03.408Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:03.909Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:03.909Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:04.410Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:04.410Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:04.911Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:04.911Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:05.412Z"}
+{"level":"warn","message":"Port 5000 is busy. Waiting for it to be released.","timestamp":"2026-11-19T14:19:05.412Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:19:05.914Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 730.038 ms - -\u001b[0m","timestamp":"2026-11-19T14:19:50.100Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 738.606 ms - 57\u001b[0m","timestamp":"2026-11-19T14:19:50.125Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 774.659 ms - -\u001b[0m","timestamp":"2026-11-19T14:19:50.139Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 956.023 ms - 893\u001b[0m","timestamp":"2026-11-19T14:19:50.244Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 738.886 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:12.745Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 760.088 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:12.762Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 755.483 ms - 57\u001b[0m","timestamp":"2026-11-19T14:22:12.764Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 889.409 ms - 893\u001b[0m","timestamp":"2026-11-19T14:22:12.874Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:16.710Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 2447.338 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:16.713Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[32m200\u001b[0m 4481.928 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:18.764Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:18.824Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 609.640 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:18.826Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:19.435Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 609.097 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:19.438Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:20.048Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 608.783 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:20.050Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:20.660Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 609.646 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:20.662Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/users/me/address","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:157:13)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:21.180Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[33m403\u001b[0m 2381.460 ms - 919\u001b[0m","timestamp":"2026-11-19T14:22:21.181Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/wishlist","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at trimPrefix (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:342:13)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:297:9\n    at processParams (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:582:12)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:291:5)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:21.270Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[33m403\u001b[0m 606.902 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:21.271Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2663.400 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:21.436Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/users/me/address","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:185:21)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:157:13)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/auth.ts:129:5)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","statusCode":403,"timestamp":"2026-11-19T14:22:21.778Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me/address \u001b[33m403\u001b[0m 596.300 ms - 919\u001b[0m","timestamp":"2026-11-19T14:22:21.779Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2657.998 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:24.096Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders \u001b[36m304\u001b[0m 2657.056 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:26.755Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 726.022 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:52.879Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 783.956 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:52.944Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 785.810 ms - 57\u001b[0m","timestamp":"2026-11-19T14:22:52.948Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 870.283 ms - 893\u001b[0m","timestamp":"2026-11-19T14:22:53.015Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 0.567 ms - 893\u001b[0m","timestamp":"2026-11-19T14:22:53.159Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.627 ms - 57\u001b[0m","timestamp":"2026-11-19T14:22:53.173Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.824 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:53.174Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1.091 ms - -\u001b[0m","timestamp":"2026-11-19T14:22:53.176Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 965.718 ms - 57\u001b[0m","timestamp":"2026-11-19T14:23:12.755Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 970.642 ms - -\u001b[0m","timestamp":"2026-11-19T14:23:12.759Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1042.581 ms - -\u001b[0m","timestamp":"2026-11-19T14:23:12.828Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1057.108 ms - 893\u001b[0m","timestamp":"2026-11-19T14:23:12.836Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 689.469 ms - -\u001b[0m","timestamp":"2026-11-19T14:23:20.622Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 707.463 ms - -\u001b[0m","timestamp":"2026-11-19T14:23:20.643Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 791.683 ms - 57\u001b[0m","timestamp":"2026-11-19T14:23:20.728Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 880.198 ms - 893\u001b[0m","timestamp":"2026-11-19T14:23:20.809Z"}
+{"level":"info","message":"SIGINT received. Shutting down.","timestamp":"2026-11-19T14:23:27.334Z"}

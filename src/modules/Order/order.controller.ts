@@ -167,6 +167,18 @@ const recordStaffCommissionPayout = async (
   });
 };
 
+const deleteCancelledOrder = async (
+  req: ValidatedRequest<unknown, OrderIdParam>,
+  res: Response,
+): Promise<void> => {
+  if (requireAuth(req.auth).adminRole !== "SUPER_ADMIN") {
+    throw AppError.forbidden("Only the store owner can delete cancelled orders");
+  }
+
+  await orderService.deleteCancelledOrder(req.validatedParams.id);
+  res.status(200).json({ success: true, message: "Cancelled order deleted" });
+};
+
 export const orderController = {
   placeOrder,
   getOrders,
@@ -174,4 +186,5 @@ export const orderController = {
   getOrder,
   updateOrderStatus,
   recordStaffCommissionPayout,
+  deleteCancelledOrder,
 };

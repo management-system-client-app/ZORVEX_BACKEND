@@ -879,6 +879,7 @@ const listManualPayments = async () => {
     where: {
       provider: { in: manualPaymentProviders },
       status: "PROCESSING",
+      order: { status: { not: "CANCELLED" } },
     },
     orderBy: { updatedAt: "asc" },
     take: 100,
@@ -933,25 +934,45 @@ const approveManualPayment = async (paymentId: string) => {
     throw AppError.badRequest("This payment is not waiting for review");
   }
 
-  if (payment.order.status !== "PENDING") {
-    throw AppError.badRequest("Only a pending order can be approved");
-  }
-
   const paidAt = new Date();
   const isAdvance = isCodDeliveryAdvance(payment.metadata);
   const codBalance = Math.max(0, Number(payment.order.total) - Number(payment.amount));
   const isPartialAdvance = isAdvance && codBalance > 0;
   const updated = await prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "Order" WHERE "id" = ${payment.order.id} FOR UPDATE`;
+    const current = await tx.payment.findUnique({
+      where: { id: payment.id },
+      select: { status: true, transactionId: true },
+    });
+    const currentOrder = await tx.order.findUnique({
+      where: { id: payment.order.id },
+      select: { status: true },
+    });
+
+    if (!current || current.status !== "PROCESSING" || !current.transactionId) {
+      throw AppError.conflict("This payment is no longer waiting for review");
+    }
+    if (!currentOrder || currentOrder.status === "CANCELLED") {
+      throw AppError.badRequest("Payment cannot be approved for a cancelled order");
+    }
+
     const saved = await tx.payment.update({
       where: { id: payment.id },
       data: { status: "PAID", paidAt },
       select: manualPaymentSelect,
     });
 
-    await tx.order.update({
-      where: { id: payment.order.id },
-      data: { status: "CONFIRMED", ...(!isPartialAdvance ? { paidAt } : {}) },
-    });
+    if (currentOrder.status === "PENDING") {
+      await tx.order.update({
+        where: { id: payment.order.id },
+        data: { status: "CONFIRMED", ...(!isPartialAdvance ? { paidAt } : {}) },
+      });
+    } else if (!isPartialAdvance) {
+      await tx.order.update({
+        where: { id: payment.order.id },
+        data: { paidAt },
+      });
+    }
 
     return saved;
   });
@@ -1006,10 +1027,6 @@ const rejectManualPayment = async (paymentId: string, reason: string) => {
     throw AppError.badRequest("This payment is not waiting for review");
   }
 
-  if (payment.order.status !== "PENDING") {
-    throw AppError.badRequest("Only a pending order can be rejected");
-  }
-
   const metadata =
     payment.metadata && typeof payment.metadata === "object" && !Array.isArray(payment.metadata)
       ? payment.metadata
@@ -1018,18 +1035,38 @@ const rejectManualPayment = async (paymentId: string, reason: string) => {
     ? metadata.rejectedTransactionIds.filter((id): id is string => typeof id === "string")
     : [];
 
-  const updated = await prisma.payment.update({
-    where: { id: payment.id },
-    data: {
-      status: "FAILED",
-      failureReason: reason,
-      transactionId: null,
-      metadata: {
-        ...metadata,
-        rejectedTransactionIds: [...previous, payment.transactionId],
+  const updated = await prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "Order" WHERE "id" = ${payment.orderId} FOR UPDATE`;
+    const current = await tx.payment.findUnique({
+      where: { id: payment.id },
+      select: { status: true, transactionId: true },
+    });
+    const currentOrder = await tx.order.findUnique({
+      where: { id: payment.orderId },
+      select: { status: true },
+    });
+
+    if (!current || current.status !== "PROCESSING" || !current.transactionId) {
+      throw AppError.conflict("This payment is no longer waiting for review");
+    }
+    if (!currentOrder) throw new NotFoundError("Order not found");
+
+    const rejectedIds = Array.isArray(metadata.rejectedTransactionIds)
+      ? metadata.rejectedTransactionIds.filter((id): id is string => typeof id === "string")
+      : previous;
+    return tx.payment.update({
+      where: { id: payment.id },
+      data: {
+        status: "FAILED",
+        failureReason: reason,
+        transactionId: null,
+        metadata: {
+          ...metadata,
+          rejectedTransactionIds: [...rejectedIds, current.transactionId],
+        },
       },
-    },
-    select: manualPaymentSelect,
+      select: manualPaymentSelect,
+    });
   });
 
   const rejectedMail = customerMail(payment.order);

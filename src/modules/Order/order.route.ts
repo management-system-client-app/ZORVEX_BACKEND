@@ -44,6 +44,14 @@ router.patch(
   asyncHandler(orderController.recordStaffCommissionPayout),
 );
 
+router.delete(
+  "/:id",
+  authenticate,
+  authorize("ADMIN"),
+  validateRequest({ params: orderIdParamSchema }),
+  asyncHandler(orderController.deleteCancelledOrder),
+);
+
 router.patch(
   "/:id/status",
   authenticate,
