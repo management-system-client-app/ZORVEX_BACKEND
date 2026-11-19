@@ -28581,3 +28581,20 @@
 {"level":"info","message":"Checking default admin","timestamp":"2026-11-19T06:48:47.005Z"}
 {"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T06:48:49.499Z"}
 {"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T06:48:49.501Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 900.430 ms - 852\u001b[0m","timestamp":"2026-11-19T06:51:41.570Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 928.962 ms - 57\u001b[0m","timestamp":"2026-11-19T06:51:41.704Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 976.922 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:41.730Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1002.714 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:41.753Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 6817.488 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:47.603Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=100&status=ACTIVE&sort=latest&categoryId=04b08e7a-b317-465d-ac5d-76a7817da6f9 \u001b[32m200\u001b[0m 6401.916 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:47.979Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2847.577 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:50.471Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 3245.458 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:53.726Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=100&status=ACTIVE&sort=latest&categoryId=1c34ff3e-70ef-41ec-b50c-0a299355198d \u001b[32m200\u001b[0m 14413.147 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:55.275Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2840.912 ms - -\u001b[0m","timestamp":"2026-11-19T06:51:56.580Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T07:01:32.673Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T07:01:34.953Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T07:01:34.956Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T07:01:37.347Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T07:01:49.801Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T07:01:52.512Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T07:01:52.515Z"}

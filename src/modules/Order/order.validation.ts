@@ -57,7 +57,9 @@ export const placeOrderSchema = z
       z.uuid().optional(),
     ),
   })
-  .strict()
+  // Checkout clients may include cart/payment fields that are ignored here;
+  // the server uses the saved cart and payment method as the source of truth.
+  .strip()
   .refine((value) => Boolean(value.shippingDistrict || value.shippingCity), {
     message: "Shipping district is required",
     path: ["shippingDistrict"],
