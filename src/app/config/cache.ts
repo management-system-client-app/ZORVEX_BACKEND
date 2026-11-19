@@ -6,6 +6,13 @@ export const PRODUCT_CACHE_TTL_SECONDS = 45;
 
 type CacheScope = "catalog" | "products" | "home" | "content";
 
+// Keep a very short per-instance cache in front of Redis. This avoids two
+// HTTP round trips to Upstash for every hot cache hit and collapses concurrent
+// misses in a serverless instance into one Redis/Postgres load.
+const LOCAL_CACHE_TTL_MS = 3_000;
+const localCache = new Map<string, { value: unknown; expiresAt: number }>();
+const pendingLoads = new Map<string, Promise<unknown>>();
+
 const versionKey = (scope: CacheScope): string => `shop:${scope}:version`;
 
 const warn = (action: string, error: unknown): void => {
@@ -38,9 +45,20 @@ export const cacheGetOrSet = async <T>(
   ttlSeconds: number,
   loader: () => Promise<T>,
 ): Promise<T> => {
-  if (!redisEnabled()) {
-    return loader();
+  const localKey = `${scope}:${key}`;
+  const local = localCache.get(localKey);
+  if (local && local.expiresAt > Date.now()) {
+    return local.value as T;
   }
+  if (local) localCache.delete(localKey);
+
+  const pending = pendingLoads.get(localKey);
+  if (pending) return pending as Promise<T>;
+
+  const load = async (): Promise<T> => {
+    if (!redisEnabled()) {
+      return loader();
+    }
 
   let version = "0";
 
@@ -74,9 +92,32 @@ export const cacheGetOrSet = async <T>(
   }
 
   return value;
+  };
+
+  const promise = load()
+    .then((value) => {
+      localCache.set(localKey, { value, expiresAt: Date.now() + LOCAL_CACHE_TTL_MS });
+      return value;
+    })
+    .finally(() => {
+      if (pendingLoads.get(localKey) === promise) pendingLoads.delete(localKey);
+    });
+  pendingLoads.set(localKey, promise);
+  return promise;
 };
 
 export const invalidateCache = async (...scopes: CacheScope[]): Promise<void> => {
+  const invalidated = new Set(scopes);
+  for (const key of localCache.keys()) {
+    if (invalidated.has(key.slice(0, key.indexOf(":")) as CacheScope)) {
+      localCache.delete(key);
+    }
+  }
+  for (const key of pendingLoads.keys()) {
+    if (invalidated.has(key.slice(0, key.indexOf(":")) as CacheScope)) {
+      pendingLoads.delete(key);
+    }
+  }
   if (!redisEnabled()) {
     return;
   }

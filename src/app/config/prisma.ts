@@ -25,6 +25,13 @@ export const prisma =
       idleTimeoutMillis: 20_000,
       connectionTimeoutMillis: 10_000,
     }),
+    // Neon/PgBouncer can take longer than Prisma's 2s default to provide a
+    // connection during bursts. Keep requests queued briefly instead of
+    // failing before the pool has a chance to serve them.
+    transactionOptions: {
+      maxWait: 10_000,
+      timeout: 20_000,
+    },
     log: ["error"],
   });
 

@@ -22,7 +22,7 @@ const fetchProducts = async (page: number): Promise<MohasagorProductList> => {
   headers.set(env.MOHASAGOR_API_KEY_HEADER, env.MOHASAGOR_API_KEY);
   headers.set(env.MOHASAGOR_API_SECRET_HEADER, env.MOHASAGOR_API_SECRET);
 
-  let response: Response;
+  let response: Awaited<ReturnType<typeof fetch>>;
   try {
     const endpoint = new URL(PRODUCT_ENDPOINT);
     endpoint.searchParams.set("page", String(page));

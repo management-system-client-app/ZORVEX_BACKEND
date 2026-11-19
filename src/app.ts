@@ -72,7 +72,14 @@ app.use(
 
 const siteUrl = env.FRONTEND_URL.replace(/\/$/, "");
 
-app.use("/assets", express.static(path.join(process.cwd(), "public")));
+app.use(
+  "/assets",
+  express.static(path.join(process.cwd(), "public"), {
+    maxAge: "1d",
+    etag: true,
+    lastModified: true,
+  }),
+);
 
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).type("html").send(`<!DOCTYPE html>
@@ -405,6 +412,28 @@ app.use("/uploads", (_req, res, next) => {
   next();
 }, express.static(path.join(process.cwd(), "uploads")));
 
+// Let the CDN serve frequently requested public catalog data close to users.
+// Keep search out because it is intentionally uncached and can be highly varied.
+app.use("/api/v1", (req, res, next) => {
+  if (req.method !== "GET") {
+    next();
+    return;
+  }
+
+  const publicCacheablePath =
+    req.path === "/home" ||
+    req.path === "/catalog" ||
+    req.path === "/brands" ||
+    req.path === "/categories" ||
+    req.path === "/products" ||
+    req.path === "/products/best-sellers";
+
+  if (publicCacheablePath && !(req.path === "/products" && req.query.search)) {
+    res.setHeader("Cache-Control", "public, s-maxage=20, stale-while-revalidate=40");
+  }
+
+  next();
+});
 app.use("/api/v1", routes);
 
 app.use((req, _res, next) => {
