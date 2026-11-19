@@ -28557,3 +28557,9 @@
 {"level":"info","message":"Checking database connection","timestamp":"2026-11-19T06:25:35.604Z"}
 {"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T06:25:37.942Z"}
 {"error":{},"level":"error","message":"Something went wrong while starting the server","timestamp":"2026-11-19T06:26:03.943Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T06:37:49.849Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T06:37:49.853Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T06:37:52.037Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T06:38:04.877Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T06:38:08.210Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T06:38:08.213Z"}

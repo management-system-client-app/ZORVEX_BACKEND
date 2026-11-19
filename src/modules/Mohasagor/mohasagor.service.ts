@@ -22,18 +22,15 @@ const fetchProducts = async (page: number): Promise<MohasagorProductList> => {
   headers.set(env.MOHASAGOR_API_KEY_HEADER, env.MOHASAGOR_API_KEY);
   headers.set(env.MOHASAGOR_API_SECRET_HEADER, env.MOHASAGOR_API_SECRET);
 
-  let response: Awaited<ReturnType<typeof fetch>>;
-  try {
-    const endpoint = new URL(PRODUCT_ENDPOINT);
-    endpoint.searchParams.set("page", String(page));
-    response = await fetch(endpoint, {
-      method: "GET",
-      headers,
-      signal: AbortSignal.timeout(15_000),
-    });
-  } catch {
+  const endpoint = new URL(PRODUCT_ENDPOINT);
+  endpoint.searchParams.set("page", String(page));
+  const response = await fetch(endpoint, {
+    method: "GET",
+    headers,
+    signal: AbortSignal.timeout(15_000),
+  }).catch(() => {
     throw new AppError("Could not connect to Mohasagor product API", 502);
-  }
+  });
 
   if (!response.ok) {
     // Keep provider response text and credentials out of the public error response.
