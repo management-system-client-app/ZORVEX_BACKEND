@@ -30497,3 +30497,69 @@
 {"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 791.683 ms - 57\u001b[0m","timestamp":"2026-11-19T14:23:20.728Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 880.198 ms - 893\u001b[0m","timestamp":"2026-11-19T14:23:20.809Z"}
 {"level":"info","message":"SIGINT received. Shutting down.","timestamp":"2026-11-19T14:23:27.334Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T14:47:49.123Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T14:47:49.125Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T14:47:51.400Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T14:48:01.417Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T14:48:03.829Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T14:48:03.832Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 804.971 ms - 893\u001b[0m","timestamp":"2026-11-19T14:48:05.756Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 809.448 ms - 57\u001b[0m","timestamp":"2026-11-19T14:48:05.863Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 831.795 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:06.067Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1049.085 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:06.184Z"}
+{"level":"warn","message":"Invalid email or password","method":"POST","path":"/api/v1/auth/login","stack":"AppError: Invalid email or password\n    at AppError.unauthorized (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:22:12)\n    at Object.login (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Auth/auth.service.ts:62:20)\n    at async login (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Auth/auth.controller.ts:13:18)","statusCode":401,"timestamp":"2026-11-19T14:48:06.457Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/auth/login \u001b[33m401\u001b[0m 1119.613 ms - 460\u001b[0m","timestamp":"2026-11-19T14:48:06.458Z"}
+{"level":"info","message":"\u001b[0mPOST /api/v1/auth/admin/login \u001b[32m200\u001b[0m 1024.096 ms - 602\u001b[0m","timestamp":"2026-11-19T14:48:07.496Z"}
+{"level":"warn","message":"You do not have permission to perform this action","method":"GET","path":"/api/v1/cart","stack":"AppError: You do not have permission to perform this action\n    at AppError.forbidden (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/errors/AppError.ts:26:12)\n    at prepareOwner (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Cart/cart.controller.ts:19:20)\n    at getCart (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/modules/Cart/cart.controller.ts:51:23)\n    at <anonymous> (/home/anondo-ray/Downloads/Compressed/ResellKori_server/src/app/middlewares/asyncHandler.ts:12:5)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at next (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:157:13)\n    at Route.dispatch (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/route.js:117:3)\n    at handle (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:435:11)\n    at Layer.handleRequest (/home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/lib/layer.js:152:17)\n    at /home/anondo-ray/Downloads/Compressed/ResellKori_server/node_modules/.pnpm/router@2.2.0_supports-color@5.5.0/node_modules/router/index.js:295:15","statusCode":403,"timestamp":"2026-11-19T14:48:08.268Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[33m403\u001b[0m 606.858 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:08.272Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/dashboard \u001b[32m200\u001b[0m 4258.256 ms - 280\u001b[0m","timestamp":"2026-11-19T14:48:12.363Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4487.775 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:12.605Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4585.113 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:12.696Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/returns?limit=100 \u001b[36m304\u001b[0m 4552.508 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:16.930Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?page=1&limit=12&sort=latest \u001b[32m200\u001b[0m 4885.762 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:16.932Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2930.998 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:35.969Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3067.228 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:36.089Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3202.167 ms - 893\u001b[0m","timestamp":"2026-11-19T14:48:36.213Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3368.611 ms - 57\u001b[0m","timestamp":"2026-11-19T14:48:36.403Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3382.934 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:36.418Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 715.871 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:44.148Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 714.715 ms - 57\u001b[0m","timestamp":"2026-11-19T14:48:44.178Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 745.096 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:44.196Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 879.374 ms - 893\u001b[0m","timestamp":"2026-11-19T14:48:44.298Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 2.211 ms - 893\u001b[0m","timestamp":"2026-11-19T14:48:45.253Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 0.446 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:45.269Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 0.588 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:45.274Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 0.346 ms - 57\u001b[0m","timestamp":"2026-11-19T14:48:45.275Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2964.489 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:46.438Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 885.630 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:55.666Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1234.512 ms - 893\u001b[0m","timestamp":"2026-11-19T14:48:56.004Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1220.007 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:56.005Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1318.101 ms - 57\u001b[0m","timestamp":"2026-11-19T14:48:56.105Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2954.244 ms - -\u001b[0m","timestamp":"2026-11-19T14:48:57.745Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 694.856 ms - 57\u001b[0m","timestamp":"2026-11-19T14:49:07.601Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 767.436 ms - 893\u001b[0m","timestamp":"2026-11-19T14:49:07.608Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 864.613 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:07.739Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 850.727 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:07.746Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2961.749 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:09.896Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 735.164 ms - 893\u001b[0m","timestamp":"2026-11-19T14:49:18.328Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 755.483 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:18.355Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 782.332 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:18.384Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 879.479 ms - 57\u001b[0m","timestamp":"2026-11-19T14:49:18.483Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2944.673 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:20.552Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog/colors?limit=100 \u001b[36m304\u001b[0m 2125.065 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:23.186Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog/fabrics?limit=100 \u001b[32m200\u001b[0m 2179.823 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:23.247Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog/fabrics?limit=100 \u001b[32m200\u001b[0m 313.831 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:23.577Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2795.496 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:40.884Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 804.179 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:45.377Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 817.016 ms - 893\u001b[0m","timestamp":"2026-11-19T14:49:45.384Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 827.886 ms - 57\u001b[0m","timestamp":"2026-11-19T14:49:45.403Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 933.116 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:45.504Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2794.209 ms - -\u001b[0m","timestamp":"2026-11-19T14:49:47.372Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4582.974 ms - -\u001b[0m","timestamp":"2026-11-19T14:50:12.673Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4563.926 ms - -\u001b[0m","timestamp":"2026-11-19T14:50:42.649Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3097.258 ms - -\u001b[0m","timestamp":"2026-11-19T14:53:26.515Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3243.091 ms - -\u001b[0m","timestamp":"2026-11-19T14:53:26.654Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 3283.603 ms - 893\u001b[0m","timestamp":"2026-11-19T14:53:26.679Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3503.770 ms - 57\u001b[0m","timestamp":"2026-11-19T14:53:26.929Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4951.805 ms - -\u001b[0m","timestamp":"2026-11-19T14:53:28.387Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2856.961 ms - -\u001b[0m","timestamp":"2026-11-19T14:53:40.947Z"}
