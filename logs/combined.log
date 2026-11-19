@@ -28570,3 +28570,14 @@
 {"level":"info","message":"Checking default admin","timestamp":"2026-11-19T06:41:10.453Z"}
 {"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T06:41:13.192Z"}
 {"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T06:41:13.196Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T06:48:20.662Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T06:48:23.059Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T06:48:23.063Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T06:48:25.676Z"}
+{"level":"info","message":"SIGTERM received. Shutting down.","timestamp":"2026-11-19T06:48:30.932Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-19T06:48:33.122Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-19T06:48:33.125Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-19T06:48:35.458Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-19T06:48:47.005Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-19T06:48:49.499Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-19T06:48:49.501Z"}

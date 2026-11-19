@@ -12,32 +12,50 @@ const orderStatuses = [
   "RETURNED",
 ] as const;
 
+const optionalTrimmedString = (max: number) =>
+  z.preprocess(
+    (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+    z.string().trim().min(1).max(max).optional(),
+  );
+
 export const placeOrderSchema = z
   .object({
     shippingFullName: z.string().trim().min(1).max(120),
     shippingPhone: z.string().trim().min(7).max(20),
     shippingLine1: z.string().trim().min(1).max(200),
-    shippingLine2: z.string().trim().min(1).max(200).optional(),
-    shippingCity: z.string().trim().min(1).max(80).optional(),
-    shippingState: z.string().trim().min(1).max(80).optional(),
-    shippingDivision: z.string().trim().min(1).max(80).optional(),
-    shippingDistrict: z.string().trim().min(1).max(80).optional(),
-    shippingThana: z.string().trim().min(1).max(80).optional(),
-    shippingPostalCode: z.string().trim().min(1).max(20),
-    shippingCountry: z.string().trim().min(2).max(80),
-    customerNote: z.string().trim().min(1).max(500).optional(),
-    email: z.email().optional(),
-    couponCode: z
-      .string()
-      .trim()
-      .min(3)
-      .max(30)
-      .transform((value) => value.toUpperCase())
-      .refine((value) => /^[A-Z0-9_-]+$/.test(value), {
-        message: "Code can contain only letters, numbers, underscores, and hyphens",
-      })
-      .optional(),
-    staffReferralId: z.uuid().optional(),
+    shippingLine2: optionalTrimmedString(200),
+    shippingCity: optionalTrimmedString(80),
+    shippingState: optionalTrimmedString(80),
+    shippingDivision: optionalTrimmedString(80),
+    shippingDistrict: optionalTrimmedString(80),
+    shippingThana: optionalTrimmedString(80),
+    shippingPostalCode: optionalTrimmedString(20).default(""),
+    shippingCountry: z.preprocess(
+      (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+      z.string().trim().min(2).max(80).default("Bangladesh"),
+    ),
+    customerNote: optionalTrimmedString(500),
+    email: z.preprocess(
+      (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+      z.email().optional(),
+    ),
+    couponCode: z.preprocess(
+      (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+      z
+        .string()
+        .trim()
+        .min(3)
+        .max(30)
+        .transform((value) => value.toUpperCase())
+        .refine((value) => /^[A-Z0-9_-]+$/.test(value), {
+          message: "Code can contain only letters, numbers, underscores, and hyphens",
+        })
+        .optional(),
+    ),
+    staffReferralId: z.preprocess(
+      (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+      z.uuid().optional(),
+    ),
   })
   .strict()
   .refine((value) => Boolean(value.shippingDistrict || value.shippingCity), {
