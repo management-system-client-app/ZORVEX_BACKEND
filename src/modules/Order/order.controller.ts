@@ -41,35 +41,15 @@ const placeOrder = async (
   const { order, paymentMethod, payTo, codAdvance, emailed } = await orderService.placeOrder(buyer, req.validatedBody);
 
   if (paymentMethod === "COD") {
-    let advanceCheckout: Awaited<ReturnType<typeof paymentService.createCodDeliveryAdvanceCheckoutSession>> | null = null;
-    if (codAdvance) {
-      try {
-        advanceCheckout = await paymentService.createCodDeliveryAdvanceCheckoutSession(
-          buyer.kind === "user" ? buyer.userId : null,
-          order.id,
-        );
-      } catch (error) {
-        await orderService.cancelUnpaidOrder(order.id, "Advance payment page could not be created");
-        throw error;
-      }
-    }
-
     res.status(201).json({
       success: true,
-      message: codAdvance
-        ? "Order pending. Pay the delivery advance to confirm it, then pay the remaining balance on delivery."
-        : "Order placed. Pay cash on delivery.",
+      message: "Transaction ID submitted. The order is pending admin review; the remaining balance is due to the delivery person after receiving the product.",
       data: {
         ...order,
         paymentMethod: "COD",
-        checkoutUrl: advanceCheckout?.url ?? null,
+        checkoutUrl: null,
         payTo: null,
-        codAdvance: codAdvance
-          ? {
-              ...codAdvance,
-              checkoutUrl: advanceCheckout?.url ?? null,
-            }
-          : null,
+        codAdvance: null,
         emailed,
       },
     });

@@ -14,6 +14,7 @@ export const updateSettingsSchema = z
     bkashNumber: z.string().trim().min(7).max(20).nullable().optional(),
     nagadNumber: z.string().trim().min(7).max(20).nullable().optional(),
     rocketNumber: z.string().trim().min(7).max(20).nullable().optional(),
+    deliveryFeePaymentNumber: z.string().trim().min(7).max(30).nullable().optional(),
     collageManImageUrl: z.url().nullable().optional(),
     collageWomanImageUrl: z.url().nullable().optional(),
     collageChildImageUrl: z.url().nullable().optional(),

@@ -8,8 +8,10 @@ import { sendOrderMail } from "../../utils/orderMail";
 import { AppError } from "../../app/errors/AppError";
 import { NotFoundError } from "../../app/errors/NotFoundError";
 
-type ManualPaymentProvider = "BKASH" | "NAGAD" | "ROCKET";
-const manualPaymentProviders: ManualPaymentProvider[] = ["BKASH", "NAGAD", "ROCKET"];
+type ManualPaymentProvider = "MANUAL" | "BKASH" | "NAGAD" | "ROCKET";
+const manualPaymentProviders: ManualPaymentProvider[] = ["MANUAL", "BKASH", "NAGAD", "ROCKET"];
+// Temporarily keep all Stripe endpoints and checkout flows disabled.
+const STRIPE_PAYMENTS_ENABLED = false;
 
 const isManualPaymentProvider = (provider: string): provider is ManualPaymentProvider =>
   manualPaymentProviders.includes(provider as ManualPaymentProvider);
@@ -25,6 +27,10 @@ const isCodDeliveryAdvance = (metadata: Prisma.JsonValue): boolean =>
 let stripeClient: Stripe | undefined;
 
 const getStripe = (): Stripe => {
+  if (!STRIPE_PAYMENTS_ENABLED) {
+    throw new AppError("Stripe payments are temporarily disabled", 503);
+  }
+
   if (!env.STRIPE_SECRET_KEY) {
     throw new AppError("Stripe is not configured", 503);
   }
@@ -953,7 +959,7 @@ const approveManualPayment = async (paymentId: string) => {
   const approvedMail = customerMail(payment.order);
 
   if (approvedMail) {
-    const providerLabel = payment.provider === "BKASH" ? "bKash Personal" : payment.provider === "NAGAD" ? "Nagad" : "Rocket";
+    const providerLabel = payment.provider === "MANUAL" ? "Delivery fee transfer" : payment.provider === "BKASH" ? "bKash Personal" : payment.provider === "NAGAD" ? "Nagad" : "Rocket";
     await sendOrderMail(() =>
       sendOrderConfirmationEmail({
         to: approvedMail.email,

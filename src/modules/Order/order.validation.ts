@@ -35,6 +35,9 @@ export const placeOrderSchema = z
       z.string().trim().min(2).max(80).default("Bangladesh"),
     ),
     customerNote: optionalTrimmedString(500),
+    deliveryFeeTransactionId: z.string().trim().min(4).max(40).transform((value) => value.toUpperCase()).refine((value) => /^[A-Z0-9]+$/.test(value), {
+      message: "Transaction id can contain only letters and numbers",
+    }),
     email: z.preprocess(
       (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
       z.email().optional(),

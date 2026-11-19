@@ -26,7 +26,7 @@ export const addCartItemSchema = z
 
 export const cartPaymentSchema = z
   .object({
-    paymentMethod: z.enum(["COD", "STRIPE", "BKASH", "NAGAD", "ROCKET"]),
+    paymentMethod: z.literal("COD"),
   })
   .strict();
 

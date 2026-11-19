@@ -1,4 +1,5 @@
 {
+  "buildCommand": "pnpm exec prisma migrate deploy && pnpm run build",
   "rewrites": [
     {
       "source": "/(.*)",

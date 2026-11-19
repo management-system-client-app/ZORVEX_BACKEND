@@ -70,6 +70,7 @@ enum PaymentProvider {
   NAGAD
   ROCKET
   COD
+  MANUAL
 }
 
 enum CheckoutPaymentMethod {
@@ -422,6 +423,7 @@ model StoreSetting {
   bkashNumber  String?
   nagadNumber  String?
   rocketNumber String?
+  deliveryFeePaymentNumber String?
   collageManImageUrl         String?
   collageWomanImageUrl       String?
   collageChildImageUrl       String?

@@ -3,9 +3,8 @@ import { Prisma } from "../../../generated/prisma/client";
 import { prisma } from "../../app/config/prisma";
 import { AppError } from "../../app/errors/AppError";
 import { NotFoundError } from "../../app/errors/NotFoundError";
-import { getAdvanceDeliveryCharge, resolveShipping } from "../Delivery/delivery.service";
+import { resolveShipping } from "../Delivery/delivery.service";
 import { chooseDiscount } from "../Promotion/promotion.service";
-import { settingsService } from "../Settings/settings.service";
 import { sendOrderConfirmationEmail, sendOrderShippedEmail } from "../../utils/emailSender";
 import { sendOrderMail } from "../../utils/orderMail";
 import type { AuthContext } from "../../app/middlewares/auth";
@@ -166,17 +165,9 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
     }
 
     const paymentMethod = cart.paymentMethod;
-    const manualProvider = paymentMethod === "BKASH" || paymentMethod === "NAGAD" || paymentMethod === "ROCKET" ? paymentMethod : null;
-    if (manualProvider) {
-      const settings = await settingsService.getSettings();
-      const walletNumber = manualProvider === "BKASH" ? settings.bkashNumber : manualProvider === "NAGAD" ? settings.nagadNumber : settings.rocketNumber;
-
-      if (!walletNumber) {
-        const walletLabel = manualProvider === "BKASH" ? "bKash Personal" : manualProvider === "NAGAD" ? "Nagad" : "Rocket";
-        throw AppError.badRequest(`${walletLabel} number is not configured`);
-      }
+    if (paymentMethod !== "COD") {
+      throw AppError.badRequest("Cash on delivery is the only available payment method");
     }
-
     const variants = await tx.productVariant.findMany({
       where: { id: { in: cart.items.map((item) => item.variantId) } },
       include: {
@@ -295,14 +286,10 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
     const shipping = resolveShipping(zones, deliveryDistrict, subtotal);
     const shippingAmount = money(shipping.fee);
     const total = money(subtotal - discountAmount + shippingAmount);
-    const codAdvanceAmount =
-      paymentMethod === "COD" ? getAdvanceDeliveryCharge(deliveryDistrict) : 0;
-    const codAmount = paymentMethod === "COD" ? money(total - codAdvanceAmount) : 0;
-
-    if (paymentMethod === "COD" && codAmount < 0) {
-      throw AppError.badRequest(
-        `Order total must be at least ${codAdvanceAmount} BDT for delivery to ${deliveryDistrict}`,
-      );
+    const codAdvanceAmount = 130;
+    const codAmount = money(total - codAdvanceAmount);
+    if (codAmount < 0) {
+      throw AppError.badRequest("Order total must be at least 130 BDT for the delivery fee");
     }
 
     const order = await tx.order.create({
@@ -350,44 +337,26 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
             lineTotal: line.lineTotal,
           })),
         },
-        ...(paymentMethod === "COD"
-          ? {
-              payments: {
-                create: [
-                  ...(codAmount > 0
-                    ? [{
-                        provider: "COD" as const,
-                        status: "PENDING" as const,
-                        amount: codAmount,
-                        currency: "BDT",
-                        method: "cash_on_delivery",
-                      }]
-                    : []),
-                  {
-                    provider: "STRIPE" as const,
-                    status: "PENDING" as const,
-                    amount: codAdvanceAmount,
-                    currency: "BDT",
-                    method: "card",
-                    idempotencyKey: randomBytes(16).toString("hex"),
-                    metadata: { purpose: "COD_DELIVERY_ADVANCE" },
-                  },
-                ],
-              },
-            }
-          : manualProvider
-            ? {
-                payments: {
-                  create: {
-                    provider: manualProvider,
-                    status: "PENDING",
-                    amount: total,
-                    currency: "USD",
-                    method: manualProvider.toLowerCase(),
-                  },
-                },
-              }
-            : {}),
+        payments: {
+          create: [
+            {
+              provider: "MANUAL",
+              status: "PROCESSING",
+              amount: codAdvanceAmount,
+              currency: "BDT",
+              method: "delivery_fee_transfer",
+              transactionId: input.deliveryFeeTransactionId,
+              metadata: { purpose: "COD_DELIVERY_ADVANCE" },
+            },
+            {
+              provider: "COD",
+              status: "PENDING",
+              amount: codAmount,
+              currency: "BDT",
+              method: "cash_on_delivery",
+            },
+          ],
+        },
       },
       include: orderDetailInclude,
     });
@@ -433,17 +402,10 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
     return {
       order,
       paymentMethod,
-      codAdvance: codAdvanceAmount > 0
-        ? {
-            method: "STRIPE" as const,
-            amount: codAdvanceAmount,
-            currency: "BDT" as const,
-            remainingAmount: codAmount,
-            status: "PENDING" as const,
-          }
-        : null,
+      payTo: null,
+      codAdvance: null,
     };
-  });
+  }, { maxWait: 10_000, timeout: 30_000 });
 
   const customerName = placed.order.user
     ? `${placed.order.user.firstName} ${placed.order.user.lastName}`.trim()
@@ -451,26 +413,8 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
   const customerEmail = placed.order.user?.email ?? placed.order.guestEmail;
   const total = Number(placed.order.total);
 
-  const manualProvider = (
-    placed.paymentMethod === "BKASH" || placed.paymentMethod === "NAGAD" || placed.paymentMethod === "ROCKET"
-      ? placed.paymentMethod
-      : null
-  );
-  let payTo: string | null = null;
-  if (manualProvider) {
-    const settings = await settingsService.getSettings();
-    payTo = manualProvider === "BKASH" ? settings.bkashNumber : manualProvider === "NAGAD" ? settings.nagadNumber : settings.rocketNumber;
-  }
-
-  const manualWallet = manualProvider === "BKASH" ? "bKash Personal" : manualProvider === "NAGAD" ? "Nagad" : manualProvider === "ROCKET" ? "Rocket" : null;
-  const paymentNote = payTo
-    ? `Send the total to ${manualWallet} ${payTo}, then submit the transaction id for approval.`
-    : placed.paymentMethod === "COD"
-      ? `Pay ${placed.codAdvance?.amount ?? 0} BDT online as the delivery advance; pay ${placed.codAdvance?.remainingAmount ?? total} BDT in cash on delivery.`
-      : "Open the store receipt and pay by card to confirm the order.";
-
-  const manualPaymentPending = Boolean(placed.codAdvance) || placed.paymentMethod === "BKASH" || placed.paymentMethod === "NAGAD" || placed.paymentMethod === "ROCKET";
-  const emailed = customerEmail && !manualPaymentPending
+  const paymentNote = `Order pending admin review. Collect the 130 BDT delivery fee before dispatch and ${placed.order.codAmount} BDT cash on delivery from the customer.`;
+  const emailed = customerEmail
     ? await sendOrderMail(() =>
         sendOrderConfirmationEmail({
           to: customerEmail,
@@ -490,8 +434,6 @@ const placeOrder = async (buyer: OrderBuyer, input: PlaceOrderInput) => {
 
   return {
     ...placed,
-    payTo,
-    codAdvance: placed.codAdvance ? { ...placed.codAdvance, payTo } : null,
     emailed,
   };
 };
@@ -618,14 +560,14 @@ const updateOrderStatus = async (id: string, input: UpdateOrderStatusInput) => {
       const advancePayment = await tx.payment.findFirst({
         where: {
           orderId: id,
-          provider: "STRIPE",
+          provider: { in: ["MANUAL", "STRIPE"] },
           status: "PAID",
         },
         select: { metadata: true },
       });
 
       if (!advancePayment || !isCodDeliveryAdvance(advancePayment.metadata)) {
-        throw AppError.badRequest("The COD delivery advance must be paid before confirming this order");
+        throw AppError.badRequest("The delivery advance must be approved before confirming this order");
       }
     }
 
