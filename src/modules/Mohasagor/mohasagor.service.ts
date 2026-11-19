@@ -10,6 +10,12 @@ type MohasagorProductList = {
   meta: { page: number; limit: number; total: number; totalPages: number };
 };
 
+type MohasagorFetchResponse = {
+  ok: boolean;
+  status: number;
+  json: () => Promise<unknown>;
+};
+
 const productCache = new Map<number, { value: MohasagorProductList; expiresAt: number }>();
 const pendingRequests = new Map<number, Promise<MohasagorProductList>>();
 
@@ -24,13 +30,13 @@ const fetchProducts = async (page: number): Promise<MohasagorProductList> => {
 
   const endpoint = new URL(PRODUCT_ENDPOINT);
   endpoint.searchParams.set("page", String(page));
-  const response = await fetch(endpoint, {
+  const response = (await fetch(endpoint, {
     method: "GET",
     headers,
     signal: AbortSignal.timeout(15_000),
   }).catch(() => {
     throw new AppError("Could not connect to Mohasagor product API", 502);
-  });
+  })) as unknown as MohasagorFetchResponse;
 
   if (!response.ok) {
     // Keep provider response text and credentials out of the public error response.
