@@ -252,8 +252,13 @@ export const productListQuerySchema = z
     }
   });
 
+export const productSuggestionQuerySchema = z.object({
+  search: z.string().trim().min(3).max(100),
+}).strict();
+
 export type CreateProductInput = z.infer<typeof createProductSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductSchema>;
 export type ProductIdParam = z.infer<typeof productIdParamSchema>;
 export type ProductImageParam = z.infer<typeof productImageParamSchema>;
 export type ProductListQuery = z.infer<typeof productListQuerySchema>;
+export type ProductSuggestionQuery = z.infer<typeof productSuggestionQuerySchema>;

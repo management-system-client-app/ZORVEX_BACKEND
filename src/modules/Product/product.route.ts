@@ -14,6 +14,7 @@ import {
   productImageParamSchema,
   productIdParamSchema,
   productListQuerySchema,
+  productSuggestionQuerySchema,
   updateProductSchema,
 } from "./product.validation";
 
@@ -36,6 +37,12 @@ router.get(
 );
 
 router.get("/best-sellers", asyncHandler(productController.getBestSellers));
+
+router.get(
+  "/suggestions",
+  validateRequest({ query: productSuggestionQuerySchema }),
+  asyncHandler(productController.getProductSuggestions),
+);
 
 router.get(
   "/:id/related",

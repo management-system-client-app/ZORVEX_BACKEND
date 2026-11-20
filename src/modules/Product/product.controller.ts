@@ -8,6 +8,7 @@ import type {
   ProductIdParam,
   ProductImageParam,
   ProductListQuery,
+  ProductSuggestionQuery,
   UpdateProductInput,
 } from "./product.validation";
 
@@ -62,6 +63,14 @@ const getAllProducts = async (
     data: result.items,
     meta: result.meta,
   });
+};
+
+const getProductSuggestions = async (
+  req: ValidatedRequest<unknown, Record<string, string>, ProductSuggestionQuery>,
+  res: Response,
+): Promise<void> => {
+  const products = await productService.getProductSuggestions(req.validatedQuery);
+  res.status(200).json({ success: true, message: "Product suggestions fetched", data: products });
 };
 
 const getBestSellers = async (_req: ValidatedRequest, res: Response): Promise<void> => {
@@ -176,6 +185,7 @@ const deleteProductImage = async (
 export const productController = {
   createProduct,
   getAllProducts,
+  getProductSuggestions,
   getBestSellers,
   getRelatedProducts,
   getSingleProduct,

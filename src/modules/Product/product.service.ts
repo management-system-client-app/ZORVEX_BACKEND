@@ -12,6 +12,7 @@ import { withProductFlags } from "./product.flags";
 import type {
   CreateProductInput,
   ProductListQuery,
+  ProductSuggestionQuery,
   UpdateProductInput,
 } from "./product.validation";
 
@@ -424,6 +425,36 @@ const getAllProducts = async (query: ProductListQuery) => {
   };
 };
 
+const getProductSuggestions = async ({ search }: ProductSuggestionQuery) => {
+  const matches = await prisma.$queryRaw<Array<{ id: string }>>(Prisma.sql`
+    SELECT p."id"
+    FROM "Product" p
+    WHERE p."status" = 'ACTIVE'
+      AND (
+        p."name" % ${search}
+        OR p."slug" % ${search}
+        OR ${search} <% p."name"
+      )
+    ORDER BY GREATEST(
+      similarity(p."name", ${search}),
+      similarity(p."slug", ${search}),
+      word_similarity(${search}, p."name")
+    ) DESC, p."createdAt" DESC
+    LIMIT 6
+  `);
+  if (matches.length === 0) return [];
+
+  const products = await prisma.product.findMany({
+    where: { id: { in: matches.map(({ id }) => id) } },
+    select: productListSelect,
+  });
+  const byId = new Map(products.map((product) => [product.id, withProductFlags(product)]));
+  return matches.flatMap(({ id }) => {
+    const product = byId.get(id);
+    return product ? [product] : [];
+  });
+};
+
 const relatedProductSelect = {
   id: true,
   name: true,
@@ -715,6 +746,7 @@ const deleteProductImage = async (productId: string, imageId: string) => {
 export const productService = {
   createProduct,
   getAllProducts,
+  getProductSuggestions,
   getBestSellers,
   getRelatedProducts,
   getSingleProduct,
