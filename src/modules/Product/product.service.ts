@@ -15,7 +15,15 @@ import type {
   UpdateProductInput,
 } from "./product.validation";
 
-const productListInclude = {
+const productListSelect = {
+  id: true,
+  name: true,
+  slug: true,
+  status: true,
+  gender: true,
+  basePrice: true,
+  compareAtPrice: true,
+  createdAt: true,
   category: {
     select: {
       id: true,
@@ -41,20 +49,12 @@ const productListInclude = {
   },
   variants: {
     where: { isActive: true },
-    orderBy: [{ size: { sortOrder: "asc" as const } }, { sku: "asc" as const }],
     select: {
-      id: true,
-      sku: true,
-      optionLabel: true,
-      price: true,
       stock: true,
       reserved: true,
-      size: { select: { id: true, name: true } },
-      color: { select: { id: true, name: true, hexCode: true } },
-      fabric: { select: { id: true, name: true } },
     },
   },
-} satisfies Prisma.ProductInclude;
+} satisfies Prisma.ProductSelect;
 
 const productDetailInclude = {
   category: {
@@ -392,7 +392,7 @@ const loadProducts = async (query: ProductListQuery) => {
       skip,
       take: query.limit,
       orderBy: productOrderBy(query.sort),
-      include: productListInclude,
+      select: productListSelect,
     }),
     prisma.product.count({ where }),
   ]);

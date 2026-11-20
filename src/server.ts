@@ -119,6 +119,8 @@ void prepareDatabase()
     listen(1);
   })
   .catch((error: unknown) => {
-    logger.error("Something went wrong while starting the server", { error });
+    logger.error("Something went wrong while starting the server", {
+      error: error instanceof Error ? `${error.name}: ${error.message}` : String(error),
+    });
     shutdown("startup-error", 1);
   });
