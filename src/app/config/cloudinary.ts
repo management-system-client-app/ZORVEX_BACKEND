@@ -38,7 +38,17 @@ const uploadToCloudinary = (
 ): Promise<UploadedImage> =>
   new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
-      { folder, resource_type: resourceType },
+      {
+        folder,
+        resource_type: resourceType,
+        ...(resourceType === "image"
+          ? {
+              transformation: [
+                { width: 1600, height: 1600, crop: "limit", quality: "auto", fetch_format: "auto" },
+              ],
+            }
+          : {}),
+      },
       (error, result) => {
         if (error || !result) {
           const message =
@@ -50,7 +60,16 @@ const uploadToCloudinary = (
         }
 
         resolve({
-          url: result.secure_url,
+          url:
+            resourceType === "image"
+              ? cloudinary.url(result.public_id, {
+                  secure: true,
+                  resource_type: "image",
+                  transformation: [
+                    { width: 1200, height: 1200, crop: "limit", quality: "auto", fetch_format: "auto" },
+                  ],
+                })
+              : result.secure_url,
           publicId: result.public_id,
         });
       },

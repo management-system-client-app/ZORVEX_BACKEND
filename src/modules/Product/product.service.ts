@@ -321,7 +321,11 @@ const loadProducts = async (query: ProductListQuery) => {
   const where: Prisma.ProductWhereInput = {
     ...(query.status ? { status: query.status } : {}),
     ...(query.gender ? { gender: query.gender } : {}),
-    ...(query.categoryId ? { categoryId: query.categoryId } : {}),
+    ...(query.categoryIds?.length
+      ? { categoryId: { in: query.categoryIds } }
+      : query.categoryId
+        ? { categoryId: query.categoryId }
+        : {}),
     ...(query.brandId ? { brandId: query.brandId } : {}),
     ...(query.sizeId || query.colorId || query.fabricId || query.inStock != null
       ? query.inStock === false

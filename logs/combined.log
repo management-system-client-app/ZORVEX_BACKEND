@@ -32917,3 +32917,53 @@
 {"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 3539.626 ms - -\u001b[0m","timestamp":"2026-11-20T07:07:36.904Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 3414.381 ms - -\u001b[0m","timestamp":"2026-11-20T07:07:40.491Z"}
 {"level":"info","message":"SIGINT received. Shutting down.","timestamp":"2026-11-20T07:08:21.682Z"}
+{"level":"info","message":"Preparing database before creating the default admin","timestamp":"2026-11-20T07:54:10.208Z"}
+{"level":"info","message":"Checking database connection","timestamp":"2026-11-20T07:54:10.462Z"}
+{"level":"info","message":"Applying database migrations","timestamp":"2026-11-20T07:54:12.956Z"}
+{"level":"info","message":"Checking default admin","timestamp":"2026-11-20T07:54:28.607Z"}
+{"level":"info","message":"Default admin already exists","timestamp":"2026-11-20T07:54:33.588Z"}
+{"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-20T07:54:33.612Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[36m304\u001b[0m 3598.797 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:28.876Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/pages/home-store-notice \u001b[36m304\u001b[0m 1449.336 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:28.895Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me \u001b[36m304\u001b[0m 3473.909 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:28.910Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[36m304\u001b[0m 3761.890 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:29.144Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[36m304\u001b[0m 3900.033 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:29.324Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/users/me \u001b[36m304\u001b[0m 1000.700 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:30.172Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[36m304\u001b[0m 4790.828 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:30.174Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1652.448 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:31.054Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/best-sellers \u001b[36m304\u001b[0m 2196.016 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:31.147Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products/best-sellers \u001b[32m200\u001b[0m 0.946 ms - 741\u001b[0m","timestamp":"2026-11-20T07:55:31.172Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/home \u001b[36m304\u001b[0m 2583.085 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:31.469Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/home \u001b[32m200\u001b[0m 1262.408 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:31.541Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[36m304\u001b[0m 2343.650 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:32.531Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1622.209 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:32.816Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=20&page=1&sort=latest \u001b[36m304\u001b[0m 4818.173 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:33.758Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=20&page=1&sort=latest \u001b[32m200\u001b[0m 2693.337 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:33.786Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/cart \u001b[36m304\u001b[0m 2293.034 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:34.839Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/wishlist \u001b[36m304\u001b[0m 1608.937 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:35.247Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[36m304\u001b[0m 2938.201 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:36.605Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[36m304\u001b[0m 3357.661 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:40.051Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=50&page=1&sort=latest&gender=WOMEN \u001b[32m200\u001b[0m 8888.742 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:42.581Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[36m304\u001b[0m 2609.234 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:42.720Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=50&page=1&sort=latest \u001b[32m200\u001b[0m 6167.660 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:43.238Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[36m304\u001b[0m 3470.967 ms - -\u001b[0m","timestamp":"2026-11-20T07:55:46.265Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=50&page=2&sort=latest \u001b[32m200\u001b[0m 7441.064 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:00.556Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 4613.212 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:38.258Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1059.151 ms - 893\u001b[0m","timestamp":"2026-11-20T07:56:39.939Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 1040.165 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:39.963Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 1135.631 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:40.199Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1134.990 ms - 57\u001b[0m","timestamp":"2026-11-20T07:56:40.244Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=50&page=2&sort=latest \u001b[32m200\u001b[0m 1429.954 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:40.600Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 2688.670 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:41.018Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2461.223 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:43.557Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2455.006 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:46.088Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=50&page=3&sort=latest \u001b[32m200\u001b[0m 8952.994 ms - -\u001b[0m","timestamp":"2026-11-20T07:56:49.752Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 915.006 ms - -\u001b[0m","timestamp":"2026-11-20T07:57:10.955Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 981.186 ms - -\u001b[0m","timestamp":"2026-11-20T07:57:11.026Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 1058.684 ms - 893\u001b[0m","timestamp":"2026-11-20T07:57:11.066Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 1032.651 ms - 57\u001b[0m","timestamp":"2026-11-20T07:57:11.083Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/products?status=ACTIVE&limit=50&page=3&sort=latest \u001b[32m200\u001b[0m 1348.179 ms - -\u001b[0m","timestamp":"2026-11-20T07:57:11.452Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=1&isActive=true \u001b[32m200\u001b[0m 5029.006 ms - -\u001b[0m","timestamp":"2026-11-20T07:57:15.118Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=2&isActive=true \u001b[32m200\u001b[0m 3841.615 ms - -\u001b[0m","timestamp":"2026-11-20T07:57:19.326Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=3&isActive=true \u001b[32m200\u001b[0m 2547.356 ms - -\u001b[0m","timestamp":"2026-11-20T07:57:21.940Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/variants?limit=100&page=4&isActive=true \u001b[32m200\u001b[0m 2547.079 ms - -\u001b[0m","timestamp":"2026-11-20T07:57:24.546Z"}

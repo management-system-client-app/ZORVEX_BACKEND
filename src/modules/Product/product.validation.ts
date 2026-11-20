@@ -207,6 +207,11 @@ export const productListQuerySchema = z
     status: z.enum(productStatuses).optional(),
     gender: z.enum(genders).optional(),
     categoryId: z.uuid().optional(),
+    categoryIds: z
+      .string()
+      .transform((value) => [...new Set(value.split(",").map((id) => id.trim()).filter(Boolean))])
+      .pipe(z.array(z.uuid()).min(1).max(100))
+      .optional(),
     brandId: z.uuid().optional(),
     sizeId: z.uuid().optional(),
     colorId: z.uuid().optional(),

@@ -407,10 +407,19 @@ app.get("/health", async (_req: Request, res: Response) => {
   });
 });
 
-app.use("/uploads", (_req, res, next) => {
-  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-  next();
-}, express.static(path.join(process.cwd(), "uploads")));
+app.use(
+  "/uploads",
+  (_req, res, next) => {
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    next();
+  },
+  express.static(path.join(process.cwd(), "uploads"), {
+    maxAge: "30d",
+    immutable: true,
+    etag: true,
+    lastModified: true,
+  }),
+);
 
 // Let the CDN serve frequently requested public catalog data close to users.
 // Keep search out because it is intentionally uncached and can be highly varied.
