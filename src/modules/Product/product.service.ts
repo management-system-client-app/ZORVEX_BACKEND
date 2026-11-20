@@ -564,7 +564,6 @@ const getRelatedProducts = async (id: string) => {
     return prisma.product.findMany({
       where: {
         categoryId: product.categoryId,
-        brandId: { not: null },
         id: { not: id },
         status: "ACTIVE",
         variants: { some: { isActive: true, fabricId: { not: null } } },
