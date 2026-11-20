@@ -1043,7 +1043,10 @@ const rejectManualPayment = async (paymentId: string, reason: string) => {
     });
     const currentOrder = await tx.order.findUnique({
       where: { id: payment.orderId },
-      select: { status: true },
+      select: {
+        status: true,
+        items: { select: { variantId: true, quantity: true } },
+      },
     });
 
     if (!current || current.status !== "PROCESSING" || !current.transactionId) {
@@ -1054,7 +1057,7 @@ const rejectManualPayment = async (paymentId: string, reason: string) => {
     const rejectedIds = Array.isArray(metadata.rejectedTransactionIds)
       ? metadata.rejectedTransactionIds.filter((id): id is string => typeof id === "string")
       : previous;
-    return tx.payment.update({
+    const rejectedPayment = await tx.payment.update({
       where: { id: payment.id },
       data: {
         status: "FAILED",
@@ -1067,6 +1070,34 @@ const rejectManualPayment = async (paymentId: string, reason: string) => {
       },
       select: manualPaymentSelect,
     });
+
+    if (["PENDING", "CONFIRMED", "PROCESSING"].includes(currentOrder.status)) {
+      for (const item of currentOrder.items) {
+        await tx.productVariant.update({
+          where: { id: item.variantId },
+          data: { stock: { increment: item.quantity } },
+        });
+      }
+
+      await tx.order.update({
+        where: { id: payment.orderId },
+        data: {
+          status: "CANCELLED",
+          cancelledAt: new Date(),
+          cancelReason: `Payment rejected: ${reason}`,
+        },
+      });
+      await tx.payment.updateMany({
+        where: {
+          orderId: payment.orderId,
+          id: { not: payment.id },
+          status: { in: ["PENDING", "PROCESSING", "AUTHORIZED", "FAILED"] },
+        },
+        data: { status: "CANCELLED", failureReason: "Order cancelled after payment rejection" },
+      });
+    }
+
+    return rejectedPayment;
   });
 
   const rejectedMail = customerMail(payment.order);

@@ -208,6 +208,14 @@ const loadCatalog = async () => {
       select: { id: true, name: true, slug: true, hexCode: true },
     }),
     prisma.fabric.findMany({
+      where: {
+        variants: {
+          some: {
+            isActive: true,
+            product: { status: "ACTIVE" },
+          },
+        },
+      },
       orderBy: { name: "asc" },
       select: { id: true, name: true, slug: true, composition: true },
     }),

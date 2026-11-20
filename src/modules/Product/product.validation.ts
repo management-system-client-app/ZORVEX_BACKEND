@@ -43,6 +43,7 @@ const productSizeSchema = z
 const productVariantSchema = z
   .object({
     optionLabel: z.string().trim().min(1).max(120),
+    fabricId: z.uuid().optional(),
     stock: z.number().int().min(0).default(0),
     price: priceSchema.nullable().optional(),
     sku: z

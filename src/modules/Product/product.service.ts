@@ -53,6 +53,7 @@ const productListSelect = {
     select: {
       stock: true,
       reserved: true,
+      fabricId: true,
     },
   },
 } satisfies Prisma.ProductSelect;
@@ -222,6 +223,16 @@ const createProduct = async (
   await assertCategoryAndBrand(input.categoryId, input.brandId);
   const slug = await buildSlug(input.name, input.slug);
   const sizeCatalog = input.sizes?.length ? await loadSizes(input.sizes) : undefined;
+  const variantFabricIds = [...new Set((input.variants ?? []).flatMap((variant) => variant.fabricId ? [variant.fabricId] : []))];
+  if (variantFabricIds.length > 0) {
+    const fabrics = await prisma.fabric.findMany({
+      where: { id: { in: variantFabricIds } },
+      select: { id: true },
+    });
+    if (fabrics.length !== variantFabricIds.length) {
+      throw new NotFoundError("Fabric not found");
+    }
+  }
 
   try {
     const product = await prisma.product.create({
@@ -270,6 +281,7 @@ const createProduct = async (
               variants: {
                 create: input.variants.map((variant) => ({
                   optionLabel: variant.optionLabel,
+                  fabricId: variant.fabricId ?? null,
                   stock: variant.stock,
                   price: variant.price,
                   sku: variant.sku ?? buildOptionSku(slug, variant.optionLabel),
@@ -293,7 +305,7 @@ const createProduct = async (
       include: productDetailInclude,
     });
 
-    await invalidateCache("products", "home");
+    await invalidateCache("products", "home", "catalog");
     return product;
   } catch (error) {
     return rethrowWriteError(error, "A product with this slug already exists");
@@ -491,6 +503,7 @@ const relatedProductSelect = {
     select: {
       stock: true,
       reserved: true,
+      fabricId: true,
       optionLabel: true,
       size: { select: { id: true, name: true } },
       color: { select: { id: true, name: true, hexCode: true } },
@@ -551,8 +564,10 @@ const getRelatedProducts = async (id: string) => {
     return prisma.product.findMany({
       where: {
         categoryId: product.categoryId,
+        brandId: { not: null },
         id: { not: id },
         status: "ACTIVE",
+        variants: { some: { isActive: true, fabricId: { not: null } } },
       },
       orderBy: { createdAt: "desc" },
       take: 24,
@@ -641,7 +656,7 @@ const updateProduct = async (
       include: productDetailInclude,
     });
 
-    await invalidateCache("products", "home");
+    await invalidateCache("products", "home", "catalog");
     return product;
   } catch (error) {
     return rethrowWriteError(error, "A product with this slug already exists");
@@ -681,7 +696,7 @@ const deleteProduct = async (id: string) => {
       }
       await tx.product.update({ where: { id }, data: { status: "ARCHIVED" } });
     });
-    await invalidateCache("products", "home");
+    await invalidateCache("products", "home", "catalog");
     return { archived: true as const };
   }
 
