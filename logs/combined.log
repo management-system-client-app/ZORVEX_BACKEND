@@ -34994,3 +34994,13 @@
 {"level":"info","message":"Server is running on http://localhost:5000","timestamp":"2026-11-20T11:16:43.856Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 2927.003 ms - -\u001b[0m","timestamp":"2026-11-20T11:16:52.044Z"}
 {"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4791.068 ms - -\u001b[0m","timestamp":"2026-11-20T11:17:23.886Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4897.050 ms - -\u001b[0m","timestamp":"2026-11-20T11:17:53.990Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/categories?limit=100&isActive=true \u001b[32m200\u001b[0m 3617.117 ms - -\u001b[0m","timestamp":"2026-11-20T11:18:21.235Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/promotions/active \u001b[32m200\u001b[0m 3893.180 ms - 57\u001b[0m","timestamp":"2026-11-20T11:18:21.522Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/catalog \u001b[32m200\u001b[0m 3922.573 ms - -\u001b[0m","timestamp":"2026-11-20T11:18:21.537Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/settings \u001b[32m200\u001b[0m 5200.539 ms - 893\u001b[0m","timestamp":"2026-11-20T11:18:22.780Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4507.150 ms - -\u001b[0m","timestamp":"2026-11-20T11:18:23.600Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 5107.469 ms - -\u001b[0m","timestamp":"2026-11-20T11:18:54.201Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 5276.197 ms - -\u001b[0m","timestamp":"2026-11-20T11:19:24.368Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4810.632 ms - -\u001b[0m","timestamp":"2026-11-20T11:19:53.909Z"}
+{"level":"info","message":"\u001b[0mGET /api/v1/orders?page=1&limit=100 \u001b[32m200\u001b[0m 4701.887 ms - -\u001b[0m","timestamp":"2026-11-20T11:20:23.802Z"}
