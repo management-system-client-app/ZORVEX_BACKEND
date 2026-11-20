@@ -479,7 +479,7 @@ const relatedProductSelect = {
   },
   images: {
     orderBy: [{ isPrimary: "desc" as const }, { sortOrder: "asc" as const }],
-    take: 1,
+    take: 5,
     select: {
       url: true,
       alt: true,
@@ -538,7 +538,7 @@ const getBestSellers = async () => {
 };
 
 const getRelatedProducts = async (id: string) => {
-  const products = await cacheGetOrSet("products", `related:${id}`, PRODUCT_CACHE_TTL_SECONDS, async () => {
+  const products = await cacheGetOrSet("products", `related:v2:${id}`, PRODUCT_CACHE_TTL_SECONDS, async () => {
     const product = await prisma.product.findUnique({
       where: { id },
       select: { id: true, categoryId: true },
@@ -555,7 +555,7 @@ const getRelatedProducts = async (id: string) => {
         status: "ACTIVE",
       },
       orderBy: { createdAt: "desc" },
-      take: 8,
+      take: 24,
       select: relatedProductSelect,
     });
   });
