@@ -3,16 +3,18 @@ import { Prisma } from "../../../generated/prisma/client";
 import { prisma } from "../../app/config/prisma";
 import { invalidateCache } from "../../app/config/cache";
 import { AppError } from "../../app/errors/AppError";
-import { classifyMohasagorCategory, matchStoreCategory } from "./mohasagor.category";
+import { categoryType, isBookCategory, isBookProductName, isOtherCategory, matchStoreCategory } from "./mohasagor.category";
 import { mohasagorService } from "./mohasagor.service";
 
 type SupplierImage = { product_image?: unknown };
 type SupplierProduct = {
   id?: unknown;
   name?: unknown;
+  category?: unknown;
   details?: unknown;
   product_code?: unknown;
   product_image?: SupplierImage[];
+  product_images?: SupplierImage[];
   thumbnail_img?: unknown;
   reselling_price?: unknown;
   sell_price?: unknown;
@@ -87,6 +89,9 @@ const cleanDescription = (value: unknown, productName: string): string => {
 
 const imageUrls = (product: SupplierProduct, productName: string) => {
   const paths = [
+    ...(Array.isArray(product.product_images)
+      ? product.product_images.map((image) => image?.product_image)
+      : []),
     ...(Array.isArray(product.product_image)
       ? product.product_image.map((image) => image?.product_image)
       : []),
@@ -95,7 +100,7 @@ const imageUrls = (product: SupplierProduct, productName: string) => {
   const urls = [...new Set(paths.filter((path): path is string => typeof path === "string" && path.length > 0)
     .map((path) => {
       try {
-        return new URL(path, "https://mohasagor.com.bd/").toString();
+        return new URL(path, "https://mohasagor.com/").toString();
       } catch {
         return undefined;
       }
@@ -108,6 +113,78 @@ const imageUrls = (product: SupplierProduct, productName: string) => {
     sortOrder: index,
     isPrimary: index === 0,
   }));
+};
+
+const supplierCategorySlug = (name: string): string => {
+  const slug = name
+    .normalize("NFKD")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 150);
+  return `mohasagor-${slug || Buffer.from(name).toString("hex").slice(0, 32)}`;
+};
+
+const ensureSupplierCategories = async (products: unknown[]) => {
+  const names = [...new Set(products.flatMap((rawProduct) => {
+    if (typeof rawProduct !== "object" || rawProduct === null) return [];
+    const value = (rawProduct as SupplierProduct).category;
+    return typeof value === "string" && postgresSafeText(value) ? [postgresSafeText(value)] : [];
+  }))];
+
+  const categories = await Promise.all(names.map((name) => {
+    const slug = supplierCategorySlug(name);
+    return prisma.category.upsert({
+      where: { slug },
+      create: {
+        name,
+        slug,
+        description: "Mohasagor supplier category",
+        isActive: true,
+        sortOrder: 500,
+      },
+      update: { name, isActive: true },
+    });
+  }));
+  return new Map(categories.map((category) => [category.name.trim().toLocaleLowerCase(), category]));
+};
+
+const ensureApparelSubcategories = async (
+  categories: Awaited<ReturnType<typeof prisma.category.findMany>>,
+) => {
+  const specs = [
+    { parentKey: "mens", name: "T-shirt", key: "tshirt", sortOrder: 10 },
+    { parentKey: null, name: "Bra", key: "bra", sortOrder: 10 },
+    { parentKey: null, name: "Saree", key: "saree", sortOrder: 20 },
+    { parentKey: null, name: "Hoodie", key: "hoodie", sortOrder: 30 },
+  ];
+  const additions = [];
+
+  for (const spec of specs) {
+    const parent = spec.parentKey
+      ? categories.find((category) => !category.parentId && categoryType(category.name) === spec.parentKey)
+      : undefined;
+    if (spec.parentKey && !parent) continue;
+    if (categories.some((category) => category.parentId === (parent?.id ?? null) && categoryType(category.name) === spec.key)) continue;
+
+    const slug = `${parent ? `${parent.slug}-` : ""}${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.slice(0, 180);
+    const category = await prisma.category.upsert({
+      where: { slug },
+      create: {
+        name: spec.name,
+        slug,
+        parentId: parent?.id ?? null,
+        description: `Mohasagor ${spec.name} category`,
+        isActive: true,
+        sortOrder: spec.sortOrder,
+      },
+      update: { name: spec.name, parentId: parent?.id ?? null, isActive: true, sortOrder: spec.sortOrder },
+    });
+    additions.push(category);
+  }
+
+  return [...categories, ...additions];
 };
 
 const inferGender = (text: string): "MEN" | "WOMEN" | "KIDS" | "UNISEX" => {
@@ -149,6 +226,7 @@ const getProductsWithRetry = async (page: number) => {
 const importOnePage = async (
   supplierProducts: unknown[],
   categories: Awaited<ReturnType<typeof prisma.category.findMany>>,
+  supplierCategories: Map<string, Awaited<ReturnType<typeof prisma.category.upsert>>>,
   brandId: string,
 ) => {
   const rows = supplierProducts.flatMap((rawProduct) => {
@@ -159,7 +237,18 @@ const importOnePage = async (
     if (!supplierId || !name) return [];
 
     const descriptionText = `${name} ${typeof product.details === "string" ? product.details : ""}`;
-    const category = matchStoreCategory(categories, descriptionText);
+    const supplierCategoryName = typeof product.category === "string" ? postgresSafeText(product.category) : "";
+    const categoryCandidates = [
+      matchStoreCategory(categories, name),
+      matchStoreCategory(categories, descriptionText),
+      supplierCategories.get(supplierCategoryName.toLocaleLowerCase()),
+    ].flatMap((candidate) => candidate ? [candidate] : []);
+    const bookCategory = categoryCandidates.find((candidate) => isBookCategory(candidate.name));
+    const otherCategory = categories.find((candidate) => isOtherCategory(candidate.name));
+    const category = isBookProductName(name)
+      ? bookCategory ?? otherCategory
+      : categoryCandidates.find((candidate) => !isBookCategory(candidate.name))
+        ?? otherCategory;
     const basePrice = parsePrice(product);
     if (!category || !basePrice) return [];
 
@@ -380,20 +469,6 @@ const importAllProducts = async (
   if (!Number.isInteger(startPage) || startPage < 1) {
     throw AppError.badRequest("Import start page must be a positive integer");
   }
-  // Check database and category mapping before making any rate-limited supplier requests.
-  const categories = await prisma.category.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: "asc" },
-  });
-  if (categories.length === 0) {
-    throw new AppError("Create active store categories before importing Mohasagor products", 422);
-  }
-
-  const categoryTypes = new Set(categories.map((category) => classifyMohasagorCategory(category.name)).filter(Boolean));
-  if (categoryTypes.size === 0) {
-    throw new AppError("No active store categories match the Mohasagor product catalog", 422);
-  }
-
   const existingBrand = await prisma.brand.findFirst({
     where: { OR: [{ slug: "mohasagor" }, { name: { equals: "Mohasagor", mode: "insensitive" } }] },
     select: { id: true },
@@ -411,7 +486,13 @@ const importAllProducts = async (
   totalPages = firstPage.meta.totalPages;
 
   const processPage = async (page: number, products: unknown[]) => {
-    const pageResult = await importOnePage(products, categories, brand.id);
+    const supplierCategories = await ensureSupplierCategories(products);
+    const categories = await prisma.category.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: "asc" },
+    });
+    const apparelCategories = await ensureApparelSubcategories(categories);
+    const pageResult = await importOnePage(products, apparelCategories, supplierCategories, brand.id);
     imported += pageResult.imported;
     stockSynced += pageResult.stockSynced;
     skipped += pageResult.skipped;
@@ -424,14 +505,20 @@ const importAllProducts = async (
     // The provider limits this key to five requests per minute.
     await delay(13_000);
     const result = await getProductsWithRetry(page);
-    const pageResult = await importOnePage(result.products, categories, brand.id);
+    const supplierCategories = await ensureSupplierCategories(result.products);
+    const categories = await prisma.category.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: "asc" },
+    });
+    const apparelCategories = await ensureApparelSubcategories(categories);
+    const pageResult = await importOnePage(result.products, apparelCategories, supplierCategories, brand.id);
     imported += pageResult.imported;
     stockSynced += pageResult.stockSynced;
     skipped += pageResult.skipped;
     onProgress?.({ page, pages: totalPages, imported, stockSynced, skipped });
   }
 
-  await invalidateCache("products", "home");
+  await invalidateCache("catalog", "products", "home");
   return { imported, stockSynced, skipped, pages: totalPages };
 };
 

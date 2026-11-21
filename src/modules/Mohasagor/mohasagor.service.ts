@@ -1,7 +1,7 @@
 import { env } from "../../app/config/env";
 import { AppError } from "../../app/errors/AppError";
 
-const PRODUCT_ENDPOINT = "https://mohasagor.com.bd/api/reseller/product";
+const PRODUCT_ENDPOINT = "https://mohasagor.com/api/reseller/product";
 const CACHE_TTL_MS = 60_000;
 
 type MohasagorProductList = {
