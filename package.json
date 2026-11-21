@@ -14,6 +14,7 @@
     "db:push": "prisma db push",
     "db:setup": "prisma db push",
     "import:mohasagor": "tsx scripts/import-mohasagor.ts",
+    "sync:mohasagor-stock": "tsx scripts/sync-mohasagor-stock.ts",
     "sync:mohasagor-prices": "tsx scripts/sync-mohasagor-prices.ts",
     "db:studio": "node -r ./scripts/prisma-network.cjs ./node_modules/prisma/build/index.js studio",
     "seed": "tsx prisma/seed.ts"

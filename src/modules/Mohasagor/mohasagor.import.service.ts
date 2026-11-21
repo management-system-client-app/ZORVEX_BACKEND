@@ -20,8 +20,16 @@ type SupplierProduct = {
   sell_price?: unknown;
   sale_price?: unknown;
   price?: unknown;
+  status?: unknown;
   stock?: unknown;
+  stock_quantity?: unknown;
+  available_stock?: unknown;
+  available_quantity?: unknown;
+  quantity?: unknown;
+  qty?: unknown;
   stock_status?: unknown;
+  is_available?: unknown;
+  available?: unknown;
   product_variants?: unknown;
 };
 
@@ -41,9 +49,69 @@ const parsePrice = (product: SupplierProduct): number | undefined => {
   return undefined;
 };
 
-const parseStock = (product: SupplierProduct): number => {
-  const stock = Number(product.stock);
-  return Number.isFinite(stock) && stock > 0 ? Math.floor(stock) : 0;
+const parseStockQuantity = (value: unknown): number | undefined => {
+  if (typeof value !== "number" && typeof value !== "string") return undefined;
+  if (typeof value === "string" && !value.trim()) return undefined;
+  const stock = Number(typeof value === "string" ? value.replace(/,/g, "") : value);
+  return Number.isFinite(stock) && stock >= 0 ? Math.floor(stock) : undefined;
+};
+
+const parseAvailability = (value: unknown): boolean | undefined => {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") {
+    if (value === 1) return true;
+    if (value === 0) return false;
+    return undefined;
+  }
+  if (typeof value !== "string") return undefined;
+  const normalized = value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "");
+  if (["available", "instock", "stock", "yes", "true", "active", "enabled", "published", "1"].includes(normalized)) return true;
+  if (["unavailable", "outofstock", "soldout", "nostock", "no", "false", "inactive", "disabled", "unpublished", "0"].includes(normalized)) return false;
+  return undefined;
+};
+
+const parseStock = (product: SupplierProduct): number | undefined => {
+  for (const value of [product.stock_status, product.is_available, product.available]) {
+    const available = parseAvailability(value);
+    if (available !== undefined) return available ? 20 : 0;
+  }
+
+  const productStatusAvailability = parseAvailability(product.status);
+  if (productStatusAvailability !== undefined) return productStatusAvailability ? 20 : 0;
+
+  for (const value of [
+    product.stock,
+    product.stock_quantity,
+    product.available_stock,
+    product.available_quantity,
+    product.quantity,
+    product.qty,
+  ]) {
+    const stock = parseStockQuantity(value);
+    if (stock !== undefined) return stock > 0 ? 20 : 0;
+  }
+
+  if (!Array.isArray(product.product_variants)) return undefined;
+  const variants = product.product_variants.filter((value): value is Record<string, unknown> =>
+    typeof value === "object" && value !== null,
+  );
+  const variantStocks = variants.flatMap((variant) => {
+    for (const field of ["stock", "stock_quantity", "available_stock", "available_quantity", "quantity", "qty"]) {
+      const stock = parseStockQuantity(variant[field]);
+      if (stock !== undefined) return [stock > 0 ? 20 : 0];
+    }
+    return [];
+  });
+
+  if (variantStocks.some((stock) => stock > 0)) return 20;
+  if (variantStocks.length > 0) return 0;
+
+  const variantAvailability = variants.map((variant) =>
+    parseAvailability(variant.stock_status ?? variant.is_available ?? variant.available),
+  );
+  if (variantAvailability.some((available) => available === true)) return 20;
+  if (variantAvailability.length > 0 && variantAvailability.every((available) => available === false)) return 0;
+  return undefined;
 };
 
 const supplierOptions = (value: unknown): string => {
@@ -280,7 +348,7 @@ const importOnePage = async (
         categoryId: category.id,
         tags,
         images: { create: images },
-        stock,
+        stock: stock ?? 0,
       },
       update: {
         name,
@@ -292,9 +360,10 @@ const importOnePage = async (
         categoryId: category.id,
         tags,
         images: { deleteMany: {}, create: images },
-        stock,
+        stock: stock ?? 0,
       },
       supplierOptions: options,
+      stockKnown: stock !== undefined,
     }];
   });
   const uniqueRows = [...new Map(rows.map((row) => [row.where.slug, row])).values()];
@@ -383,7 +452,7 @@ const importOnePage = async (
           `);
         }
 
-        const stockRows = rowsToInsert.map((row) => ({
+        const stockRows = rowsToInsert.filter((row) => row.stockKnown).map((row) => ({
           id: randomUUID(),
           slug: row.where.slug,
           sku: `MOHASAGOR-${row.where.slug.slice("mohasagor-".length)}-STOCK`,
@@ -454,7 +523,7 @@ const importOnePage = async (
 
     return {
       imported: insertedRows.length,
-      stockSynced: uniqueRows.length,
+      stockSynced: uniqueRows.filter((row) => row.stockKnown).length,
       skipped: supplierProducts.length - uniqueRows.length,
     };
   }
@@ -568,4 +637,53 @@ const syncExistingProductPrices = async (
   return { updated, pages: firstPage.meta.totalPages };
 };
 
-export const mohasagorImportService = { importAllProducts, syncExistingProductPrices };
+const syncExistingProductStock = async (
+  onProgress?: (progress: { page: number; pages: number; updated: number }) => void,
+) => {
+  const firstPage = await getProductsWithRetry(1);
+  let updated = 0;
+
+  const syncPage = async (supplierProducts: unknown[]) => {
+    const rows = supplierProducts.flatMap((rawProduct) => {
+      if (typeof rawProduct !== "object" || rawProduct === null) return [];
+      const product = rawProduct as SupplierProduct;
+      const supplierId = String(product.id ?? "").trim();
+      const stock = parseStock(product);
+      const safeId = supplierId.toLowerCase().replace(/[^a-z0-9-]+/g, "-").slice(0, 120);
+      if (!safeId || stock === undefined) return [];
+      const slug = `mohasagor-${safeId}`.slice(0, 180);
+      return [{ slug, sku: `MOHASAGOR-${slug.slice("mohasagor-".length)}-STOCK`, stock }];
+    });
+
+    if (rows.length === 0) return;
+    updated += await prisma.$executeRaw(Prisma.sql`
+      WITH incoming AS (
+        SELECT * FROM jsonb_to_recordset(${JSON.stringify(rows)}::jsonb) AS item(
+          slug text, sku text, stock integer
+        )
+      )
+      UPDATE "ProductVariant" AS variant
+      SET stock = incoming.stock, "updatedAt" = NOW()
+      FROM incoming
+      INNER JOIN "Product" AS product
+        ON product.slug = incoming.slug
+        AND product.tags @> ARRAY['Mohasagor']::text[]
+      WHERE variant."productId" = product.id
+        AND variant.sku = incoming.sku
+    `);
+  };
+
+  await syncPage(firstPage.products);
+  onProgress?.({ page: 1, pages: firstPage.meta.totalPages, updated });
+  for (let page = 2; page <= firstPage.meta.totalPages; page += 1) {
+    await delay(13_000);
+    const result = await getProductsWithRetry(page);
+    await syncPage(result.products);
+    onProgress?.({ page, pages: firstPage.meta.totalPages, updated });
+  }
+
+  await invalidateCache("products", "home", "catalog");
+  return { updated, pages: firstPage.meta.totalPages };
+};
+
+export const mohasagorImportService = { importAllProducts, syncExistingProductPrices, syncExistingProductStock };
