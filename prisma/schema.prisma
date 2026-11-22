@@ -502,6 +502,7 @@ model ProductImage {
   color   Color?  @relation(fields: [colorId], references: [id], onDelete: SetNull)
 
   @@index([productId, sortOrder])
+  @@index([productId, isPrimary(sort: Desc), sortOrder])
   @@index([colorId])
 }
 
@@ -573,6 +574,7 @@ model ProductVariant {
 
   @@unique([productId, sizeId, colorId, fabricId])
   @@index([productId])
+  @@index([productId, isActive])
   @@index([sizeId])
   @@index([colorId])
   @@index([fabricId])

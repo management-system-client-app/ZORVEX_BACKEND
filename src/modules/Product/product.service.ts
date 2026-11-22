@@ -422,14 +422,15 @@ const loadProducts = async (query: ProductListQuery) => {
 };
 
 const getAllProducts = async (query: ProductListQuery) => {
-  const result = query.search
-    ? await loadProducts(query)
-    : await cacheGetOrSet(
-        "products",
-        `list:${cacheKey(query)}`,
-        PRODUCT_CACHE_TTL_SECONDS,
-        () => loadProducts(query),
-      );
+  // Search requests use the same cached listing data. Product mutations invalidate
+  // this scope, so shoppers do not need to pay for repeated count and relation
+  // queries while typing or revisiting a result set.
+  const result = await cacheGetOrSet(
+    "products",
+    `list:${cacheKey(query)}`,
+    query.search ? 15 : PRODUCT_CACHE_TTL_SECONDS,
+    () => loadProducts(query),
+  );
 
   return {
     ...result,
