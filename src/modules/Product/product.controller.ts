@@ -55,6 +55,9 @@ const getAllProducts = async (
   req: ValidatedRequest<unknown, Record<string, string>, ProductListQuery>,
   res: Response,
 ): Promise<void> => {
+  // This endpoint is public and varies only by its query string. Let the CDN
+  // serve repeated catalog requests without waking a serverless function.
+  res.setHeader("Cache-Control", "public, max-age=0, s-maxage=15, stale-while-revalidate=30");
   const result = await productService.getAllProducts(req.validatedQuery);
 
   res.status(200).json({
