@@ -199,7 +199,8 @@ const optionalQueryPrice = z.preprocess(
 export const productListQuerySchema = z
   .object({
     page: z.coerce.number().int().positive().default(1),
-    limit: z.coerce.number().int().positive().max(100).default(20),
+    // Keep the first catalog response small; clients can request later pages.
+    limit: z.coerce.number().int().positive().max(100).default(12),
     search: z
       .string()
       .trim()

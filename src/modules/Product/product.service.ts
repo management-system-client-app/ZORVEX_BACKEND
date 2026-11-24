@@ -8,7 +8,7 @@ import {
 import { prisma } from "../../app/config/prisma";
 import { AppError } from "../../app/errors/AppError";
 import { NotFoundError } from "../../app/errors/NotFoundError";
-import { withProductFlags } from "./product.flags";
+import { withProductCardImages, withProductFlags } from "./product.flags";
 import type {
   CreateProductInput,
   ProductListQuery,
@@ -434,7 +434,7 @@ const getAllProducts = async (query: ProductListQuery) => {
 
   return {
     ...result,
-    items: result.items.map(withProductFlags),
+    items: result.items.map((item) => withProductFlags(withProductCardImages(item))),
   };
 };
 
@@ -461,7 +461,9 @@ const getProductSuggestions = async ({ search }: ProductSuggestionQuery) => {
     where: { id: { in: matches.map(({ id }) => id) } },
     select: productListSelect,
   });
-  const byId = new Map(products.map((product) => [product.id, withProductFlags(product)]));
+  const byId = new Map(
+    products.map((product) => [product.id, withProductFlags(withProductCardImages(product))]),
+  );
   return matches.flatMap(({ id }) => {
     const product = byId.get(id);
     return product ? [product] : [];
@@ -492,7 +494,7 @@ const relatedProductSelect = {
   },
   images: {
     orderBy: [{ isPrimary: "desc" as const }, { sortOrder: "asc" as const }],
-    take: 5,
+    take: 1,
     select: {
       url: true,
       alt: true,
@@ -548,7 +550,7 @@ const getBestSellers = async () => {
     },
   );
 
-  return products.map(withProductFlags);
+  return products.map((product) => withProductFlags(withProductCardImages(product)));
 };
 
 const getRelatedProducts = async (id: string) => {
@@ -575,7 +577,7 @@ const getRelatedProducts = async (id: string) => {
     });
   });
 
-  return products.map(withProductFlags);
+  return products.map((product) => withProductFlags(withProductCardImages(product)));
 };
 
 const getSingleProduct = async (id: string, includeStaffCommission = false) => {

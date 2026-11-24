@@ -30,3 +30,14 @@ export const withProductFlags = <T extends PricedProduct>(product: T) => {
     supplierSizes: supplierSizesFromDescription(product.description),
   };
 };
+
+/** Return a lightweight Cloudinary rendition for product-card thumbnails. */
+export const productCardImageUrl = (url: string): string =>
+  url.includes("res.cloudinary.com/") && url.includes("/image/upload/")
+    ? url.replace("/image/upload/", "/image/upload/c_fill,w_480,h_600,q_auto,f_auto/")
+    : url;
+
+export const withProductCardImages = <T extends { images: Array<{ url: string }> }>(product: T): T => ({
+  ...product,
+  images: product.images.map((image) => ({ ...image, url: productCardImageUrl(image.url) })),
+}) as T;
