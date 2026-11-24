@@ -16,6 +16,8 @@
     "import:mohasagor": "tsx scripts/import-mohasagor.ts",
     "sync:mohasagor-stock": "tsx scripts/sync-mohasagor-stock.ts",
     "sync:mohasagor-prices": "tsx scripts/sync-mohasagor-prices.ts",
+    "sync:mohasagor-categories": "tsx scripts/sync-mohasagor-categories.ts",
+    "repair:mohasagor-categories": "tsx scripts/reclassify-mohasagor-products.ts",
     "db:studio": "node -r ./scripts/prisma-network.cjs ./node_modules/prisma/build/index.js studio",
     "seed": "tsx prisma/seed.ts"
   },

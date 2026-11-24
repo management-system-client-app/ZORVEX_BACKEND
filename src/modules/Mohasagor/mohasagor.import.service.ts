@@ -195,24 +195,33 @@ const supplierCategorySlug = (name: string): string => {
 };
 
 const ensureSupplierCategories = async (products: unknown[]) => {
-  const names = [...new Set(products.flatMap((rawProduct) => {
+  const names = [...new Map(products.flatMap((rawProduct) => {
     if (typeof rawProduct !== "object" || rawProduct === null) return [];
     const value = (rawProduct as SupplierProduct).category;
-    return typeof value === "string" && postgresSafeText(value) ? [postgresSafeText(value)] : [];
-  }))];
+    const name = typeof value === "string" ? postgresSafeText(value) : "";
+    return name ? [[name.toLocaleLowerCase(), name] as const] : [];
+  })).values()];
 
   const categories = await Promise.all(names.map((name) => {
-    const slug = supplierCategorySlug(name);
-    return prisma.category.upsert({
-      where: { slug },
-      create: {
-        name,
-        slug,
-        description: "Mohasagor supplier category",
-        isActive: true,
-        sortOrder: 500,
-      },
-      update: { name, isActive: true },
+    return prisma.category.findFirst({
+      where: { name: { equals: name, mode: "insensitive" } },
+      orderBy: [{ isActive: "desc" }, { sortOrder: "asc" }],
+    }).then(async (existing) => {
+      if (existing) {
+        return prisma.category.update({ where: { id: existing.id }, data: { isActive: true } });
+      }
+      const slug = supplierCategorySlug(name);
+      return prisma.category.upsert({
+        where: { slug },
+        create: {
+          name,
+          slug,
+          description: "Mohasagor supplier category",
+          isActive: true,
+          sortOrder: 500,
+        },
+        update: { name, isActive: true },
+      });
     });
   }));
   return new Map(categories.map((category) => [category.name.trim().toLocaleLowerCase(), category]));
@@ -226,6 +235,18 @@ const ensureApparelSubcategories = async (
     { parentKey: null, name: "Bra", key: "bra", sortOrder: 10 },
     { parentKey: null, name: "Saree", key: "saree", sortOrder: 20 },
     { parentKey: null, name: "Hoodie", key: "hoodie", sortOrder: 30 },
+    { parentKey: "womens", name: "Hijab", key: "hijab", sortOrder: 40 },
+    { parentKey: null, name: "Books", key: "books", sortOrder: 50 },
+    { parentKey: null, name: "Mobile Phone", key: "mobilephone", sortOrder: 20 },
+    { parentKey: null, name: "Eyewear", key: "eyewear", sortOrder: 60 },
+    { parentKey: null, name: "Car Accessories", key: "caraccessories", sortOrder: 70 },
+    { parentKey: null, name: "Tools", key: "tools", sortOrder: 80 },
+    { parentKey: "homelifestyle", name: "Prayer Mat", key: "prayermat", sortOrder: 30 },
+    { parentKey: "winter", name: "Raincoat", key: "raincoat", sortOrder: 90 },
+    { parentKey: null, name: "Clock", key: "clock", sortOrder: 100 },
+    { parentKey: null, name: "Stationery", key: "stationery", sortOrder: 110 },
+    { parentKey: null, name: "Sports & Fitness", key: "sportsfitness", sortOrder: 120 },
+    { parentKey: null, name: "Bicycle Accessories", key: "bicycleaccessories", sortOrder: 130 },
   ];
   const additions = [];
 
@@ -591,6 +612,54 @@ const importAllProducts = async (
   return { imported, stockSynced, skipped, pages: totalPages };
 };
 
+const syncExistingProductCategories = async (
+  onProgress?: (progress: { page: number; pages: number; updated: number }) => void,
+): Promise<{ updated: number; pages: number }> => {
+  const firstPage = await getProductsWithRetry(1);
+  let updated = 0;
+
+  const syncPage = async (supplierProducts: unknown[]) => {
+    const supplierCategories = await ensureSupplierCategories(supplierProducts);
+    const rows = supplierProducts.flatMap((rawProduct) => {
+      if (typeof rawProduct !== "object" || rawProduct === null) return [];
+      const product = rawProduct as SupplierProduct;
+      const supplierId = String(product.id ?? "").trim();
+      const categoryName = typeof product.category === "string" ? postgresSafeText(product.category) : "";
+      const category = supplierCategories.get(categoryName.toLocaleLowerCase());
+      const safeId = supplierId.toLowerCase().replace(/[^a-z0-9-]+/g, "-").slice(0, 120);
+      if (!safeId || !category) return [];
+      return [{ slug: `mohasagor-${safeId}`.slice(0, 180), category_id: category.id }];
+    });
+
+    if (rows.length === 0) return;
+    updated += await prisma.$executeRaw(Prisma.sql`
+      WITH incoming AS (
+        SELECT * FROM jsonb_to_recordset(${JSON.stringify(rows)}::jsonb) AS item(
+          slug text, category_id text
+        )
+      )
+      UPDATE "Product" AS product
+      SET "categoryId" = incoming.category_id
+      FROM incoming
+      WHERE product.slug = incoming.slug
+        AND product.tags @> ARRAY['Mohasagor']::text[]
+        AND product."categoryId" IS DISTINCT FROM incoming.category_id
+    `);
+  };
+
+  await syncPage(firstPage.products);
+  onProgress?.({ page: 1, pages: firstPage.meta.totalPages, updated });
+  for (let page = 2; page <= firstPage.meta.totalPages; page += 1) {
+    await delay(13_000);
+    const result = await getProductsWithRetry(page);
+    await syncPage(result.products);
+    onProgress?.({ page, pages: firstPage.meta.totalPages, updated });
+  }
+
+  await invalidateCache("products", "home", "catalog");
+  return { updated, pages: firstPage.meta.totalPages };
+};
+
 const syncExistingProductPrices = async (
   onProgress?: (progress: { page: number; pages: number; updated: number }) => void,
 ): Promise<{ updated: number; pages: number }> => {
@@ -686,4 +755,9 @@ const syncExistingProductStock = async (
   return { updated, pages: firstPage.meta.totalPages };
 };
 
-export const mohasagorImportService = { importAllProducts, syncExistingProductPrices, syncExistingProductStock };
+export const mohasagorImportService = {
+  importAllProducts,
+  syncExistingProductCategories,
+  syncExistingProductPrices,
+  syncExistingProductStock,
+};
