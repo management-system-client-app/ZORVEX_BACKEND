@@ -32,10 +32,19 @@ export const withProductFlags = <T extends PricedProduct>(product: T) => {
 };
 
 /** Return a lightweight Cloudinary rendition for product-card thumbnails. */
-export const productCardImageUrl = (url: string): string =>
-  url.includes("res.cloudinary.com/") && url.includes("/image/upload/")
-    ? url.replace("/image/upload/", "/image/upload/c_fill,w_480,h_600,q_auto,f_auto/")
-    : url;
+export const productCardImageUrl = (url: string): string => {
+  if (!url.includes("res.cloudinary.com/") || !url.includes("/image/upload/")) return url;
+
+  const [prefix, assetPath] = url.split("/image/upload/");
+  if (!prefix || !assetPath) return url;
+
+  const segments = assetPath.split("/");
+  // Stored URLs may already have a 1200px transformation. Replace it instead
+  // of chaining another transformation, which makes Cloudinary do extra work.
+  const versionIndex = segments.findIndex((segment) => /^v\d+$/.test(segment));
+  const asset = versionIndex >= 0 ? segments.slice(versionIndex).join("/") : segments.at(-1);
+  return `${prefix}/image/upload/c_fill,w_480,h_600,q_auto:eco,f_auto/${asset}`;
+};
 
 export const withProductCardImages = <T extends { images: Array<{ url: string }> }>(product: T): T => ({
   ...product,
