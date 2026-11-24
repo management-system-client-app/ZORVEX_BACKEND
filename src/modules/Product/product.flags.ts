@@ -41,7 +41,13 @@ export const productCardImageUrl = (url: string): string => {
   const segments = assetPath.split("/");
   // Stored Cloudinary URLs can already include a transformation before version.
   const versionIndex = segments.findIndex((segment) => /^v\d+$/.test(segment));
-  const asset = versionIndex >= 0 ? segments.slice(versionIndex).join("/") : segments.at(-1);
+  const firstSegment = segments[0] ?? "";
+  const startsWithTransformation = firstSegment
+    .split(",")
+    .every((part) => /^(?:a|b|c|dpr|e|f|fl|g|h|q|r|w|x|y|z)_/.test(part));
+  const asset = versionIndex >= 0
+    ? segments.slice(versionIndex).join("/")
+    : segments.slice(startsWithTransformation ? 1 : 0).join("/");
   return `${prefix}/image/upload/c_fill,w_480,h_600,q_auto:eco,f_auto/${asset}`;
 };
 
