@@ -1,6 +1,3 @@
-import { cloudinary } from "../../app/config/cloudinary";
-import { env } from "../../app/config/env";
-
 const NEW_PRODUCT_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
 
 type PricedProduct = {
@@ -36,31 +33,16 @@ export const withProductFlags = <T extends PricedProduct>(product: T) => {
 
 /** Return a lightweight Cloudinary rendition for product-card thumbnails. */
 export const productCardImageUrl = (url: string): string => {
-  if (url.includes("res.cloudinary.com/") && url.includes("/image/upload/")) {
-    const [prefix, assetPath] = url.split("/image/upload/");
-    if (!prefix || !assetPath) return url;
+  if (!url.includes("res.cloudinary.com/") || !url.includes("/image/upload/")) return url;
 
-    const segments = assetPath.split("/");
-    // Replace any saved 1200px transformation instead of chaining transforms.
-    const versionIndex = segments.findIndex((segment) => /^v\d+$/.test(segment));
-    const asset = versionIndex >= 0 ? segments.slice(versionIndex).join("/") : segments.at(-1);
-    return `${prefix}/image/upload/c_fill,w_480,h_600,q_auto:eco,f_auto/${asset}`;
-  }
+  const [prefix, assetPath] = url.split("/image/upload/");
+  if (!prefix || !assetPath) return url;
 
-  if (!env.CLOUDINARY_CLOUD_NAME) return url;
-  try {
-    const source = new URL(url);
-    if (!/(^|\.)mohasagor\.com$/i.test(source.hostname)) return url;
-
-    return cloudinary.url(url, {
-      secure: true,
-      resource_type: "image",
-      type: "fetch",
-      transformation: [{ width: 480, height: 600, crop: "limit", quality: "auto:eco", fetch_format: "auto" }],
-    });
-  } catch {
-    return url;
-  }
+  const segments = assetPath.split("/");
+  // Stored Cloudinary URLs can already include a transformation before version.
+  const versionIndex = segments.findIndex((segment) => /^v\d+$/.test(segment));
+  const asset = versionIndex >= 0 ? segments.slice(versionIndex).join("/") : segments.at(-1);
+  return `${prefix}/image/upload/c_fill,w_480,h_600,q_auto:eco,f_auto/${asset}`;
 };
 
 export const withProductCardImages = <T extends { images: Array<{ url: string }> }>(product: T): T => ({
